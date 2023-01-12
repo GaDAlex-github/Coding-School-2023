@@ -36,7 +36,7 @@ Console.WriteLine("You are " + gender + " and look younger than " + age);
 
 //5.Write a C# program that takes an integer representing seconds (for example 45678) and converts it to : Minutes, Hours, Days, Years.
 int seconds = 45678;
-Console.WriteLine("Seconds: " + seconds);
+Console.WriteLine(seconds + " Seconds are:");
 int minutes = seconds/60;
 Console.WriteLine("Minutes: " + minutes);
 int hours = minutes/60;
@@ -59,7 +59,7 @@ Console.WriteLine("Answer 6: " + answer);
 
 //7.Write a C# program to convert from celsius degrees to Kelvin and Fahrenheit.
 double celsius = 30;
-Console.WriteLine("Celsius: " + celsius);
+Console.WriteLine(celsius + " Celsius are:");
 double fahrenheit = (celsius * 9) / 5 + 32;
 Console.WriteLine("Fahrenheit: " + fahrenheit);
 double kelvin = celsius + 273;
