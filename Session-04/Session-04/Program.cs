@@ -13,17 +13,17 @@ int a = 10;
 int b = 5;
 int sum = a + b;
 int div = a / b;
-Console.WriteLine(a + " + " + b + " = " + sum);
-Console.WriteLine(a + " / " + b + " = " + div);
+Console.WriteLine("Sum: " + a + " + " + b + " = " + sum);
+Console.WriteLine("Div: " + a + " / " + b + " = " + div);
 
 //3.Write a C# program to print the result of the specified operations: 
-int result = (-1 + 5) * 6;
+int result = -1 + 5 * 6;
 Console.WriteLine("1: " + result);
-int result2 = (38 + 5) % 7;
+int result2 = 38 + 5 % 7;
 Console.WriteLine("2: " + result2);
 double result3 = 14 + (-3 * 6 / 7);
 Console.WriteLine("3: " + result3);
-double result4 = 2 + (13 / 6 * 6) + Math.Sqrt(7);
+double result4 = 2 + (13 / 6 )* 6 + Math.Sqrt(7);
 Console.WriteLine("4: " + result4);
 double result5 = (Math.Pow(6,4)+Math.Pow(5,7))/(9%4);
 Console.WriteLine("5: " + result5);
@@ -50,12 +50,11 @@ Console.WriteLine("Years: " + years);
 TimeSpan t = TimeSpan.FromSeconds(45678);
 string answer = string.Format(
       CultureInfo.CurrentCulture,
-      "{0} years, {1} days, {2} hours, {3} minutes, {4} seconds",
+      "{0} years, {1} days, {2} hours, {3} minutes",
       t.Days / 365,
       (t.Days - (t.Days / 365) * 365) - ((t.Days - (t.Days / 365) * 365) / 30) * 30,
       t.Hours,
-      t.Minutes,
-      t.Seconds);
+      t.Minutes);
 Console.WriteLine("Answer 6: " + answer);
 
 //7.Write a C# program to convert from celsius degrees to Kelvin and Fahrenheit.
@@ -65,8 +64,6 @@ double fahrenheit = (celsius * 9) / 5 + 32;
 Console.WriteLine("Fahrenheit: " + fahrenheit);
 double kelvin = celsius + 273;
 Console.WriteLine("Kelvin: " + kelvin);
-
-
 
 
 Console.ReadLine();
