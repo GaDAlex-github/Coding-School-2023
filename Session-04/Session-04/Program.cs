@@ -50,7 +50,7 @@ Console.WriteLine("Years: " + years);
 TimeSpan t = TimeSpan.FromSeconds(45678);
 string answer = string.Format(
       CultureInfo.CurrentCulture,
-      "{0} years, {1} days, {2} hours, {3} minutes",
+      "{0:00} years, {1:00} days, {2:00} hours, {3:00} minutes",
       t.TotalDays / 365,
       t.TotalDays,
       t.TotalHours,
