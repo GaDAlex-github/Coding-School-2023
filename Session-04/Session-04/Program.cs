@@ -47,14 +47,14 @@ int years = days / 365;
 Console.WriteLine("Years: " + years);
 
 //6. Rewrite Program #5 using .Net Libraries.
-TimeSpan t = TimeSpan.FromSeconds(12345678);
+TimeSpan t = TimeSpan.FromSeconds(45678);
 string answer = string.Format(
       CultureInfo.CurrentCulture,
       "{0} years, {1} days, {2} hours, {3} minutes",
-      t.Days / 365,
-      (t.Days - (t.Days / 365) * 365) / 30 * 30,
-      t.Hours,
-      t.Minutes);
+      t.TotalDays / 365,
+      t.TotalDays,
+      t.TotalHours,
+      t.TotalMinutes);
 Console.WriteLine("Answer 6: " + answer);
 
 //7.Write a C# program to convert from celsius degrees to Kelvin and Fahrenheit.
