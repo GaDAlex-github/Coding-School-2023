@@ -13,6 +13,8 @@ namespace Session_06 {
         public Schedule[] ScheduledCourse { get; set; }
 
         public University() {  }
+
+        public University(Guid id): base(id) { } //constructor with id Inheritance
         public University(Student[] student) {
             Students = student;
         }

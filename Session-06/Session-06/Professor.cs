@@ -9,11 +9,12 @@ namespace Session_06 {
         public string? Rank { get; set; }
         public Courses[] Courses { get; set; }
 
-        public Professor() {  }
-        public Professor(string? rank) {
+        public Professor() { }
+        public Professor(Guid id) : base(id){ } //constructor with id Inheritance
+        public Professor(string? rank){
             Rank = rank;
         }
-        public Professor(string? rank, Courses[] courses) {
+        public Professor(string? rank, Courses[] courses){
             Rank = rank;
             Courses = courses;
         }

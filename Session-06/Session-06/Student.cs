@@ -10,6 +10,8 @@ namespace Session_06 {
         public Courses[] Courses { get; set; }
 
         public Student(){ }
+
+        public Student(Guid id) : base(id) { } //constructor with id Inheritance
         public Student(int registrationNumber){ 
             RegistrationNumber = registrationNumber; 
         }
