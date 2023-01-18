@@ -18,7 +18,7 @@ namespace Session_07 {
         }
         public void Clear() {
             Messages = new Message[1000];
-
+            _pos= 0;
         }
 
         public void Write(Message message) {
