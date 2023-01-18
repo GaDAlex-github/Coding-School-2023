@@ -55,8 +55,9 @@ namespace Session_07 {
             catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }
-            Logger.Write(message);
-
+            finally {
+                Logger.Write(message);
+            }
             return response;
         }
 

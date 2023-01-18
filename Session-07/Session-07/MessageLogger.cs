@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace Session_07 {
     public class MessageLogger {
-        public Message[] messages = new Message[1000];
-        public int pos = 0;
+        public Message[] Messages = new Message[1000];
+        private int _pos = 0;
 
         public void ReadAll() {
-            foreach (Message message in messages) {
+            foreach (Message message in Messages) {
                 if (message != null) {
                     Console.WriteLine(message.Msg);
                 }
             }
         }
         public void Clear() {
-            messages = new Message[1000];
+            Messages = new Message[1000];
 
         }
 
         public void Write(Message message) {
-            messages[pos++]= message;
+            Messages[_pos++]= message;
 
         }
     }
