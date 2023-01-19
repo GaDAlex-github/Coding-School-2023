@@ -10,7 +10,9 @@ namespace Session_09 {
         private CalcOperation _calcOperation;
 
         enum CalcOperation { 
-            Addition
+            Addition,
+            Subtraction
+            
         }
 
 
@@ -31,8 +33,12 @@ namespace Session_09 {
 
                     Addition addition = new Addition();
                     _result = addition.Do(_value1, _value2);
-                    
                     break;
+                case CalcOperation.Subtraction:
+                    Subtraction subtraction = new Subtraction();
+                    _result = subtraction.Do(_value1, _value2);
+                    break;
+
 
                 default:
                     break;
@@ -125,6 +131,11 @@ namespace Session_09 {
                 _value2 = i;
             }
 
+        }
+
+        private void btnSubtraction_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " - ";
+            _calcOperation = CalcOperation.Subtraction;
         }
     }
 }

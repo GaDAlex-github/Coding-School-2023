@@ -183,6 +183,7 @@
             this.btnSubtraction.TabIndex = 19;
             this.btnSubtraction.Text = "-";
             this.btnSubtraction.UseVisualStyleBackColor = true;
+            this.btnSubtraction.Click += new System.EventHandler(this.btnSubtraction_Click);
             // 
             // btnZero
             // 
