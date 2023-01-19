@@ -235,8 +235,9 @@
             this.btnPow.Name = "btnPow";
             this.btnPow.Size = new System.Drawing.Size(62, 39);
             this.btnPow.TabIndex = 24;
-            this.btnPow.Text = "Pow";
+            this.btnPow.Text = "^";
             this.btnPow.UseVisualStyleBackColor = true;
+            this.btnPow.Click += new System.EventHandler(this.btnPow_Click);
             // 
             // btnSqrt
             // 
@@ -245,8 +246,9 @@
             this.btnSqrt.Name = "btnSqrt";
             this.btnSqrt.Size = new System.Drawing.Size(62, 39);
             this.btnSqrt.TabIndex = 25;
-            this.btnSqrt.Text = "Sqrt";
+            this.btnSqrt.Text = "√";
             this.btnSqrt.UseVisualStyleBackColor = true;
+            this.btnSqrt.Click += new System.EventHandler(this.btnSqrt_Click);
             // 
             // Form1
             // 

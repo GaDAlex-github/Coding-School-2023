@@ -1,4 +1,4 @@
-using CalculatorLib;
+﻿using CalculatorLib;
 
 namespace Session_09 {
     public partial class Form1 : Form {
@@ -15,7 +15,7 @@ namespace Session_09 {
             Multiplication,
             Division,
             Power,
-            Square
+            SquareRoot
 
         }
 
@@ -48,6 +48,14 @@ namespace Session_09 {
                 case CalcOperation.Division:
                     Division division = new Division();
                     _result = division.Do(_value1, _value2);
+                    break;
+                case CalcOperation.Power:
+                    Power power = new Power();
+                    _result = power.Do(_value1, _value2);
+                    break;
+                case CalcOperation.SquareRoot:
+                    SquareRoot squareRoot = new SquareRoot();
+                    _result = squareRoot.Do(_value1); 
                     break;
 
 
@@ -92,7 +100,8 @@ namespace Session_09 {
         }
 
         private void button1_Click_1(object sender, EventArgs e) {
-
+            Result(0);
+            ctrlDisplay.Text += " 0 ";
         }
 
         private void button1_Click_2(object sender, EventArgs e) {
@@ -153,6 +162,16 @@ namespace Session_09 {
         private void btnMultiplication_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " * ";
             _calcOperation = CalcOperation.Multiplication;
+        }
+
+        private void btnPow_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " ^ ";
+            _calcOperation = CalcOperation.Power;
+        }
+
+        private void btnSqrt_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " √ ";
+            _calcOperation = CalcOperation.SquareRoot;
         }
     }
 }
