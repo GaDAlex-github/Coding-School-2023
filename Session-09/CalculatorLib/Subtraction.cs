@@ -5,11 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CalculatorLib {
-
-
-
     public class Subtraction {
-
         public decimal Do(decimal? x, decimal? y) {
 
             decimal ret = 0;

@@ -55,7 +55,7 @@ namespace Session_09 {
                     break;
                 case CalcOperation.SquareRoot:
                     SquareRoot squareRoot = new SquareRoot();
-                    _result = squareRoot.Do(_value1); 
+                    _result = squareRoot.Do(_value1);
                     break;
 
 
@@ -67,7 +67,6 @@ namespace Session_09 {
         }
 
         private void btnOne_Click(object sender, EventArgs e) {
-
             Result(1);
             ctrlDisplay.Text += " 1 ";
 
@@ -79,19 +78,14 @@ namespace Session_09 {
         }
 
         private void btnTwo_Click(object sender, EventArgs e) {
-
             Result(2);
             ctrlDisplay.Text += " 2 ";
-
-
         }
 
         private void btnThree_Click(object sender, EventArgs e) {
 
             Result(3);
             ctrlDisplay.Text += " 3 ";
-
-
         }
 
         private void button1_Click(object sender, EventArgs e) {
@@ -108,8 +102,6 @@ namespace Session_09 {
             ctrlDisplay.Text += " / ";
             _calcOperation = CalcOperation.Division;
         }
-
-
 
         private void btnFour_Click(object sender, EventArgs e) {
             Result(4);
@@ -135,24 +127,6 @@ namespace Session_09 {
             Result(9);
             ctrlDisplay.Text += " 9 ";
         }
-        private void Result(int i) {
-            if (_result != null) {
-
-                ctrlDisplay.Text = string.Empty;
-                _value1 = null;
-                _value2 = null;
-                _result = null;
-            }
-
-
-            if (_value1 == null) {
-                _value1 = i;
-            }
-            else {
-                _value2 = i;
-            }
-
-        }
 
         private void btnSubtraction_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " - ";
@@ -172,6 +146,36 @@ namespace Session_09 {
         private void btnSqrt_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " √ ";
             _calcOperation = CalcOperation.SquareRoot;
+        }
+        private void Result(int i) {
+            if (_result != null) {
+
+                ctrlDisplay.Text = string.Empty;
+                _value1 = null;
+                _value2 = null;
+                _result = null;
+            }
+
+
+            if (_value1 == null) {
+                _value1 = i;
+            }
+            else {
+                _value2 = i;
+            }
+
+        }
+
+        private void btnComa_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void btnClear_Click(object sender, EventArgs e) {
+            ctrlDisplay.Clear();
+        }
+
+        private void button1_Click_3(object sender, EventArgs e) {
+        
         }
     }
 }

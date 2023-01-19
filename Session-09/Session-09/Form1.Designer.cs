@@ -42,6 +42,7 @@
             this.btnDivision = new System.Windows.Forms.Button();
             this.btnPow = new System.Windows.Forms.Button();
             this.btnSqrt = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEqual
@@ -79,11 +80,11 @@
             // 
             // ctrlDisplay
             // 
-            this.ctrlDisplay.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ctrlDisplay.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ctrlDisplay.Location = new System.Drawing.Point(25, 39);
             this.ctrlDisplay.Name = "ctrlDisplay";
             this.ctrlDisplay.ReadOnly = true;
-            this.ctrlDisplay.Size = new System.Drawing.Size(266, 35);
+            this.ctrlDisplay.Size = new System.Drawing.Size(266, 39);
             this.ctrlDisplay.TabIndex = 10;
             // 
             // btnTwo
@@ -205,6 +206,7 @@
             this.btnComa.TabIndex = 21;
             this.btnComa.Text = ",";
             this.btnComa.UseVisualStyleBackColor = true;
+            this.btnComa.Click += new System.EventHandler(this.btnComa_Click);
             // 
             // btnMultiplication
             // 
@@ -250,11 +252,23 @@
             this.btnSqrt.UseVisualStyleBackColor = true;
             this.btnSqrt.Click += new System.EventHandler(this.btnSqrt_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnClear.Location = new System.Drawing.Point(25, 100);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(62, 39);
+            this.btnClear.TabIndex = 26;
+            this.btnClear.Text = "C";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 357);
+            this.ClientSize = new System.Drawing.Size(318, 357);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSqrt);
             this.Controls.Add(this.btnPow);
             this.Controls.Add(this.btnDivision);
@@ -302,5 +316,6 @@
         private Button btnDivision;
         private Button btnPow;
         private Button btnSqrt;
+        private Button btnClear;
     }
 }

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 
 namespace CalculatorLib {
-
-
     public class Division {
-
         public decimal Do(decimal? x, decimal? y) {
 
             decimal ret = 0;
