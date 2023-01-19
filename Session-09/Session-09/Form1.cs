@@ -9,10 +9,14 @@ namespace Session_09 {
 
         private CalcOperation _calcOperation;
 
-        enum CalcOperation { 
+        enum CalcOperation {
             Addition,
-            Subtraction
-            
+            Subtraction,
+            Multiplication,
+            Division,
+            Power,
+            Square
+
         }
 
 
@@ -30,13 +34,20 @@ namespace Session_09 {
 
             switch (_calcOperation) {
                 case CalcOperation.Addition:
-
                     Addition addition = new Addition();
                     _result = addition.Do(_value1, _value2);
                     break;
                 case CalcOperation.Subtraction:
                     Subtraction subtraction = new Subtraction();
                     _result = subtraction.Do(_value1, _value2);
+                    break;
+                case CalcOperation.Multiplication:
+                    Multiplication multiplication = new Multiplication();
+                    _result = multiplication.Do(_value1, _value2);
+                    break;
+                case CalcOperation.Division:
+                    Division division = new Division();
+                    _result = division.Do(_value1, _value2);
                     break;
 
 
@@ -64,11 +75,11 @@ namespace Session_09 {
             Result(2);
             ctrlDisplay.Text += " 2 ";
 
-           
+
         }
 
         private void btnThree_Click(object sender, EventArgs e) {
-            
+
             Result(3);
             ctrlDisplay.Text += " 3 ";
 
@@ -85,10 +96,11 @@ namespace Session_09 {
         }
 
         private void button1_Click_2(object sender, EventArgs e) {
-
+            ctrlDisplay.Text += " / ";
+            _calcOperation = CalcOperation.Division;
         }
 
-        
+
 
         private void btnFour_Click(object sender, EventArgs e) {
             Result(4);
@@ -136,6 +148,11 @@ namespace Session_09 {
         private void btnSubtraction_Click(object sender, EventArgs e) {
             ctrlDisplay.Text += " - ";
             _calcOperation = CalcOperation.Subtraction;
+        }
+
+        private void btnMultiplication_Click(object sender, EventArgs e) {
+            ctrlDisplay.Text += " * ";
+            _calcOperation = CalcOperation.Multiplication;
         }
     }
 }

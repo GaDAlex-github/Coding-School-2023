@@ -215,6 +215,7 @@
             this.btnMultiplication.TabIndex = 22;
             this.btnMultiplication.Text = "*";
             this.btnMultiplication.UseVisualStyleBackColor = true;
+            this.btnMultiplication.Click += new System.EventHandler(this.btnMultiplication_Click);
             // 
             // btnDivision
             // 
