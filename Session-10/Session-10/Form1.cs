@@ -14,6 +14,9 @@ namespace Session_10 {
 
             SetControlProperties();
             PopulateStudents();
+            PopulateGrades();
+            PopulateCourses();
+            PopulateScheduledCourses();
 
         }
 
@@ -34,27 +37,55 @@ namespace Session_10 {
                 RegistrationNumber = 2
             };
             university.Students.Add(student2);
-
-
             bsStudents.DataSource = university.Students;
         }
 
-        // private void PopulateGrades() {
+        private void PopulateGrades() {
 
-        //   University unis = GetUniversity();
 
-        //    // grades = new Grades();
+            Grades grade1 = new Grades() {
+                grade = 8
+            };
+            university.Grade.Add(grade1);
 
-        //    Grades grade1 = new Grades() {
-        //        grade = 8
-        //    };
-        //    grades.Add(grade1);
+            Grades grade2 = new Grades() {
+                grade = 9
+            };
+            university.Grade.Add(grade2);
+            bsGrades.DataSource = university.Grade;
+        }
+        private void PopulateCourses() {
 
-        //    Grades grade2 = new Grades() {
-        //        grade = 9
-        //    };
-        //    grades.Add(grade2);
-        //}
+
+            Courses course1 = new Courses() {
+                Code = "Maths"
+            };
+            university.Course.Add(course1);
+
+            Courses course2 = new Courses() {
+                Code = "Geography"
+            };
+            university.Course.Add(course2);
+            bsCourses.DataSource = university.Course;
+        }
+
+        private void PopulateScheduledCourses() {
+
+
+            Schedule schCourse1 = new Schedule() {
+                CourseID = Guid.NewGuid()
+            };
+            university.ScheduledCourse.Add(schCourse1);
+
+            Schedule schCourse2 = new Schedule() {
+                CourseID = Guid.NewGuid()
+            };
+            university.ScheduledCourse.Add(schCourse2);
+            bsScheduledCourses.DataSource = university.ScheduledCourse;
+        }
+
+
+
 
         private University GetUniversity() {
 
@@ -76,16 +107,16 @@ namespace Session_10 {
 
             grvStudents.AutoGenerateColumns = false;
             grvStudents.DataSource = bsStudents;
-            // grvStudents.Columns[0].
-            //DataGridViewComboBoxColumn colGender = grvStudents.Columns["colGender"] as DataGridViewComboBoxColumn;
-            //colGender.Items.Add(Student.GenderEnum.Male);
-            //colGender.Items.Add(Student.GenderEnum.Female);
-            //colGender.Items.Add(Student.GenderEnum.Other);
 
-            //DataGridViewTextBoxColumn colUniversity1 = grvStudents.Columns["colUniversity"] as DataGridViewTextBoxColumn;
-            //colUniversity1.DataSource = GetUniversity();
-            //colUniversity1.DisplayMember = "Name";
-            //colUniversity1.ValueMember = "ID";
+            grvGrades.AutoGenerateColumns = false;
+            grvGrades.DataSource = bsGrades;
+
+            grvCourses.AutoGenerateColumns = false;
+            grvCourses.DataSource = bsCourses;
+
+            grvScheduledCourses.AutoGenerateColumns = false;
+            grvScheduledCourses.DataSource = bsScheduledCourses;
+
 
             grvStudents.CellContentClick += GrvStudents_CellContentClick;
 
@@ -121,6 +152,10 @@ namespace Session_10 {
         private void btnSave_Click(object sender, EventArgs e) {
             Serializer serializer = new Serializer();
             serializer.SerializeToFile(university, "test.json");
+        }
+
+        private void bsGrades_CurrentChanged(object sender, EventArgs e) {
+
         }
     }
 }

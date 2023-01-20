@@ -13,6 +13,9 @@ namespace UniversityLib {
 
         public University(Guid id) : base(id) {
             Students = new List<Student>();
+            Grade = new List<Grades>();
+            Course = new List<Courses>();
+            ScheduledCourse = new List<Schedule>();
         }
         public University() {
             Students = new List<Student>();

@@ -14,8 +14,7 @@ namespace UniversityLib{
         public Courses(Guid id) {
             ID = id;
         }
-        public Courses(Guid id, string code) {
-            ID = id;
+        public Courses(string code) {
             Code = code;
         }
         public Courses(Guid id, string? code, string? subject) {
