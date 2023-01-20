@@ -9,7 +9,7 @@ namespace UniversityLib {
         public int RegistrationNumber { get; set; }
         public List<Courses> Courses { get; set; }
 
-        public string UniversityName { get; set; }
+        public Guid UniversityID { get; set; }
 
         public Student(){ }
 

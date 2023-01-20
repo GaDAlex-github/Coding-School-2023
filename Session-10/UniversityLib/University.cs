@@ -5,38 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UniversityLib {
-    public class University : Institute{
-        public Student[] Students { get; set; }
-        public Courses[] Course { get; set; }
-        public Grades[] Grade { get; set; }
-        public Schedule[] ScheduledCourse { get; set; }
+    public class University : Institute {
+        public List<Student> Students { get; set; }
+        public List<Courses> Course { get; set; }
+        public List<Grades> Grade { get; set; }
+        public List<Schedule> ScheduledCourse { get; set; }
 
-        public University() {  }
+        public University(Guid id) : base(id) {
+            Students = new List<Student>();
+        }
+        public University() {
+            Students = new List<Student>();
+        }
 
-        public University(Guid id): base(id) { } //constructor with id Inheritance
-        public University(Student[] student) {
-            Students = student;
-        }
-        public University(Student[] student, Courses[] course) {
-            Students = student;
-            Course = course;
-        }
-        public University(Student[] student, Courses[] courses, Grades[] grade) {
-            Students = student;
-            Course = courses;
-            Grade = grade;
-        }
-        public University(Student[] student, Courses[] courses, Grades[] grade, Schedule[] schedules) {
+
+        public University(List<Student> student, List<Courses> courses, List<Grades> grade, List<Schedule> schedules) {
             Students = student;
             Course = courses;
             Grade = grade;
             ScheduledCourse = schedules;
         }
-    public void GetStudents() { }
-    public void GetCourses() { }
-    public void GetGrades() { }
-    public void SetSchedule(Courses courseID,Professor ProfessorID,DateTime datetime) { }
+        public void GetStudents() { }
+        public void GetCourses() { }
+        public void GetGrades() { }
+        public void SetSchedule(Courses courseID, Professor ProfessorID, DateTime datetime) { }
 
-    
+
     }
 }

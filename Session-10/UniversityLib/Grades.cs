@@ -11,6 +11,7 @@ namespace UniversityLib {
         public Guid CourseID { get; set; }
         public int grade { get; set; }
 
+
         public Grades() { }
         public Grades(Guid id) { ID = id; }
         public Grades(Guid id, Guid studentID) { 

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace UniversityLib {
     public class Professor : Person {
         public string? Rank { get; set; }
-        public Courses[] Courses { get; set; }
+        public List<Courses> Courses { get; set; }
 
         public Professor() { }
         public Professor(Guid id) : base(id){ } //constructor with id Inheritance
         public Professor(string? rank){
             Rank = rank;
         }
-        public Professor(string? rank, Courses[] courses){
+        public Professor(string? rank, List<Courses> courses){
             Rank = rank;
             Courses = courses;
         }

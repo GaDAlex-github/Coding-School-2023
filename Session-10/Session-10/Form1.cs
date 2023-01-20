@@ -5,8 +5,7 @@ using System.Windows.Forms;
 namespace Session_10 {
     public partial class Form1 : Form {
 
-        List<Student> students;
-
+        public University university;
         public Form1() {
             InitializeComponent();
         }
@@ -20,29 +19,42 @@ namespace Session_10 {
 
         private void PopulateStudents() {
 
-            University unis = GetUniversity();
-
-            students = new List<Student>();
+            university = GetUniversity();
 
             Student student1 = new Student() {
                 Name = "Dimitris",
                 Age = 40,
-                RegistrationNumber = 1,
-                UniversityName = unis.Name
+                RegistrationNumber = 1
             };
-            students.Add(student1);
+            university.Students.Add(student1);
 
             Student student2 = new Student() {
                 Name = "Fotis",
                 Age = 44,
-                RegistrationNumber = 2,
-                UniversityName = unis.Name
+                RegistrationNumber = 2
             };
-            students.Add(student2);
+            university.Students.Add(student2);
 
 
-            bsStudents.DataSource = students;
+            bsStudents.DataSource = university.Students;
         }
+
+        // private void PopulateGrades() {
+
+        //   University unis = GetUniversity();
+
+        //    // grades = new Grades();
+
+        //    Grades grade1 = new Grades() {
+        //        grade = 8
+        //    };
+        //    grades.Add(grade1);
+
+        //    Grades grade2 = new Grades() {
+        //        grade = 9
+        //    };
+        //    grades.Add(grade2);
+        //}
 
         private University GetUniversity() {
 
@@ -64,13 +76,13 @@ namespace Session_10 {
 
             grvStudents.AutoGenerateColumns = false;
             grvStudents.DataSource = bsStudents;
-
+            // grvStudents.Columns[0].
             //DataGridViewComboBoxColumn colGender = grvStudents.Columns["colGender"] as DataGridViewComboBoxColumn;
             //colGender.Items.Add(Student.GenderEnum.Male);
             //colGender.Items.Add(Student.GenderEnum.Female);
             //colGender.Items.Add(Student.GenderEnum.Other);
 
-            //DataGridViewComboBoxColumn colUniversity1 = grvStudents.Columns["colUniversity"] as DataGridViewComboBoxColumn;
+            //DataGridViewTextBoxColumn colUniversity1 = grvStudents.Columns["colUniversity"] as DataGridViewTextBoxColumn;
             //colUniversity1.DataSource = GetUniversity();
             //colUniversity1.DisplayMember = "Name";
             //colUniversity1.ValueMember = "ID";
@@ -92,12 +104,23 @@ namespace Session_10 {
             }
         }
 
+
         private void grvStudents_CellContentClick_1(object sender, DataGridViewCellEventArgs e) {
 
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            Serializer serializer = new Serializer();
+            university = serializer.Deserialize<University>("test.json");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e) {
+            Serializer serializer = new Serializer();
+            serializer.SerializeToFile(university, "test.json");
         }
     }
 }
