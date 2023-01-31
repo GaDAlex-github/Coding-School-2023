@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel {
-    public class Customer : EntityBase {
+    public class Customer : PetShop {
         public int CustomerID { get; set; }
         public string Phone { get; set; }
         public string TIN { get; set; }

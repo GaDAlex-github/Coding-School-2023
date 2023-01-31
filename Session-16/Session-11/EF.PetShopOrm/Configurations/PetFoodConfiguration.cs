@@ -16,8 +16,8 @@ namespace Session_11.EF.PetShopOrm.Configurations {
 
             builder.Property(pet => pet.PetFoodID).ValueGeneratedOnAdd();
             builder.Property(pet => pet.AnimalType).HasMaxLength(20);
-            builder.Property(pet => pet.Price);
-            builder.Property(pet => pet.Cost);
+            builder.Property(pet => pet.PetFoodPrice);
+            builder.Property(pet => pet.PetFoodCost);
 
             builder.HasOne(pet => pet.PetShop)
                  .WithMany(petShop => petShop.PetFoods)

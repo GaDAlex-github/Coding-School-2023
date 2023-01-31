@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel {
     public abstract class EntityBase : IEntityBase {
-        public int Id { get; set; }
-        public EntityBase() { 
-            
-        }
-
-    }
+        public int PetShopID { get; set; }
+     }
 }

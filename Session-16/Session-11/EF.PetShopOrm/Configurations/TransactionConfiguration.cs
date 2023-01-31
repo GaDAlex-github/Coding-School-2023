@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopOrm.Configurations {
-    internal class TransactionConfiguration : IEntityTypeConfiguration<Transaction> {
+    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction> {
         public void Configure(EntityTypeBuilder<Transaction> builder) {
             builder.ToTable("Transactions");
 

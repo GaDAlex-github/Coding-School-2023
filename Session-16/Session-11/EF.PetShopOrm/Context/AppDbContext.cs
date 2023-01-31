@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Session_11.EF.PetShopModel;
+using Session_11.EF.PetShopOrm.Configurations;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Session_11.EF.PetShopOrm.Context {
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new PetConfiguration());
-           // modelBuilder.ApplyConfiguration(new PetFoodConfiguration());
+            modelBuilder.ApplyConfiguration(new PetFoodConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             base.OnModelCreating(modelBuilder);
         }
@@ -33,4 +34,4 @@ namespace Session_11.EF.PetShopOrm.Context {
         }
     }
 }
-}
+

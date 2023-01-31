@@ -7,6 +7,7 @@ namespace Session_11
 {
     public partial class Form1 : Form {
 
+
         public Transaction transaction;
         public PetShop petShop;
         public Customer customer;
@@ -88,12 +89,12 @@ namespace Session_11
         public void PopulatePetFoods() {
             var petsFood = new List<PetFood>
             {
-                new PetFood {PetFoodID=1,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.OK ,PetFoodPrice = 70, PetFoodCost = 50},
-                new PetFood {PetFoodID=2,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.Recovering ,PetFoodPrice =60,PetFoodCost = 50},
-                new PetFood {PetFoodID=3,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.OK,PetFoodPrice = 50, PetFoodCost = 30},
-                new PetFood {PetFoodID=4,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.Recovering, PetFoodPrice = 40, PetFoodCost = 30},
-                new PetFood {PetFoodID=5,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.OK, PetFoodPrice = 80, PetFoodCost = 30},
-                new PetFood {PetFoodID=6,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.Recovering, PetFoodPrice = 80, PetFoodCost = 30},
+                new PetFood {PetFoodID=1,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice = 70, PetFoodCost = 50},
+                new PetFood {PetFoodID=2,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice =60,PetFoodCost = 50},
+                new PetFood {PetFoodID=3,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 50, PetFoodCost = 30},
+                new PetFood {PetFoodID=4,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 40, PetFoodCost = 30},
+                new PetFood {PetFoodID=5,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 80, PetFoodCost = 30},
+                new PetFood {PetFoodID=6,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 80, PetFoodCost = 30},
             };
             petShop.PetFoods.AddRange(petsFood);
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class Pet : EntityBase
+    public class Pet : PetShop
     {
         public enum AnimalTypeEnum
         {

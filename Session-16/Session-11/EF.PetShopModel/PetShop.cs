@@ -10,20 +10,20 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class PetShop
+    public class PetShop : IEntityBase
     {
+       
         public int PetShopID { get; set; }
-        public List<Pet>? Pets { get; set; }
-        public List<Customer>? Customers { get; set; }
-        public List<Employee>? Employees { get; set; }
-        public List<PetFood>? PetFoods { get; set; }
-        public List<Transaction>? Transactions { get; set; }
-        public List<MonthlyLedger>? MonthlyLedgers { get; set; }
+        public List<Pet> Pets { get; set; }
+        public List<Customer> Customers { get; set; }
+        public List<Employee> Employees { get; set; }
+        public List<PetFood> PetFoods { get; set; }
+        public List<Transaction> Transactions { get; set; }
+        public List<MonthlyLedger> MonthlyLedgers { get; set; }
         public Stock stock { get; set; }
 
-        
-        private void Initialize()
-        {
+
+        private void Initialize() {
             Stock stock = new Stock();
             Employee staffEmployee = CreateEmployee();
             Customer customer = CreateCustomer();
@@ -32,11 +32,9 @@ namespace Session_11.EF.PetShopModel
             double petFoodCost = 9.2;
             double petFoodPrice = petFoodQty * petFoodCost;
         }
-        private Pet CreatePet(string breed)
-        {
+        private Pet CreatePet(string breed) {
 
-            Pet pet = new Pet()
-            {
+            Pet pet = new Pet() {
                 PetID = 1,
                 Breed = breed,
                 AnimalType = Pet.AnimalTypeEnum.Dog,
@@ -46,10 +44,8 @@ namespace Session_11.EF.PetShopModel
             };
             return pet;
         }
-        private Customer CreateCustomer()
-        {
-            Customer customer = new Customer()
-            {
+        private Customer CreateCustomer() {
+            Customer customer = new Customer() {
                 CustomerID = 1,
                 Name = "John",
                 Surname = "Doe",
@@ -58,10 +54,8 @@ namespace Session_11.EF.PetShopModel
             };
             return customer;
         }
-        private Employee CreateEmployee()
-        {
-            Employee employee = new Employee()
-            {
+        private Employee CreateEmployee() {
+            Employee employee = new Employee() {
                 EmployeeID = 2,
                 Name = "Jane",
                 Surname = "Dewey",
@@ -70,19 +64,16 @@ namespace Session_11.EF.PetShopModel
             };
             return employee;
         }
-        private void AddTransaction(Employee employee, Customer customer, Pet pet, PetFood petFood, double petFoodQty, double profit)
-        {
+        private void AddTransaction(Employee employee, Customer customer, Pet pet, PetFood petFood, double petFoodQty, double profit) {
             List<Transaction> transactions = new List<Transaction>();
             Transaction transaction = CreateTransaction(employee, customer, pet, petFood, petFoodQty, profit);
             transactions.Add(transaction);
         }
-        public Transaction CreateTransaction(Employee employee, Customer customer, Pet pet, PetFood petFood, double petFoodQty, double profit)
-        {
+        public Transaction CreateTransaction(Employee employee, Customer customer, Pet pet, PetFood petFood, double petFoodQty, double profit) {
 
-            double petFoodPrice = petFood.Cost * petFoodQty + profit;
+            double petFoodPrice = petFood.PetFoodCost * petFoodQty + profit;
 
-            Transaction transaction = new Transaction()
-            { //customerID, employeeID, petID,  petPrice, petFoodID,  petFoodQty,  petFoodPrice,  totalPrice
+            Transaction transaction = new Transaction() { //customerID, employeeID, petID,  petPrice, petFoodID,  petFoodQty,  petFoodPrice,  totalPrice
                 CustomerID = customer.CustomerID,
                 EmployeeID = employee.EmployeeID,
                 PetID = pet.PetID,
@@ -93,8 +84,7 @@ namespace Session_11.EF.PetShopModel
             };
             return transaction;
         }
-        public PetShop()
-        {
+        public PetShop() {
             Pets = new List<Pet>();
             Customers = new List<Customer>();
             Employees = new List<Employee>();

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class PetFood : Pet
-    {
+    public class PetFood : PetShop {
+        public enum AnimalTypeEnum {
+            Bird,
+            Cat,
+            Dog,
+            None
+        }
         public int PetFoodID { get; set; }
         public AnimalTypeEnum AnimalType { get; set; }
 

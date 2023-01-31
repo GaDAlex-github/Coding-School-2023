@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class Employee : EntityBase
-    {
+    public class Employee : PetShop   {
         public int EmployeeID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
