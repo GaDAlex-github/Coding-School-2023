@@ -10,10 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EF.PetShopOrm\**" />
+    <EmbeddedResource Remove="EF.PetShopOrm\**" />
+    <None Remove="EF.PetShopOrm\**" />
+    <Page Remove="EF.PetShopOrm\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="22.2.3" />
     <PackageReference Include="DevExpress.DataAccess.UI" Version="22.2.3" />
     <PackageReference Include="DevExpress.Win.Design" Version="22.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="22.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -37,7 +45,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EF.PetShopOrm\Migrations\" />
+    <ProjectReference Include="..\EF.PetShop.Model\EF.PetShop.Model.csproj" />
+    <ProjectReference Include="..\EF.PetShop.Orm\EF.PetShop.Orm.csproj" />
   </ItemGroup>
 
 	

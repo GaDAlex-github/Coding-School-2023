@@ -49,7 +49,7 @@ namespace Session_11.EF.PetShopModel
                             totalSoldDog++;
                             break;
                         default:
-                            MessageBox.Show("Invalid Animal Type");
+                           // MessageBox.Show("Invalid Animal Type");
                             break;
                     }
                 }
