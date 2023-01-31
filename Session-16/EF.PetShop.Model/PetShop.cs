@@ -21,6 +21,14 @@ namespace Session_11.EF.PetShopModel
         public List<MonthlyLedger> MonthlyLedgers { get; set; }
         public Stock stock { get; set; }
 
+        //Relations
+        public Customer Customer { get; set; }
+        public Employee Employee { get; set; }
+        public Pet Pet { get; set; }
+        public PetFood PetFood { get; set; }
+        public Transaction Transaction { get; set; }
+
+
 
         private void Initialize() {
             Stock stock = new Stock();

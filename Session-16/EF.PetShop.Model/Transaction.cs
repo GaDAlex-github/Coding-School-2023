@@ -8,7 +8,7 @@ using System.Transactions;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class Transaction : EntityBase {
+    public class Transaction : PetShop {
         public int TransactionID { get; set; }
         public DateTime TransactionDate { get; set; }
         public int CustomerID { get; set; }
