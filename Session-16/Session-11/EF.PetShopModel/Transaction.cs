@@ -37,6 +37,9 @@ namespace Session_11.EF.PetShopModel
             PetFoodPrice = petFoodPrice;
             TotalPrice = totalPrice;
         }
+        // Relations
+        public int PetShopID { get; set; }
+        public PetShop PetShop { get; set; } = null!;
     }
 
 }

@@ -26,5 +26,8 @@ namespace Session_11.EF.PetShopModel
         {
     
         }
+        // Relations
+        public int PetShopID { get; set; }
+        public PetShop PetShop { get; set; } = null!;
     }
 }

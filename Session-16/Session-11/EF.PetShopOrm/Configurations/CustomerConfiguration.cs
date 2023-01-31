@@ -9,7 +9,7 @@ using Session_11.EF.PetShopModel;
 using System.CodeDom;
 
 namespace Session_11.EF.PetShopOrm.Configurations {
-    internal class CustomerConfiguration : IEntityTypeConfiguration<Customer> {
+    public class CustomerConfiguration : IEntityTypeConfiguration<Customer> {
         public void Configure(EntityTypeBuilder<Customer> builder) {
             builder.ToTable("Customers");
 
