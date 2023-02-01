@@ -77,7 +77,6 @@ namespace Session_11
             this.grvPetFoods = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colAnimalTypeFood = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit9 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.colPetFoodStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit27 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.colFoodPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -191,11 +190,11 @@ namespace Session_11
             // 
             // bsTransaction
             // 
-            this.bsTransaction.DataSource = typeof(Transaction);
+            this.bsTransaction.DataSource = typeof(Session_11.EF.PetShopModel.Transaction);
             // 
             // bsPetFood
             // 
-            this.bsPetFood.DataSource = typeof(PetFood);
+            this.bsPetFood.DataSource = typeof(Session_11.EF.PetShopModel.PetFood);
             // 
             // label1
             // 
@@ -208,20 +207,20 @@ namespace Session_11
             // 
             // bsPet
             // 
-            this.bsPet.DataSource = typeof(Pet);
+            this.bsPet.DataSource = typeof(Session_11.EF.PetShopModel.Pet);
             // 
             // bsCustomer
             // 
-            this.bsCustomer.DataSource = typeof(Customer);
+            this.bsCustomer.DataSource = typeof(Session_11.EF.PetShopModel.Customer);
             this.bsCustomer.CurrentChanged += new System.EventHandler(this.customerBindingSource1_CurrentChanged);
             // 
             // bsEmployee
             // 
-            this.bsEmployee.DataSource = typeof(Employee);
+            this.bsEmployee.DataSource = typeof(Session_11.EF.PetShopModel.Employee);
             // 
             // monthlyLedgerBindingSource
             // 
-            this.monthlyLedgerBindingSource.DataSource = typeof(MonthlyLedger);
+            this.monthlyLedgerBindingSource.DataSource = typeof(Session_11.EF.PetShopModel.MonthlyLedger);
             // 
             // Year
             // 
@@ -562,7 +561,6 @@ namespace Session_11
             // 
             this.grvPetFoods.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colAnimalTypeFood,
-            this.colPetFoodStatus,
             this.colFoodPrice,
             this.colFoodCost});
             this.grvPetFoods.GridControl = this.grcPetFoods;
@@ -583,15 +581,6 @@ namespace Session_11
             this.repositoryItemTextEdit9.AutoHeight = false;
             this.repositoryItemTextEdit9.Name = "repositoryItemTextEdit9";
             // 
-            // colPetFoodStatus
-            // 
-            this.colPetFoodStatus.Caption = "AnimalStatus";
-            this.colPetFoodStatus.ColumnEdit = this.repositoryItemTextEdit27;
-            this.colPetFoodStatus.FieldName = "Status";
-            this.colPetFoodStatus.Name = "colPetFoodStatus";
-            this.colPetFoodStatus.Visible = true;
-            this.colPetFoodStatus.VisibleIndex = 1;
-            // 
             // repositoryItemTextEdit27
             // 
             this.repositoryItemTextEdit27.AutoHeight = false;
@@ -604,7 +593,7 @@ namespace Session_11
             this.colFoodPrice.FieldName = "PetFoodPrice";
             this.colFoodPrice.Name = "colFoodPrice";
             this.colFoodPrice.Visible = true;
-            this.colFoodPrice.VisibleIndex = 2;
+            this.colFoodPrice.VisibleIndex = 1;
             // 
             // repositoryItemTextEdit7
             // 
@@ -618,7 +607,7 @@ namespace Session_11
             this.colFoodCost.FieldName = "PetFoodCost";
             this.colFoodCost.Name = "colFoodCost";
             this.colFoodCost.Visible = true;
-            this.colFoodCost.VisibleIndex = 3;
+            this.colFoodCost.VisibleIndex = 2;
             // 
             // repositoryItemTextEdit8
             // 
@@ -1129,7 +1118,6 @@ namespace Session_11
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit20;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit21;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit26;
-        private DevExpress.XtraGrid.Columns.GridColumn colPetFoodStatus;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit27;
         private DevExpress.XtraGrid.Columns.GridColumn colCustomerID;
         private Button btnLoad;

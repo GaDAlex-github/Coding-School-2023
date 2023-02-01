@@ -89,12 +89,10 @@ namespace Session_11
         public void PopulatePetFoods() {
             var petsFood = new List<PetFood>
             {
-                new PetFood {PetFoodID=1,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice = 70, PetFoodCost = 50},
-                new PetFood {PetFoodID=2,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice =60,PetFoodCost = 50},
-                new PetFood {PetFoodID=3,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 50, PetFoodCost = 30},
-                new PetFood {PetFoodID=4,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 40, PetFoodCost = 30},
-                new PetFood {PetFoodID=5,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 80, PetFoodCost = 30},
-                new PetFood {PetFoodID=6,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 80, PetFoodCost = 30},
+                new PetFood {PetFoodID=1,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice = 9, PetFoodCost = 3},               
+                new PetFood {PetFoodID=2,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 6, PetFoodCost = 2},           
+                new PetFood {PetFoodID=3,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 3, PetFoodCost = 1},
+ 
             };
             petShop.PetFoods.AddRange(petsFood);
         }

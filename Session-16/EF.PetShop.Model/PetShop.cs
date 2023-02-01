@@ -29,48 +29,8 @@ namespace Session_11.EF.PetShopModel
         public Transaction Transaction { get; set; }
 
 
-
-        private void Initialize() {
-            Stock stock = new Stock();
-            Employee staffEmployee = CreateEmployee();
-            Customer customer = CreateCustomer();
-            Pet pet = CreatePet("Poodle");
-            double petFoodQty = 12.5;
-            double petFoodCost = 9.2;
-            double petFoodPrice = petFoodQty * petFoodCost;
-        }
-        private Pet CreatePet(string breed) {
-
-            Pet pet = new Pet() {
-                PetID = 1,
-                Breed = breed,
-                AnimalType = Pet.AnimalTypeEnum.Dog,
-                Status = Pet.PetStatusEnum.OK,
-                Price = 200,
-                Cost = 100
-            };
-            return pet;
-        }
-        private Customer CreateCustomer() {
-            Customer customer = new Customer() {
-                CustomerID = 1,
-                Name = "John",
-                Surname = "Doe",
-                Phone = "1234567890",
-                TIN = "987654321"
-            };
-            return customer;
-        }
-        private Employee CreateEmployee() {
-            Employee employee = new Employee() {
-                EmployeeID = 2,
-                Name = "Jane",
-                Surname = "Dewey",
-                SalaryPerMonth = 619,
-                EmployeeType = Employee.EmployeeTypeEnum.Staff
-            };
-            return employee;
-        }
+                
+       
         private void AddTransaction(Employee employee, Customer customer, Pet pet, PetFood petFood, double petFoodQty, double profit) {
             List<Transaction> transactions = new List<Transaction>();
             Transaction transaction = CreateTransaction(employee, customer, pet, petFood, petFoodQty, profit);

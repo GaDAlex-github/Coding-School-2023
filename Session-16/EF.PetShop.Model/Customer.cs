@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace Session_11.EF.PetShopModel {
     public class Customer : PetShop {
         public int CustomerID { get; set; }
-        public string Phone { get; set; }
-        public string TIN { get; set; }
-
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Phone { get; set; }
+        public string TIN { get; set; }
 
         public string FullName {
             get {
