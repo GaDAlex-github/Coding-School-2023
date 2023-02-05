@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EF.PetShop.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
@@ -8,25 +9,18 @@ using System.Transactions;
 
 namespace Session_11.EF.PetShopModel
 {
-    public class Transaction : PetShop {
-        public int TransactionID { get; set; }
-        public DateTime TransactionDate { get; set; }
-        public int CustomerID { get; set; }
-        public int EmployeeID { get; set; }
-        public int PetID { get; set; }
-        public double PetPrice { get; set; }
-        public int PetFoodID { get; set; }
+    public class Transaction : EntityBase {
+        public DateTime TransactionDate { get; set; }   
+        public double PetPrice { get; set; }       
         public double PetFoodQty { get; set; }
         public double PetFoodPrice { get; set; }
         public double TotalPrice { get; set; }
 
-        public Transaction()
-        {
-          
+        public Transaction(){        
         }
+
         public Transaction(int customerID, int employeeID, int petID, double petPrice, int petFoodID, double petFoodQty, double petFoodPrice, double totalPrice)
         {
-            TransactionID = 1;
             TransactionDate = DateTime.Now;
             CustomerID = customerID;
             EmployeeID = employeeID;
@@ -40,6 +34,15 @@ namespace Session_11.EF.PetShopModel
         // Relations
         public int PetShopID { get; set; }
         public PetShop PetShop { get; set; } = null!;
+        public int CustomerID { get; set; }
+       // public Customer Customer { get; set; } = null!;
+        public int EmployeeID { get; set; }
+       // public Employee Employee { get; set; } = null!;
+        public int PetID { get; set; }
+       // public Pet Pet { get; set; } = null!;
+        public int PetFoodID { get; set; }
+      //  public PetFood PetFood { get; set; } = null!;
+
     }
 
 }

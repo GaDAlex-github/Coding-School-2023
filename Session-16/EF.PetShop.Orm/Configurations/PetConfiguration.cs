@@ -12,9 +12,9 @@ namespace Session_11.EF.PetShopOrm.Configurations {
         public void Configure(EntityTypeBuilder<Pet> builder) {
             builder.ToTable("Pets");
 
-            builder.HasKey(pet => pet.PetID);
+            builder.HasKey(pet => pet.ID);
 
-            builder.Property(pet => pet.PetID).ValueGeneratedOnAdd();
+            builder.Property(pet => pet.ID).ValueGeneratedOnAdd();
             builder.Property(pet => pet.Breed).HasMaxLength(20);
             builder.Property(pet => pet.AnimalType).HasMaxLength(20);
             builder.Property(pet => pet.Status).HasMaxLength(15);

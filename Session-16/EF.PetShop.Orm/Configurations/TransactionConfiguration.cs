@@ -12,9 +12,9 @@ namespace Session_11.EF.PetShopOrm.Configurations {
         public void Configure(EntityTypeBuilder<Transaction> builder) {
             builder.ToTable("Transactions");
 
-            builder.HasKey(transaction => transaction.TransactionID);
+            builder.HasKey(transaction => transaction.ID);
 
-            builder.Property(transaction => transaction.TransactionID).ValueGeneratedOnAdd();
+            builder.Property(transaction => transaction.ID).ValueGeneratedOnAdd();
             builder.Property(transaction => transaction.TransactionDate).IsRequired(true);
             builder.Property(transaction => transaction.CustomerID);
             builder.Property(transaction => transaction.EmployeeID);
@@ -24,10 +24,13 @@ namespace Session_11.EF.PetShopOrm.Configurations {
             builder.Property(transaction => transaction.PetFoodQty);
             builder.Property(transaction => transaction.PetFoodPrice);
             builder.Property(transaction => transaction.TotalPrice);
-
+        
             builder.HasOne(transaction => transaction.PetShop)
-        .WithMany(petShop => petShop.Transactions)
-        .HasForeignKey(transaction => transaction.PetShopID);
+                .WithMany(petShop => petShop.Transactions)
+                .HasForeignKey(transaction => transaction.PetShopID);
+            //builder.HasMany(transaction => transaction.Employee)
+            //    .WithOne(employee => employee.Transactions)
+            //    .HasForeignKey(transaction => transaction.EmployeeID);
         }
     }
 }

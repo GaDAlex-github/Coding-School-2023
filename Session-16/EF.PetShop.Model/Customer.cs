@@ -1,12 +1,12 @@
-﻿using System;
+﻿using EF.PetShop.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel {
-    public class Customer : PetShop {
-        public int CustomerID { get; set; }
+    public class Customer : EntityBase {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
@@ -23,6 +23,9 @@ namespace Session_11.EF.PetShopModel {
         // Relations
         public int PetShopID { get; set; }
         public PetShop PetShop { get; set; } = null!;
+        //public List<Transaction> Transactions { get; set; }
+        //public Transaction Transaction { get; set; } = null!;
+
     }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Session_11.EF.PetShopModel {
     public interface IEntityBase {
-        int PetShopID { get; set; }
+        int ID { get; set; }
     }
 
 }

@@ -13,9 +13,9 @@ namespace Session_11.EF.PetShopOrm.Configurations {
         public void Configure(EntityTypeBuilder<Customer> builder) {
             builder.ToTable("Customers");
             
-            builder.HasKey(customer => customer.CustomerID);
+            builder.HasKey(customer => customer.ID);
 
-            builder.Property(customer => customer.CustomerID).ValueGeneratedOnAdd();
+            builder.Property(customer => customer.ID).ValueGeneratedOnAdd();
             builder.Property(customer => customer.Name).HasMaxLength(50);
             builder.Property(customer => customer.Surname).HasMaxLength(50);
             builder.Property(customer => customer.Phone).HasMaxLength(15);

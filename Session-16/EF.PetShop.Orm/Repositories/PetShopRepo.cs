@@ -17,10 +17,10 @@ namespace Session_11.EF.PetShopOrm.Repositories {
 
         public void Delete(int id) {
             using var context = new AppDbContext();
-            var dbTodo = context.PetShops.Where(petShop => petShop.PetShopID == id).SingleOrDefault();
-            if (dbTodo is null)
+            var dbPetShop = context.PetShops.Where(petShop => petShop.ID == id).SingleOrDefault();
+            if (dbPetShop is null)
                 return;
-            context.Remove(dbTodo);
+            context.Remove(dbPetShop);
             context.SaveChanges();
         }
 
@@ -37,7 +37,7 @@ namespace Session_11.EF.PetShopOrm.Repositories {
 
         public PetShop? GetById(int id) {
             using var context = new AppDbContext();
-            return context.PetShops.Where(petShop => petShop.PetShopID == id)
+            return context.PetShops.Where(petShop => petShop.ID == id)
                 .Include(petShop => petShop.Customers)
                 .Include(petShop => petShop.Employees)
                 .Include(petShop => petShop.Pets)
@@ -48,14 +48,14 @@ namespace Session_11.EF.PetShopOrm.Repositories {
 
         public void Update(int id, PetShop entity) {
             using var context = new AppDbContext();
-            var dbTodo = context.PetShops.Where(petShop => petShop.PetShopID == id).SingleOrDefault();
-            if (dbTodo is null)
+            var dbPetShop = context.PetShops.Where(petShop => petShop.ID == id).SingleOrDefault();
+            if (dbPetShop is null)
                 return;
-            dbTodo.Customers = entity.Customers;
-            dbTodo.Employees = entity.Employees;
-            dbTodo.Pets = entity.Pets;
-            dbTodo.PetFoods = entity.PetFoods;
-            dbTodo.Transactions = entity.Transactions;
+            dbPetShop.Customers = entity.Customers;
+            dbPetShop.Employees = entity.Employees;
+            dbPetShop.Pets = entity.Pets;
+            dbPetShop.PetFoods = entity.PetFoods;
+            dbPetShop.Transactions = entity.Transactions;
             context.SaveChanges();
         }
     }

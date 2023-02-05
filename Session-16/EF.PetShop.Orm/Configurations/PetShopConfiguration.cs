@@ -12,9 +12,9 @@ namespace Session_11.EF.PetShopOrm.Configurations {
         public void Configure(EntityTypeBuilder<PetShop> builder) {
             builder.ToTable("PetShop");
 
-            builder.HasKey(petShop => petShop.PetShopID);
+            builder.HasKey(petShop => petShop.ID);
 
-            builder.Property(petShop => petShop.PetShopID).ValueGeneratedOnAdd();
+            builder.Property(petShop => petShop.ID).ValueGeneratedOnAdd();
            
         }
     }

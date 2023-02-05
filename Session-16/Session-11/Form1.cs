@@ -1,10 +1,11 @@
 using DevExpress.XtraGrid.Columns;
+using EF.PetShop.Orm.Repositories;
 using Session_11.EF.PetShopModel;
+using Session_11.EF.PetShopOrm.Repositories;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Session_11
-{
+namespace Session_11 {
     public partial class Form1 : Form {
 
 
@@ -12,6 +13,13 @@ namespace Session_11
         public PetShop petShop;
         public Customer customer;
         public MonthlyLedgerReport monthlyLedgerReport;
+
+        private PetShopRepo _petShopRepo;
+        private CustomerRepo _customerRepo;
+        private EmployeeRepo _employeeRepo;
+        private PetRepo _petRepo;
+        private PetFoodRepo _petFoodRepo;
+        private TransactionRepo _transactionRepo;
 
         public Form1() {
             InitializeComponent();
@@ -23,6 +31,12 @@ namespace Session_11
             List<Customer> customers = new List<Customer>();
 
             petShop = new PetShop();
+            _petShopRepo = new PetShopRepo();
+            _customerRepo = new CustomerRepo();
+            _employeeRepo = new EmployeeRepo();
+            _petRepo = new PetRepo();
+            _petFoodRepo = new PetFoodRepo();
+            _transactionRepo = new TransactionRepo();
 
             PopulateEmployee();
             PopulateCustomers();
@@ -38,19 +52,19 @@ namespace Session_11
 
         public TransactionSummary newTransaction(Employee employee, Pet pet, PetFood petFood, Customer customer) {
             Transaction transaction = new Transaction();
-            transaction.TransactionID = 1;
-            transaction.EmployeeID = employee.EmployeeID;
-            transaction.CustomerID = customer.CustomerID;
+            transaction.ID = 1;
+            transaction.EmployeeID = employee.ID;
+            transaction.CustomerID = customer.ID;
             transaction.PetPrice = pet.Price;
             transaction.PetFoodPrice = petFood.PetFoodPrice;
-            transaction.PetID = pet.PetID;
+            transaction.PetID = pet.ID;
             transaction.TransactionDate = DateTime.Now;
-            transaction.PetFoodID = petFood.PetFoodID;
+            transaction.PetFoodID = petFood.ID;
 
             petShop.Transactions.Add(transaction);
 
             TransactionSummary summary = new TransactionSummary();
-            summary.TransactionID = transaction.TransactionID;
+            summary.TransactionID = transaction.ID;
             summary.EmployeeID = transaction.EmployeeID;
             summary.EmployeeName = employee.Name;
             summary.CustomerID = transaction.CustomerID;
@@ -73,15 +87,15 @@ namespace Session_11
 
             var pets = new List<Pet>
             {
-                new Pet {PetID=1,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.OK ,Price = 100, Cost = 70,Breed="French Bulldog"},
-                new Pet {PetID=2,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.Recovering ,Price =80, Cost = 30,Breed="Akita"},
-                new Pet {PetID=3,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.Unhealthy ,Price =0, Cost = 20,Breed="Beagle"},
-                new Pet {PetID=4,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.OK, Price = 100, Cost = 80,Breed="Persian"},
-                new Pet {PetID=5,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.Recovering, Price = 80, Cost = 60,Breed="Maine Coon"},
-                new Pet {PetID=6,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.Unhealthy, Price = 0, Cost = 20,Breed="Ragdoll"},
-                new Pet {PetID=7,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.OK, Price = 80, Cost = 50,Breed="Canary"},
-                new Pet {PetID=8,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.Recovering, Price = 60, Cost = 40,Breed="Amazon Parrot"},
-                new Pet {PetID=9,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.Unhealthy, Price = 30, Cost = 15,Breed="African Grey Parrot"}
+                new Pet {ID=1,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.OK ,Price = 100, Cost = 70,Breed="French Bulldog"},
+                new Pet {ID=2,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.Recovering ,Price =80, Cost = 30,Breed="Akita"},
+                new Pet {ID=3,AnimalType = Pet.AnimalTypeEnum.Dog,Status=Pet.PetStatusEnum.Unhealthy ,Price =0, Cost = 20,Breed="Beagle"},
+                new Pet {ID=4,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.OK, Price = 100, Cost = 80,Breed="Persian"},
+                new Pet {ID=5,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.Recovering, Price = 80, Cost = 60,Breed="Maine Coon"},
+                new Pet {ID=6,AnimalType = Pet.AnimalTypeEnum.Cat,Status=Pet.PetStatusEnum.Unhealthy, Price = 0, Cost = 20,Breed="Ragdoll"},
+                new Pet {ID=7,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.OK, Price = 80, Cost = 50,Breed="Canary"},
+                new Pet {ID=8,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.Recovering, Price = 60, Cost = 40,Breed="Amazon Parrot"},
+                new Pet {ID=9,AnimalType = Pet.AnimalTypeEnum.Bird,Status=Pet.PetStatusEnum.Unhealthy, Price = 30, Cost = 15,Breed="African Grey Parrot"}
             };
             petShop.Pets.AddRange(pets);
         }
@@ -89,10 +103,10 @@ namespace Session_11
         public void PopulatePetFoods() {
             var petsFood = new List<PetFood>
             {
-                new PetFood {PetFoodID=1,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice = 9, PetFoodCost = 3},               
-                new PetFood {PetFoodID=2,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 6, PetFoodCost = 2},           
-                new PetFood {PetFoodID=3,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 3, PetFoodCost = 1},
- 
+                new PetFood {ID=1,AnimalType = PetFood.AnimalTypeEnum.Dog,PetFoodPrice = 9, PetFoodCost = 3},
+                new PetFood {ID=2,AnimalType = PetFood.AnimalTypeEnum.Cat,PetFoodPrice = 6, PetFoodCost = 2},
+                new PetFood {ID=3,AnimalType = PetFood.AnimalTypeEnum.Bird,PetFoodPrice = 3, PetFoodCost = 1},
+
             };
             petShop.PetFoods.AddRange(petsFood);
         }
@@ -123,7 +137,7 @@ namespace Session_11
         private void PopulateEmployee() {
 
             Employee employee1 = new Employee() {
-                EmployeeID =1,
+                ID = 1,
                 Name = "Fotis",
                 Surname = "Chrysoulas",
                 EmployeeType = Employee.EmployeeTypeEnum.Manager,
@@ -132,7 +146,7 @@ namespace Session_11
             };
 
             Employee employee2 = new Employee() {
-                EmployeeID =2,
+                ID = 2,
                 Name = "Alex",
                 Surname = "Gad",
                 EmployeeType = Employee.EmployeeTypeEnum.Staff,
@@ -177,30 +191,9 @@ namespace Session_11
             bsPetFood.DataSource = petShop.PetFoods;
             bsEmployee.DataSource = petShop.Employees;
             bsTransaction.DataSource = petShop.Transactions;
-            monthlyLedgerBindingSource.DataSource = petShop.MonthlyLedgers;
+            //   monthlyLedgerBindingSource.DataSource = petShop.MonthlyLedgers;
         }
-
-
-        public void CheckStock(Stock stock, double petFoodQty) {
-
-        }
-
-
-
-        private void gridControl1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void employeeBindingSource_CurrentChanged(object sender, EventArgs e) {
-
-        }
-
-        private void dataGridViewAnimalMenu_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-
-
+        
         private void button1_Click(object sender, EventArgs e) {
             Transaction tras = new Transaction();
             bsTransaction.Add(tras);
@@ -218,78 +211,32 @@ namespace Session_11
         private void btnRemoveEmployee_Click(object sender, EventArgs e) {
             bsEmployee.RemoveCurrent();
         }
-
-        private void btnSave_Click(object sender, EventArgs e) {
-            
-        }
-
-        private void btnLoad_Click(object sender, EventArgs e) {
-            
-        }
-
+               
         private void btnAddPet_Click(object sender, EventArgs e) {
             Pet pet = new Pet();
             bsPet.Add(pet);
-        }
-
-        private void button1_Click_1(object sender, EventArgs e) {
-            bsPet.RemoveCurrent();
         }
 
         private void button2_Click(object sender, EventArgs e) {
             PetFood petFood = new PetFood();
             bsPetFood.Add(petFood);
 
-        }
-
-        private void button3_Click(object sender, EventArgs e) {
-            bsPetFood.RemoveCurrent();
-        }
+        }       
 
         private void btnAddCustomer_Click(object sender, EventArgs e) {
             Customer newCust = new Customer();
             bsCustomer.Add(newCust);
         }
 
-        private void btnRemoveCustomer_Click(object sender, EventArgs e) {
-            bsCustomer.RemoveCurrent();
-        }
-
-        private void btnOrder_Click_1(object sender, EventArgs e) {
-            //PopulateLastChanges();
-            //Customer newCust = (Customer)grvCustomers.SelectedRows[0].DataBoundItem;
-            //Employee employee = (Employee)grvEmployee.SelectedRows[0].DataBoundItem;
-            //PetFood petFood = (PetFood)grvPetFood.SelectedRows[0].DataBoundItem;
-            //Pet newPet = (Pet)grvPets.SelectedRows[0].DataBoundItem;
-
-            //newTransaction(employee, newPet, petFood, newCust);
-        }
-
-        private void btnOrder_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnCancerl_Click(object sender, EventArgs e) {
-
-        }
-
-        private void customerBindingSource1_CurrentChanged(object sender, EventArgs e) {
-
-        }
-
-        private void gridControl3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void gridControl2_Click(object sender, EventArgs e) {
-
-        }
-
         private void btnLoad_Click_1(object sender, EventArgs e) {
-            Serializer serializer = new Serializer();
-            petShop = serializer.Deserialize<PetShop>("PetShop.json");
-            //PopulateLastChanges();
+            //Serializer serializer = new Serializer();
+            //petShop = serializer.Deserialize<PetShop>("PetShop.json");
             SetBindings();
+            grcCustomers.DataSource = _customerRepo.GetAll();
+            grcEmployees.DataSource = _employeeRepo.GetAll();
+            grcPets.DataSource = _petRepo.GetAll();
+            grcPetFoods.DataSource = _petFoodRepo.GetAll();
+            grcTransactions.DataSource = _transactionRepo.GetAll();
 
             MessageBox.Show("Data Load Correctly!");
         }
@@ -297,6 +244,7 @@ namespace Session_11
         private void btnSave_Click_1(object sender, EventArgs e) {
             Serializer serializer = new Serializer();
             serializer.SerializeToFile(petShop, "PetShop.json");
+            _petShopRepo.Add(petShop);
         }
     }
 }

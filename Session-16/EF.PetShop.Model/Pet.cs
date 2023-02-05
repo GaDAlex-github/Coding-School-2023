@@ -1,39 +1,32 @@
-﻿using System;
+﻿using EF.PetShop.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Session_11.EF.PetShopModel
-{
-    public class Pet : PetShop
-    {
-        public enum AnimalTypeEnum
-        {
+namespace Session_11.EF.PetShopModel {
+    public class Pet : EntityBase {
+        public enum AnimalTypeEnum {
             Bird,
             Cat,
             Dog,
             None
         }
-        public enum PetStatusEnum
-        {
+        public enum PetStatusEnum {
             OK,
             Unhealthy,
             Recovering
         }
-
-        public int PetID { get; set; }
-        public string Breed { get; set; }
         public AnimalTypeEnum AnimalType { get; set; }
+        public string Breed { get; set; }
         public PetStatusEnum Status { get; set; }
         public double Price { get; set; }
         public double Cost { get; set; }
 
 
-        public string AnimalBreed
-        {
-            get
-            {
+        public string AnimalBreed {
+            get {
                 return string.Format("{0} {1}", AnimalType, Breed);
             }
         }
@@ -43,11 +36,9 @@ namespace Session_11.EF.PetShopModel
         public PetShop PetShop { get; set; } = null!;
 
 
-        public Pet()
-        {
-           
-            switch (AnimalType)
-            {
+        public Pet() {
+
+            switch (AnimalType) {
 
                 case AnimalTypeEnum.Cat:
                     Price = 100;
@@ -65,9 +56,7 @@ namespace Session_11.EF.PetShopModel
 
 
 
-        public Pet(int petID, string breed, AnimalTypeEnum animalType, PetStatusEnum status, double price, double cost)
-        {
-            PetID = petID;
+        public Pet(string breed, AnimalTypeEnum animalType, PetStatusEnum status, double price, double cost) {
             Breed = breed;
             AnimalType = animalType;
             Status = status;

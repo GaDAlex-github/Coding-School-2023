@@ -212,7 +212,6 @@ namespace Session_11
             // bsCustomer
             // 
             this.bsCustomer.DataSource = typeof(Session_11.EF.PetShopModel.Customer);
-            this.bsCustomer.CurrentChanged += new System.EventHandler(this.customerBindingSource1_CurrentChanged);
             // 
             // bsEmployee
             // 
@@ -287,7 +286,6 @@ namespace Session_11
             this.grcCustomers.UseEmbeddedNavigator = true;
             this.grcCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvCustomers});
-            this.grcCustomers.Click += new System.EventHandler(this.gridControl3_Click);
             // 
             // grvCustomers
             // 
@@ -440,7 +438,6 @@ namespace Session_11
             this.grcPets.UseEmbeddedNavigator = true;
             this.grcPets.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grvPets});
-            this.grcPets.Click += new System.EventHandler(this.gridControl2_Click);
             // 
             // grvPets
             // 
