@@ -6,31 +6,33 @@ body {
 header {
     background-color: #DDE0E3;
     padding: 1rem;
-    margin: 0;    
+    display: flex;
+    justify-content: space-between;
+       
 }
 
-.logo{
-    width: 100px;
-}
 a{
     color: rgb(19, 192, 169);
     text-decoration: none;
 }
-.nav{
+.nav{    
+
     display: flex;
-    padding-top: 30px;  
-    padding-right: 20px;  
-    flex-wrap: wrap;    
+    flex-wrap: wrap; 
     justify-content: center;
+    align-items: center;
     gap: 2rem;
     list-style: none;
-    position: absolute;
-    top: 0; 
-    right: 0; 
+  
 }
 
 h1{
     text-align: left;  
+}
+
+.content{
+    width: 80%;
+    margin: 0 auto;
 }
 
 div img{
@@ -38,27 +40,18 @@ div img{
     margin-top: 20px;
     
 }
-div .main{
-    width:500px;
-   
-}
 
-div .side{
-    width:350px;
-}
-
-div .article{
-  position: relative;
-  font-size: 16px;
-  display: inline-flex; 
-  gap: 1rem;
+.article{
+    display: flex;
+    font-size: 16px;
+    gap: 1rem;
 }
 
 h2{
     color: gray;
 }
 
-.side h2{
+ h2{
     padding-left: 40px;
 }
 
@@ -81,7 +74,7 @@ form{
 }
 
 form #name {
-    width:500px;
+    width:480px;
     height:30px;
     border:solid 2px rgb(221, 216, 216);
     border-radius: 10px;
@@ -89,7 +82,7 @@ form #name {
 }
 
 form #comment{
-    width:500px;
+    width:480px;
     height:50px;
     border:solid 2px rgb(221, 216, 216);
     border-radius: 10px;
@@ -103,4 +96,12 @@ button {
     padding: 7px;
     border-radius: 8px;
     margin-top: 10px;
+}
+
+@media (max-width: 600px) {    
+    header{flex-direction: column;justify-content:center;align-items:center;}
+    .content{width:100%}
+    .article { width: initial; flex-direction: column; align-items: left;} 
+    form #name {width:350px;}
+    form #comment {width:350px;}
 }
