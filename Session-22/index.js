@@ -1,4 +1,4 @@
-var selectPostRowEl = rowEl;
+var selectRowEl = rowEl;
 //1
 function stringReverse() {
     const str = document.getElementById("string1").value;
@@ -35,10 +35,8 @@ function newCustomer() {
 function createTableRow(customer, tableEl) {
     let rowEl = tableEl.insertRow();
 
-    rowEl.setAttribute("data-id", customer.id);
-
     rowEl.addEventListener("click", (event) => {
-        selectPostRow(event.currentTarget);
+        selectRow(event.currentTarget);
     });
 
     let nameEl = rowEl.insertCell(0);
@@ -54,12 +52,12 @@ function createTableRow(customer, tableEl) {
     genderEl.innerHTML = customer.gender;
 }
 function selectRow(rowEl) {
-    if (selectPostRowEl != undefined) {
-        selectPostRowEl.classList.remove("selected");
+    if (selectRowEl != undefined) {
+        selectRowEl.classList.remove("selected");
     }
 
-    selectPostRowEl = rowEl;
-    selectPostRowEl.classList.add("selected");
+    selectRowEl = rowEl;
+    selectRowEl.classList.add("selected");
 }
 //4
 function multiply() {
