@@ -2,8 +2,7 @@
 
 namespace PetShop.Model
 {
-    public class Pet : EntityBase
-    {
+    public class Pet : EntityBase {
         public Pet(string breed, AnimalType animalType, PetStatus petStatus, decimal price, decimal cost)
         {
             Breed = breed;

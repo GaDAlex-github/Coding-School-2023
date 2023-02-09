@@ -5,7 +5,7 @@
 namespace PetShop.EF.Migrations
 {
     /// <inheritdoc />
-    public partial class newInitial : Migration
+    public partial class phoneStringInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,114 +46,103 @@ namespace PetShop.EF.Migrations
                 name: "PK_Customers",
                 table: "Customers");
 
-            migrationBuilder.RenameColumn(
+            migrationBuilder.DropColumn(
                 name: "Id",
+                table: "Transactions");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "Pets");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "PetFoods");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "Employees");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "Customers");
+
+            migrationBuilder.RenameColumn(
+                name: "ID",
                 table: "Transactions",
-                newName: "ID");
+                newName: "Id");
 
             migrationBuilder.RenameColumn(
-                name: "Id",
+                name: "ID",
                 table: "Pets",
-                newName: "ID");
+                newName: "Id");
 
             migrationBuilder.RenameColumn(
-                name: "Id",
+                name: "ID",
                 table: "PetFoods",
-                newName: "ID");
+                newName: "Id");
 
             migrationBuilder.RenameColumn(
-                name: "Id",
+                name: "ID",
                 table: "Employees",
-                newName: "ID");
+                newName: "Id");
 
             migrationBuilder.RenameColumn(
-                name: "Id",
+                name: "ID",
                 table: "Customers",
-                newName: "ID");
+                newName: "Id");
 
             migrationBuilder.AlterColumn<int>(
-                name: "ID",
+                name: "Id",
                 table: "Transactions",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Transactions",
-                type: "int",
-                nullable: false,
-                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "ID",
+                name: "Id",
                 table: "Pets",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Pets",
-                type: "int",
-                nullable: false,
-                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "ID",
+                name: "Id",
                 table: "PetFoods",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "PetFoods",
-                type: "int",
-                nullable: false,
-                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "ID",
+                name: "Id",
                 table: "Employees",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Employees",
-                type: "int",
-                nullable: false,
-                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
+            migrationBuilder.AlterColumn<string>(
+                name: "Phone",
+                table: "Customers",
+                type: "nvarchar(30)",
+                maxLength: 30,
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int");
+
             migrationBuilder.AlterColumn<int>(
-                name: "ID",
+                name: "Id",
                 table: "Customers",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Customers",
-                type: "int",
-                nullable: false,
-                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AddPrimaryKey(
@@ -253,94 +242,123 @@ namespace PetShop.EF.Migrations
                 name: "PK_Customers",
                 table: "Customers");
 
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Transactions");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Pets");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "PetFoods");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Employees");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Customers");
-
             migrationBuilder.RenameColumn(
-                name: "ID",
+                name: "Id",
                 table: "Transactions",
-                newName: "Id");
+                newName: "ID");
 
             migrationBuilder.RenameColumn(
-                name: "ID",
+                name: "Id",
                 table: "Pets",
-                newName: "Id");
+                newName: "ID");
 
             migrationBuilder.RenameColumn(
-                name: "ID",
+                name: "Id",
                 table: "PetFoods",
-                newName: "Id");
+                newName: "ID");
 
             migrationBuilder.RenameColumn(
-                name: "ID",
+                name: "Id",
                 table: "Employees",
-                newName: "Id");
+                newName: "ID");
 
             migrationBuilder.RenameColumn(
-                name: "ID",
+                name: "Id",
                 table: "Customers",
-                newName: "Id");
+                newName: "ID");
 
             migrationBuilder.AlterColumn<int>(
-                name: "Id",
+                name: "ID",
                 table: "Transactions",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
+                .OldAnnotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "Transactions",
+                type: "int",
+                nullable: false,
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "Id",
+                name: "ID",
                 table: "Pets",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
+                .OldAnnotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "Pets",
+                type: "int",
+                nullable: false,
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "Id",
+                name: "ID",
                 table: "PetFoods",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
+                .OldAnnotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "PetFoods",
+                type: "int",
+                nullable: false,
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "Id",
+                name: "ID",
                 table: "Employees",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
+                .OldAnnotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "Employees",
+                type: "int",
+                nullable: false,
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AlterColumn<int>(
-                name: "Id",
+                name: "Phone",
+                table: "Customers",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(30)",
+                oldMaxLength: 30);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "ID",
                 table: "Customers",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
+                .OldAnnotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "Customers",
+                type: "int",
+                nullable: false,
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AddPrimaryKey(

@@ -17,7 +17,7 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbEmployee = context.Employees.Where(employee => employee.ID == id).SingleOrDefault();
+            var dbEmployee = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
             if (dbEmployee is null)
                 return;
             context.Remove(dbEmployee);
@@ -27,26 +27,20 @@ namespace PetShop.EF.Repositories {
         public IList<Employee> GetAll() {
             using var context = new PetShopDbContext();
             return context.Employees
-                .Include(employee => employee.Name)
-                .Include(employee => employee.Surname)
-                .Include(employee => employee.EmployeeType)
-                .Include(employee => employee.SalaryPerMonth)
+                .Include(employee => employee.Transactions)
                 .ToList();
         }
 
         public Employee? GetById(int id) {
             using var context = new PetShopDbContext();
-            return context.Employees.Where(Employee => Employee.ID == id)
-                .Include(employee => employee.Name)
-                .Include(employee => employee.Surname)
-                .Include(employee => employee.EmployeeType)
-                .Include(employee => employee.SalaryPerMonth)
-                .SingleOrDefault();
+            return context.Employees.Where(Employee => Employee.Id == id)
+                .Include(employee => employee.Transactions)
+                .SingleOrDefault(employee => employee.Id == id);
         }
 
         public void Update(int id, Employee entity) {
             using var context = new PetShopDbContext();
-            var dbEmployee = context.Employees.Where(employee => employee.ID == id).SingleOrDefault();
+            var dbEmployee = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
             if (dbEmployee is null)
                 return;
             dbEmployee.Name = entity.Name;

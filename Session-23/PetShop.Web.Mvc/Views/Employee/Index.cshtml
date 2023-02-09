@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PetShop.Model.Customer>
+﻿@model IEnumerable<PetShop.Model.Employee>
 
 @{
-    ViewData["Title"] = "Customers";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Customers</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -19,12 +19,12 @@
                 @Html.DisplayNameFor(model => model.Surname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                @Html.DisplayNameFor(model => model.EmployeeType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tin)
+                @Html.DisplayNameFor(model => model.SalaryPerMonth)
             </th>
-           <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.EmployeeType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tin)
+                @Html.DisplayFor(modelItem => item.SalaryPerMonth)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

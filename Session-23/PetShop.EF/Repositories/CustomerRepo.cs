@@ -17,7 +17,7 @@ namespace PetShop.EF.Repositories {
 
             public void Delete(int id) {
                 using var context = new PetShopDbContext();
-                var dbCustomer = context.Customers.Where(customer => customer.ID == id).SingleOrDefault();
+                var dbCustomer = context.Customers.Where(customer => customer.Id == id).SingleOrDefault();
                 if (dbCustomer is null)
                     return;
                 context.Remove(dbCustomer);
@@ -27,26 +27,20 @@ namespace PetShop.EF.Repositories {
             public IList<Customer> GetAll() {
                 using var context = new PetShopDbContext();
                 return context.Customers
-                    .Include(customer => customer.Name)
-                    .Include(customer => customer.Surname)
-                    .Include(customer => customer.Phone)
-                    .Include(customer => customer.Tin)
-                    .ToList();
+                .Include(customer => customer.Transactions)
+                .ToList();
             }
 
             public Customer? GetById(int id) {
                 using var context = new PetShopDbContext();
-                return context.Customers.Where(customer => customer.ID == id)
-                   .Include(customer => customer.Name)
-                    .Include(customer => customer.Surname)
-                    .Include(customer => customer.Phone)
-                    .Include(customer => customer.Tin)
-                    .SingleOrDefault();
+                return context.Customers.Where(customer => customer.Id == id)
+                    .Include(customer => customer.Transactions)
+                    .SingleOrDefault(customer => customer.Id==id);
             }
 
             public void Update(int id, Customer entity) {
                 using var context = new PetShopDbContext();
-                var dbCustomer = context.Customers.Where(customer => customer.ID == id).SingleOrDefault();
+                var dbCustomer = context.Customers.Where(customer => customer.Id == id).SingleOrDefault();
                 if (dbCustomer is null)
                     return;
                 dbCustomer.Name = entity.Name;

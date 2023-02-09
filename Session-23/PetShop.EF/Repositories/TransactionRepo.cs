@@ -18,7 +18,7 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbTransaction = context.Transactions.Where(transaction => transaction.ID == id).SingleOrDefault();
+            var dbTransaction = context.Transactions.Where(transaction => transaction.Id == id).SingleOrDefault();
             if (dbTransaction is null)
                 return;
             context.Remove(dbTransaction);

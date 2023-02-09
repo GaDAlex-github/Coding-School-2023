@@ -17,7 +17,7 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.Pets.Where(petFood => petFood.ID == id).SingleOrDefault();
+            var dbPetFood = context.Pets.Where(petFood => petFood.Id == id).SingleOrDefault();
             if (dbPetFood is null)
                 return;
             context.Remove(dbPetFood);
@@ -27,24 +27,20 @@ namespace PetShop.EF.Repositories {
         public IList<PetFood> GetAll() {
             using var context = new PetShopDbContext();
             return context.PetFoods
-                .Include(petFood => petFood.AnimalType)
-                .Include(petFood => petFood.Price)
-                .Include(petFood => petFood.Cost)
+                .Include(petFood => petFood.Transactions)
                 .ToList();
         }
 
         public PetFood? GetById(int id) {
             using var context = new PetShopDbContext();
-            return context.PetFoods.Where(petFood => petFood.ID == id)
-                .Include(petFood => petFood.AnimalType)
-                .Include(petFood => petFood.Price)
-                .Include(petFood => petFood.Cost)
-                .SingleOrDefault();
+            return context.PetFoods.Where(petFood => petFood.Id == id)
+                .Include(petFood => petFood.Transactions)
+                .SingleOrDefault(petFood => petFood.Id == id);
         }
 
         public void Update(int id, PetFood entity) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Where(petFood => petFood.ID == id).SingleOrDefault();
+            var dbPetFood = context.PetFoods.Where(petFood => petFood.Id == id).SingleOrDefault();
             if (dbPetFood is null)
                 return;
             dbPetFood.AnimalType = entity.AnimalType;

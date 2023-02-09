@@ -12,8 +12,8 @@ using PetShop.EF.Context;
 namespace PetShop.EF.Migrations
 {
     [DbContext(typeof(PetShopDbContext))]
-    [Migration("20230208123257_newInitial")]
-    partial class newInitial
+    [Migration("20230209115118_phoneStringInitial")]
+    partial class phoneStringInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,16 +33,15 @@ namespace PetShop.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -68,9 +67,6 @@ namespace PetShop.EF.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("EmployeeType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -111,9 +107,6 @@ namespace PetShop.EF.Migrations
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("PetStatus")
                         .HasColumnType("int");
 
@@ -141,9 +134,6 @@ namespace PetShop.EF.Migrations
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
@@ -168,9 +158,6 @@ namespace PetShop.EF.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ID")
                         .HasColumnType("int");
 
                     b.Property<int>("PetFoodId")

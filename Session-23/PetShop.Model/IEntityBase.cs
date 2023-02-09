@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace PetShop.Model {
     public interface IEntityBase {
-        int ID { get; set; }
+        int Id { get; set; }
     }
 }

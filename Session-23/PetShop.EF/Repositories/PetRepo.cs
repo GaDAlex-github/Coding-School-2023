@@ -17,7 +17,7 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(pet => pet.ID == id).SingleOrDefault();
+            var dbPet = context.Pets.Where(pet => pet.Id == id).SingleOrDefault();
             if (dbPet is null)
                 return;
             context.Remove(dbPet);
@@ -27,28 +27,21 @@ namespace PetShop.EF.Repositories {
         public IList<Pet> GetAll() {
             using var context = new PetShopDbContext();
             return context.Pets
-                .Include(pet => pet.AnimalType)
-                .Include(pet => pet.Breed)
-                .Include(pet => pet.PetStatus)
-                .Include(pet => pet.Price)
-                .Include(pet => pet.Cost)
+                .Include(pet => pet.Transactions)
                 .ToList();
         }
+    
 
         public Pet? GetById(int id) {
             using var context = new PetShopDbContext();
-            return context.Pets.Where(pet => pet.ID == id)
-                .Include(pet => pet.AnimalType)
-                .Include(pet => pet.Breed)
-                .Include(pet => pet.PetStatus)
-                .Include(pet => pet.Price)
-                .Include(pet => pet.Cost)
-                .SingleOrDefault();
+            return context.Pets.Where(pet => pet.Id == id)
+                .Include(pet => pet.Transactions)
+                .SingleOrDefault(pet => pet.Id == id); ;
         }
 
         public void Update(int id, Pet entity) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(pet => pet.ID == id).SingleOrDefault();
+            var dbPet = context.Pets.Where(pet => pet.Id == id).SingleOrDefault();
             if (dbPet is null)
                 return;
             dbPet.AnimalType = entity.AnimalType;
