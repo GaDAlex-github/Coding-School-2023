@@ -92,6 +92,9 @@ namespace PetShop.Web.Mvc.Controllers {
             }
 
             dbCustomer.Name = customer.Name;
+            dbCustomer.Surname = customer.Surname;
+            dbCustomer.Phone = customer.Phone;
+            dbCustomer.Tin = customer.Tin;
             _customerRepo.Update(id, dbCustomer);
             return RedirectToAction(nameof(Index));
         }

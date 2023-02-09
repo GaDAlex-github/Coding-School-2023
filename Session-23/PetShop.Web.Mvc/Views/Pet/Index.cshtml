@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PetShop.Model.Employee>
+﻿@model IEnumerable<PetShop.Model.Pet>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Employees</h1>
+<h1>Pets</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,16 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Breed)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                @Html.DisplayNameFor(model => model.AnimalType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeType)
+                @Html.DisplayNameFor(model => model.PetStatus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalaryPerMonth)
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
             </th>
             <th></th>
         </tr>
@@ -31,16 +34,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Breed)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.AnimalType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeType)
+                @Html.DisplayFor(modelItem => item.PetStatus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SalaryPerMonth)
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

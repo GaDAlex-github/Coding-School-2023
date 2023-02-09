@@ -91,6 +91,9 @@ namespace PetShop.Web.Mvc.Controllers {
             }
 
             dbEmployee.Name = employee.Name;
+            dbEmployee.Surname = employee.Surname;
+            dbEmployee.EmployeeType = employee.EmployeeType;
+            dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;            
             _employeeRepo.Update(id, dbEmployee);
             return RedirectToAction(nameof(Index));
         }
