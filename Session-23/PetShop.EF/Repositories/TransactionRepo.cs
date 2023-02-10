@@ -27,32 +27,21 @@ namespace PetShop.EF.Repositories {
 
         public IList<Transaction> GetAll() {
             using var context = new PetShopDbContext();
-            return context.Transactions
-                .Include(transaction => transaction.Date)
+            return context.Transactions                
                 .Include(transaction => transaction.CustomerId)
                 .Include(transaction => transaction.EmployeeId)
-                .Include(transaction => transaction.PetId)
-                .Include(transaction => transaction.PetPrice)
+                .Include(transaction => transaction.PetId)               
                 .Include(transaction => transaction.PetFoodId)
-                .Include(transaction => transaction.PetFoodQty)
-                .Include(transaction => transaction.PetFoodPrice)
-                .Include(transaction => transaction.TotalPrice)
-
                 .ToList();
         }
 
         public Transaction? GetById(int id) {
             using var context = new PetShopDbContext();
-            return context.Transactions.Where(transaction => transaction.Id == id)
-                .Include(transaction => transaction.Date)
+            return context.Transactions.Where(transaction => transaction.Id == id)                
                 .Include(transaction => transaction.CustomerId)
                 .Include(transaction => transaction.EmployeeId)
                 .Include(transaction => transaction.PetId)
-                .Include(transaction => transaction.PetPrice)
-                .Include(transaction => transaction.PetFoodId)
-                .Include(transaction => transaction.PetFoodQty)
-                .Include(transaction => transaction.PetFoodPrice)
-                .Include(transaction => transaction.TotalPrice)
+                .Include(transaction => transaction.PetFoodId)                
                 .SingleOrDefault();
         }
 
