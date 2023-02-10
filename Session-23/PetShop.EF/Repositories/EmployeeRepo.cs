@@ -26,12 +26,15 @@ namespace PetShop.EF.Repositories {
 
         public IList<Employee> GetAll() {
             using var context = new PetShopDbContext();
-            return context.Employees.ToList();
+            return context.Employees
+                .Include(employee => employee.Transactions)
+                .ToList();
         }
 
         public Employee? GetById(int id) {
             using var context = new PetShopDbContext();
             return context.Employees.Where(Employee => Employee.Id == id)
+                .Include(employee => employee.Transactions)
                 .SingleOrDefault(employee => employee.Id == id);
         }
 

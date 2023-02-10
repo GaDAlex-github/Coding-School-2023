@@ -30,9 +30,8 @@ namespace PetShop.Web.Mvc.Controllers {
             }
 
             var mLedger = new MonthlyLedger(monthlyLedger.Year, monthlyLedger.Month, monthlyLedger.Income, monthlyLedger.Expenses);
-            
+
             return RedirectToAction("Index");
-            return View();
         }
 
         // GET: MonthlyLedgerController/Edit/5

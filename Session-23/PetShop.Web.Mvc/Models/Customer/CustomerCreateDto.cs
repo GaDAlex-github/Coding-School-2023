@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace PetShop.Web.Mvc.Models.Customer {
     public class CustomerCreateDto {
@@ -7,5 +8,7 @@ namespace PetShop.Web.Mvc.Models.Customer {
         public string Surname { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string Tin { get; set; } = null!;
+
+        public List<SelectListItem> Transactions { get; } = new List<SelectListItem>();
     }
 }
