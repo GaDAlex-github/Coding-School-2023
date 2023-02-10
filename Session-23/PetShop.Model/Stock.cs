@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Session_11.EF.PetShopModel
+namespace PetShop.Model
 {
     public class Stock
     {

@@ -26,15 +26,13 @@ namespace PetShop.EF.Repositories {
 
         public IList<PetFood> GetAll() {
             using var context = new PetShopDbContext();
-            return context.PetFoods
-                .Include(petFood => petFood.Transactions)
+            return context.PetFoods                
                 .ToList();
         }
 
         public PetFood? GetById(int id) {
             using var context = new PetShopDbContext();
             return context.PetFoods.Where(petFood => petFood.Id == id)
-                .Include(petFood => petFood.Transactions)
                 .SingleOrDefault(petFood => petFood.Id == id);
         }
 

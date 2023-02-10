@@ -1,15 +1,21 @@
-﻿namespace PetShop.Model
+﻿using System.Transactions;
+
+namespace PetShop.Model
 {
     public class Transaction : EntityBase {
-        public Transaction(decimal petPrice, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
+        public Transaction(int customerId,int employeeId,int petId, decimal petPrice,int petFoodId, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
         {
             Date = DateTime.Now;
+            CustomerId = customerId;
+            EmployeeId = employeeId;
+            PetId = petId;
             PetPrice = petPrice;
+            PetFoodId = petFoodId;
             PetFoodPrice = petFoodPrice;
             PetFoodQty = petFoodQty;
             TotalPrice = totalPrice;
         }
-
+        // public List<Transaction> Transactions { get; set; }
      
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -30,5 +36,13 @@
 
         public int PetFoodId { get; set; }
         public PetFood PetFood { get; set; } = null!;
+
+        public decimal SetTotalPrice(Transaction transaction, decimal transTotalPrice) {
+           
+            //foreach (Transaction trans in Transactions)
+              //  transTotalPrice += transaction.TotalPrice;
+            return transTotalPrice;
+        }
+        
     }
 }
