@@ -18,16 +18,16 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                <label asp-for="CustomerFullName" class="control-label">Customer Name</label>
+                <select asp-for="CustomerFullName" class="form-control" asp-items="Model.Customers"></select>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <label asp-for="EmployeeName" class="control-label">Employee Name</label>
+                <select asp-for="EmployeeName" class="form-control" asp-items="Model.Employees"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PetId" class="control-label"></label>
-                <select asp-for="PetId" class="form-control" asp-items="ViewBag.PetId"></select>
+                <label asp-for="PetId" class="control-label">Animal Type</label>
+                <select asp-for="PetId" class="form-control" asp-items="Model.Pets"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PetPrice" class="control-label"></label>
@@ -35,8 +35,8 @@
                 <span asp-validation-for="PetPrice" class="text-danger"></span>
             </div>
              <div class="form-group">
-                <label asp-for="PetFoodId" class="control-label"></label>
-                <select asp-for="PetFoodId" class ="form-control" asp-items="ViewBag.PetFoodId"></select>
+                <label asp-for="PetFoodId" class="control-label">Pet Food For</label>
+                <select asp-for="PetFoodId" class="form-control" asp-items="Model.PetFoods"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PetFoodQty" class="control-label"></label>

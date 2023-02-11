@@ -3,14 +3,10 @@
 namespace PetShop.Model
 {
     public class Transaction : EntityBase {
-        public Transaction(int customerId,int employeeId,int petId, decimal petPrice,int petFoodId, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
+        public Transaction( decimal petPrice, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
         {
-            Date = DateTime.Now;
-            CustomerId = customerId;
-            EmployeeId = employeeId;
-            PetId = petId;
-            PetPrice = petPrice;
-            PetFoodId = petFoodId;
+            Date = DateTime.Now;           
+            PetPrice = petPrice;           
             PetFoodPrice = petFoodPrice;
             PetFoodQty = petFoodQty;
             TotalPrice = totalPrice;

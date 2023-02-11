@@ -2,19 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using PetShop.EF.Repositories;
 using PetShop.Model;
+using PetShop.Model.Enums;
 using PetShop.Web.Mvc.Models.Transaction;
 
 namespace PetShop.Web.Mvc.Controllers {
     public class TransactionController : Controller {
 
         private readonly IEntityRepo<Transaction> _transactionRepo;
-        public TransactionController(IEntityRepo<Transaction> transactionRepo) {
+        private readonly IEntityRepo<Customer> _customerRepo;
+        private readonly IEntityRepo<Employee> _employeeRepo;
+        private readonly IEntityRepo<Pet> _petRepo;
+        private readonly IEntityRepo<PetFood> _petFoodRepo;
+        public TransactionController(IEntityRepo<Transaction> transactionRepo, IEntityRepo<Customer> customerRepo,
+                 IEntityRepo<Employee> employeeRepo, IEntityRepo<Pet> petRepo, IEntityRepo<PetFood> petFoodRepo) {
             _transactionRepo = transactionRepo;
+            _customerRepo = customerRepo;
+            _employeeRepo = employeeRepo;
+            _petRepo = petRepo;
+            _petFoodRepo = petFoodRepo;
         }
 
         // GET: TransactionController
         public ActionResult Index() {
-            var transactions = _transactionRepo.GetAll();            
+            var transaction = _transactionRepo.GetAll(); 
+            var transactions = transaction.ToList();
             return View(model: transactions);
         }
 
@@ -46,7 +57,24 @@ namespace PetShop.Web.Mvc.Controllers {
 
         // GET: TransactionController/Create
         public ActionResult Create() {
-            return View();
+            var newTrasaction = new TransactionCreateDto();
+            var customers = _customerRepo.GetAll();
+            foreach(var customer in customers) {
+                newTrasaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(customer.CustomerFullName, customer.Id.ToString()));
+            }
+            var employees = _employeeRepo.GetAll();
+            foreach (var employee in employees) {
+                newTrasaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(employee.Name, employee.Id.ToString()));
+            }
+            var pets = _petRepo.GetAll();
+            foreach (var pet in pets) {
+                newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString(), pet.Id.ToString()));
+            }
+            var petFoods = _petFoodRepo.GetAll();
+            foreach (var petFood in petFoods) {
+                newTrasaction.PetFoods.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(petFood.AnimalType.ToString(), petFood.Id.ToString()));
+            }
+            return View(model: newTrasaction);
         }
 
         // POST: TransactionController/Create
@@ -57,7 +85,7 @@ namespace PetShop.Web.Mvc.Controllers {
                 return View();
             }
             
-            var dbTransaction = new Transaction(transaction.CustomerId, transaction.EmployeeId, transaction.PetId, transaction.PetPrice, transaction.PetFoodId, transaction.PetFoodQty, transaction.PetFoodPrice, transaction.TotalPrice);
+            var dbTransaction = new Transaction( transaction.PetPrice, transaction.PetFoodQty, transaction.PetFoodPrice, transaction.TotalPrice);
             _transactionRepo.Add(dbTransaction);
             return RedirectToAction("Index");
         }

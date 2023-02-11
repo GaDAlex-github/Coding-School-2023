@@ -16,7 +16,8 @@ namespace PetShop.Web.Mvc.Controllers {
         public ActionResult Index() {
 
             var customers = _customerRepo.GetAll();
-            return View(model: customers);
+            var customerTrans= customers.ToList();
+            return View(model: customerTrans);
         }
 
         // GET: CustomerController/Details/5

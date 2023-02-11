@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PetShop.Model.MonthlyLedger>
+﻿@model IEnumerable<PetShop.Model.PetReport>
 
 @{
-    ViewData["Title"] = "Monthly Ledger";
+    ViewData["Title"] = "Pet Report";
 }
 
-<h1>Monthly Ledger</h1>
+<h1>Pet Report</h1>
 
 
 <table class="table">
@@ -17,19 +17,16 @@
                 @Html.DisplayNameFor(model => model.Month)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Income)
+                @Html.DisplayNameFor(model => model.AnimalType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Expenses)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
+                @Html.DisplayNameFor(model => model.TotalSold)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+        @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Year)
@@ -38,15 +35,12 @@
                     @Html.DisplayFor(modelItem => item.Month)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Income)
+                    @Html.DisplayFor(modelItem => item.AnimalType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Expenses)
+                    @Html.DisplayFor(modelItem => item.TotalSold)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total)
-                </td>
-             </tr>
+            </tr>
         }
     </tbody>
 </table>

@@ -9,6 +9,6 @@ namespace PetShop.Web.Mvc.Models.Customer {
         public string Phone { get; set; } = null!;
         public string Tin { get; set; } = null!;
 
-        public List<SelectListItem> Transactions { get; } = new List<SelectListItem>();
+       
     }
 }
