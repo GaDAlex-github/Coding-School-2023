@@ -68,7 +68,7 @@ namespace PetShop.Web.Mvc.Controllers {
             var pets = _petRepo.GetAll();
             foreach (var pet in pets) {
                 if(pet.PetStatus == PetStatus.Unhealthy) {
-                    
+                   
                 }
                 newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString()+" "+pet.Breed, pet.Id.ToString()));
             }
@@ -87,7 +87,7 @@ namespace PetShop.Web.Mvc.Controllers {
                 return View();
             }
 
-            var dbTransaction = new Transaction(transaction.PetPrice, transaction.PetFoodQty, transaction.PetFoodPrice, transaction.TotalPrice) {
+            var dbTransaction = new Transaction(transaction.PetPrice, transaction.PetFoodQty, transaction.PetFoodPrice) {
                 CustomerId = transaction.CustomerId,
                 EmployeeId = transaction.EmployeeId,
                 PetId = transaction.PetId,

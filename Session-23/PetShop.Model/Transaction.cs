@@ -3,13 +3,13 @@
 namespace PetShop.Model
 {
     public class Transaction : EntityBase {
-        public Transaction( decimal petPrice, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
+        public Transaction( decimal petPrice, int petFoodQty, decimal petFoodPrice)
         {
             Date = DateTime.Now;           
             PetPrice = petPrice;           
             PetFoodPrice = petFoodPrice;
             PetFoodQty = petFoodQty;
-            TotalPrice = totalPrice;
+            TotalPrice = (petFoodQty-1) * petFoodPrice + petPrice ;
         }
         // public List<Transaction> Transactions { get; set; }
      

@@ -25,6 +25,8 @@ namespace PetShop.Web.Mvc.Controllers {
         // GET: MonthlyLedgerController
         public ActionResult Index() {
             var monthlyLedger = new MonthlyLedgerCreateDto();
+            monthlyLedger.Year = DateTime.Today.Year;
+            monthlyLedger.Month = DateTime.Today.Month;
             var transactions = _transactionRepo.GetAll();           
             var pets = _petRepo.GetAll();            
             var petFoods = _petFoodRepo.GetAll();
@@ -32,8 +34,8 @@ namespace PetShop.Web.Mvc.Controllers {
             decimal StaffSalary=0;
             decimal petFoodCost = 0;
             decimal petCost = 0;
-
             decimal Rent = 2000;
+
             foreach(Employee employee in employees) 
                  StaffSalary += employee.SalaryPerMonth;
             foreach (PetFood petFood in petFoods)
@@ -47,9 +49,9 @@ namespace PetShop.Web.Mvc.Controllers {
             }
             monthlyLedger.Expenses += Rent;
             monthlyLedger.Total = monthlyLedger.Income - monthlyLedger.Expenses;
-            string result = $"Year: {monthlyLedger.Year} Month: {monthlyLedger.Month} Income: {monthlyLedger.Income} " +
-                $"Expenses: {monthlyLedger.Expenses} Total Profit: {monthlyLedger.Total}";
-            return View(result);
+            //string result = $"Year: {monthlyLedger.Year} Month: {monthlyLedger.Month} Income: {monthlyLedger.Income} " +
+            //    $"Expenses: {monthlyLedger.Expenses} Total Profit: {monthlyLedger.Total}";
+            return View(monthlyLedger);
         }
 
     }
