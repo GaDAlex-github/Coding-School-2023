@@ -60,15 +60,15 @@ namespace PetShop.Web.Mvc.Controllers {
             var newTrasaction = new TransactionCreateDto();
             var customers = _customerRepo.GetAll();
             foreach(var customer in customers) {
-                newTrasaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(customer.CustomerFullName, customer.Id.ToString()));
+                newTrasaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(customer.Name +" "+customer.Surname, customer.Id.ToString()));
             }
             var employees = _employeeRepo.GetAll();
             foreach (var employee in employees) {
-                newTrasaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(employee.Name, employee.Id.ToString()));
+                newTrasaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(employee.Name +" "+employee.Surname, employee.Id.ToString()));
             }
             var pets = _petRepo.GetAll();
             foreach (var pet in pets) {
-                newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString(), pet.Id.ToString()));
+                newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString()+" "+pet.Breed, pet.Id.ToString()));
             }
             var petFoods = _petFoodRepo.GetAll();
             foreach (var petFood in petFoods) {
@@ -84,8 +84,13 @@ namespace PetShop.Web.Mvc.Controllers {
             if (!ModelState.IsValid) {
                 return View();
             }
-            
-            var dbTransaction = new Transaction( transaction.PetPrice, transaction.PetFoodQty, transaction.PetFoodPrice, transaction.TotalPrice);
+
+            var dbTransaction = new Transaction(transaction.PetPrice, transaction.PetFoodQty, transaction.PetFoodPrice, transaction.TotalPrice) {
+                CustomerId = transaction.CustomerId,
+                EmployeeId = transaction.EmployeeId,
+                PetId = transaction.PetId,
+                PetFoodId = transaction.PetFoodId
+            };            
             _transactionRepo.Add(dbTransaction);
             return RedirectToAction("Index");
         }
