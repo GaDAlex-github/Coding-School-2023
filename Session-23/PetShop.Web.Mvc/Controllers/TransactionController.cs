@@ -67,10 +67,10 @@ namespace PetShop.Web.Mvc.Controllers {
             }
             var pets = _petRepo.GetAll();
             foreach (var pet in pets) {
-                if(pet.PetStatus == PetStatus.Unhealthy) {
-                   
+                if (pet.PetStatus != PetStatus.Unhealthy) {
+                    
+                    newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString() + " " + pet.Breed, pet.Id.ToString()));
                 }
-                newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString()+" "+pet.Breed, pet.Id.ToString()));
             }
             var petFoods = _petFoodRepo.GetAll();
             foreach (var petFood in petFoods) {

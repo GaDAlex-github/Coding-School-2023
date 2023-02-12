@@ -37,21 +37,22 @@ namespace PetShop.Web.Mvc.Controllers {
             decimal Rent = 2000;
 
             foreach(Employee employee in employees) 
-                 StaffSalary += employee.SalaryPerMonth;
+                StaffSalary += employee.SalaryPerMonth;
             foreach (PetFood petFood in petFoods)
                 petFoodCost += petFood.Cost;
             foreach (Pet pet in pets)
                 petCost += pet.Cost;
              
             foreach (Transaction transaction in transactions) {
-                monthlyLedger.Expenses +=  transaction.PetFoodQty * petFoodCost + StaffSalary + petCost;
-                monthlyLedger.Income += (transaction.PetFoodQty - 1) * transaction.PetFoodPrice + transaction.PetPrice;
+                 monthlyLedger.Income += (transaction.PetFoodQty - 1) * transaction.PetFoodPrice + transaction.PetPrice;
             }
-            monthlyLedger.Expenses += Rent;
+            monthlyLedger.Expenses += Rent + StaffSalary +  petCost + petFoodCost; //* stock.petFoodQty
             monthlyLedger.Total = monthlyLedger.Income - monthlyLedger.Expenses;
-            //string result = $"Year: {monthlyLedger.Year} Month: {monthlyLedger.Month} Income: {monthlyLedger.Income} " +
-            //    $"Expenses: {monthlyLedger.Expenses} Total Profit: {monthlyLedger.Total}";
-            return View(monthlyLedger);
+            //return View(monthlyLedger);
+            string result = $"Year: {monthlyLedger.Year} Month: {monthlyLedger.Month} Income: {monthlyLedger.Income} " +
+                $"Expenses: {monthlyLedger.Expenses} Total Profit: {monthlyLedger.Total}";
+            return View(result);
+
         }
 
     }
