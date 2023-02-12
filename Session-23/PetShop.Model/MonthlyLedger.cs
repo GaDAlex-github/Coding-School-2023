@@ -17,55 +17,22 @@ namespace PetShop.Model {
         public decimal Expenses { get; set; }
         public decimal Total { get; set; }
 
-        decimal Rent = 2000;
-        decimal StaffSalary = 700;
+        
         // Relations
         public List<Transaction> Transactions { get; set; }
         public List<Pet> Pets { get; set; }
         public List<PetFood> PetFoods { get; set; }
 
 
-        public MonthlyLedger(int year, int month, decimal income, decimal expenses)
+        public MonthlyLedger(decimal income, decimal expenses)
         {
-            Year = year;
-            Month = month;
+            int year = DateTime.Today.Year;
+            int month = DateTime.Today.Month;
             Income = income;
             Expenses = expenses;
             Total = income - expenses;
         }
 
-        public string ShowMonthlyLedger()
-        {
-            string result = $"Year: {Year} Month: {Month} Income: {Income} Expenses: {Expenses} Total Profit: {Total}";
-            return result;
-        }
-               
-        public void CreateMonthlyLedgerReport(List<Transaction> transactions) {
-            int year = DateTime.Today.Year;
-            int month = DateTime.Today.Month;
-            decimal income = CalculateIncome(transactions);
-            decimal expenses = CalculateExpenses(transactions);
-            MonthlyLedger monthlyLedger = new MonthlyLedger(year, month, income, expenses);
-            monthlyLedger.ShowMonthlyLedger();
-
-
-        }
-
-        private decimal CalculateExpenses(List<Transaction> transactions) {
-
-            decimal sumExpenses = 0;
-            foreach (Transaction transaction in transactions) {
-               // sumExpenses += Rent + transaction.PetFoodQty * .PetFoods.Cost + StaffSalary + Pets.Cost;
-            }
-            return sumExpenses;
-        }
-
-        private decimal CalculateIncome(List<Transaction> transactions) {
-            decimal sumIncome = 0;
-            foreach (Transaction transaction in transactions) {
-                sumIncome += (transaction.PetFoodQty - 1) * transaction.PetFoodPrice + transaction.PetPrice;
-            }
-            return sumIncome;
-        }
+        
     }
 }

@@ -49,19 +49,19 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Customer)
+                    @Html.DisplayFor(modelItem => item.Customer.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee)
+                    @Html.DisplayFor(modelItem => item.Employee.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pet)
+                    @Html.DisplayFor(modelItem => item.Pet.AnimalBreed)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PetPrice)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PetFood)
+                    @Html.DisplayFor(modelItem => item.PetFood.AnimalType)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PetFoodQty)

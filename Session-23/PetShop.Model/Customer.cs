@@ -17,7 +17,12 @@
         public string Surname { get; set; }
         public string Phone { get; set; }
         public string Tin { get; set; }
-                
+
+        public string FullName {
+            get {
+                return string.Format("{0} {1}", Name, Surname);
+            }
+        }
         // Relations
         public List<Transaction> Transactions { get; set; }
     }

@@ -19,6 +19,11 @@ namespace PetShop.Model
         public EmployeeType EmployeeType { get; set; }
         public int SalaryPerMonth { get; set; }
 
+        public string FullName {
+            get {
+                return string.Format("{0} {1}", Name, Surname);
+            }
+        }
         // Relations
         public List<Transaction> Transactions { get; set; }
     }

@@ -25,7 +25,7 @@ namespace PetShop.Web.Mvc.Controllers {
         // GET: TransactionController
         public ActionResult Index() {
             var transaction = _transactionRepo.GetAll(); 
-            var transactions = transaction.ToList();
+            var transactions = transaction.ToList();            
             return View(model: transactions);
         }
 
@@ -41,8 +41,7 @@ namespace PetShop.Web.Mvc.Controllers {
             }
 
             var viewTransaction = new TransactionDetailsDto {
-                Id = transaction.Id,
-                Date = transaction.Date,
+                Id = transaction.Id,                
                 CustomerId = transaction.CustomerId,
                 EmployeeId = transaction.EmployeeId,
                 PetId = transaction.PetId,
@@ -68,6 +67,9 @@ namespace PetShop.Web.Mvc.Controllers {
             }
             var pets = _petRepo.GetAll();
             foreach (var pet in pets) {
+                if(pet.PetStatus == PetStatus.Unhealthy) {
+                    
+                }
                 newTrasaction.Pets.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(pet.AnimalType.ToString()+" "+pet.Breed, pet.Id.ToString()));
             }
             var petFoods = _petFoodRepo.GetAll();
@@ -92,6 +94,7 @@ namespace PetShop.Web.Mvc.Controllers {
                 PetFoodId = transaction.PetFoodId
             };            
             _transactionRepo.Add(dbTransaction);
+            //_petRepo.Delete(dbTransaction.PetId);
             return RedirectToAction("Index");
         }
 

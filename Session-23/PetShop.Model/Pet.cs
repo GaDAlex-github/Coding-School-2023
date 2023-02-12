@@ -1,4 +1,5 @@
 ﻿using PetShop.Model.Enums;
+using System.Xml.Linq;
 
 namespace PetShop.Model
 {
@@ -21,6 +22,11 @@ namespace PetShop.Model
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
 
+        public string AnimalBreed {
+            get {
+                return string.Format("{0} {1}",AnimalType,Breed);
+            }
+        }
         // Relations
         public List<Transaction> Transactions { get; set; }
     }
