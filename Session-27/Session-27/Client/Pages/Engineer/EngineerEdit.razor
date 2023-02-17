@@ -1,0 +1,83 @@
+﻿@page "/engineerlist/edit/{Id:int?}"
+@using Session_27.Client.Pages.Manager;
+@using Session_27.Model;
+@using Session_27.Shared;
+@using System.Net.Http.Json;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+<h3>Edit Engineer</h3>
+
+@if (Engineer == null) {
+    <p>Loading ...</p>
+}
+else {
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@Engineer.Name" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@Engineer.Surname" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">SalaryPerMonth</label>
+            <input class="form-control" @bind="@Engineer.SalaryPerMonth" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Assigned Manager</label>
+            <select class="form-control" @bind="@Engineer.ManagerId">
+                @foreach (var manager in Engineer.Managers) {
+                    <option value="@manager.Id">@manager.FullName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    EngineerEditDto Engineer { get; set; }
+    bool isLoading = true;
+
+    protected override async Task OnInitializedAsync() {
+        if (Id == null) {
+            Engineer = new();
+            Engineer.Managers = await httpClient.GetFromJsonAsync<List<ManagerListDto>>("manager");
+            
+        }
+        else {
+            Engineer = await httpClient.GetFromJsonAsync<EngineerEditDto>($"engineer/{Id}");
+        }
+        bool isLoading = false;
+    }
+
+    private void OnCancel() {
+        navigationManager.NavigateTo("engineerlist");
+    }
+
+    private async Task OnSave() {
+        HttpResponseMessage? response = null;
+        if (Id == null) {
+            response = await httpClient.PostAsJsonAsync("engineer", Engineer);
+        }
+        else {
+            response = await httpClient.PutAsJsonAsync("engineer", Engineer);
+        }
+
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("engineerlist");
+    }
+}

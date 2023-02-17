@@ -1,0 +1,83 @@
+﻿@page "/servicetask/edit/{Id:int?}"
+@using Session_27.Model;
+@using Session_27.Shared;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@inject IJSRuntime jsRuntime
+
+<h3>Edit Task </h3>
+
+@if (ServiceTask == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <EditForm Model="ServiceTask" OnValidSubmit="OnSave">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">  
+        <div class="col-md-4">
+            <label class="form-label">Code</label>
+            <input class="form-check" type="text" @bind="@ServiceTask.Code" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Description</label>
+            <input class="form-check" type="text" @bind="@ServiceTask.Description" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label class="form-label">Hours</label>
+                <InputNumber class="form-check" type="text" @bind-Value="@ServiceTask.Hours" />
+                <ValidationMessage For="@(() => ServiceTask.Hours)" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+</EditForm> 
+}
+
+@code {
+
+    [Parameter] public int? Id { get; set; }
+    ServiceTaskEditDto  ServiceTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            ServiceTask = new();
+        }
+        else
+        {
+            ServiceTask = await httpClient.GetFromJsonAsync<ServiceTaskEditDto>($"servicetask/{Id}");
+        }
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("servicetasklist");
+    }
+
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;     
+        response = await httpClient.PutAsJsonAsync("servicetask", ServiceTask);
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("servicetasklist");
+    }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+﻿@page "/carlist/edit/{Id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using Session_27.Shared;
+<h3>Car Management </h3>
+@if (isLoading) {
+    <div class="lds-hourglass"></div>
+}
+else {
+    <EditForm Model="Car" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>        
+    <div class="col-md-6">
+        <label class="form-label">Id</label>
+        <input type="hidden" class="form-control" id="code" @bind="Car.Id" />            
+    </div>
+        <div class="col-md-6">
+            <label class="form-label">Brand</label>
+            <InputText class="form-control" id="code" @bind-Value="Car.Brand" />
+            <ValidationMessage For="@(() => Car.Brand)" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Model</label>
+            <InputText class="form-control" id="description" @bind-Value="Car.Model" />
+            <ValidationMessage For="@(() => Car.Model)" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Registration Code</label>
+            <InputText class="form-control" id="price" @bind-Value="Car.CarRegistrationNumber" />
+            <ValidationMessage For="@(() => Car.CarRegistrationNumber)" />
+        </div>
+        <div class="row mt-2">
+        <div class="col-md-6">
+                <button class="btn btn-success" type="submit" >Save Changes</button>
+                <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
+        </div>
+    </EditForm>
+
+}
+
+
+
+
+
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    CarEditDto Car { get; set; }
+    bool isLoading = true;
+    protected override async Task OnInitializedAsync() {
+        await LoadItemsFromServer();
+        isLoading = false;
+    }
+    private async Task LoadItemsFromServer() {
+        if (Id.HasValue)
+            Car = await httpClient.GetFromJsonAsync<CarEditDto>($"car/{Id}");
+    }
+    private void OnCancel() {
+        navigationManager.NavigateTo("carlist");
+        //pray
+    }
+    private async Task OnSave() {
+        HttpResponseMessage? response;
+        response = await httpClient.PutAsJsonAsync("car", Car);
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("carlist");
+    }
+
+}
