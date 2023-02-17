@@ -1,0 +1,37 @@
+﻿@page "/myList"
+
+<h3>MyList @(myList.Count(x => !x.Finished)) from @(myList.Count())</h3>
+
+<input @bind="newListItemTitle" placeholder="New item ..." />
+<button class="btn btn-primary" @onclick="OnAddClick">Add</button>
+<ul>
+    @foreach (var listItem in myList) {
+        <li>
+            <input @bind="listItem.Title" />
+            <input @bind=listItem.Finished type="checkbox" />
+        </li>
+    }
+</ul>
+<table class="table table-striped">
+    <thead>
+        <td>Title</td>
+        <td>Finished</td>
+    </thead>
+    @foreach (var listItem in myList){
+        <tbody> 
+            <td>@listItem.Title </td>
+            <td>@listItem.Finished</td>
+        </tbody>
+    }
+</table>
+@code {
+    private List<MyListDto> myList = new();
+    private string? newListItemTitle;
+
+    private void OnAddClick() {
+        myList.Add(new MyListDto {
+                Title = newListItemTitle
+            });
+        newListItemTitle = null;
+    }
+}
