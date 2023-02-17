@@ -1,4 +1,4 @@
-﻿using FuelStation.Model.Enums;
+﻿using FuelStation.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +20,14 @@ namespace FuelStation.Model {
         public Transaction Transaction { get; set; } = null!;
         public int ItemId { get; set; }
         public Item Item { get; set; } = null!;
+
+        public TransactionLine(int quantity, decimal itemPrice, decimal netValue, int discountPercent, decimal discountValue, decimal totalValue) {
+            Quantity = quantity;
+            ItemPrice = itemPrice;
+            NetValue = netValue;
+            DiscountPercent = discountPercent;
+            DiscountValue = discountValue;
+            TotalValue = totalValue;
+        }
     }
 }

@@ -16,6 +16,9 @@ namespace FuelStation.Model {
         // Relations
         public List<Transaction> Transactions { get; set; }
 
+        public Customer() {
+
+        }
         public Customer(string name, string surname, string cardnumber) {
             Name = name;
             Surname = surname;
@@ -23,5 +26,6 @@ namespace FuelStation.Model {
 
             Transactions = new List<Transaction>();
         }
+
     }
 }

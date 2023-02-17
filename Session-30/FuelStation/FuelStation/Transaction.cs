@@ -17,5 +17,12 @@ namespace FuelStation.Model {
         public Customer Customer { get; set; } = null!;
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; } = null!;
+        public List<TransactionLine> TransactionLines { get; set; }
+               
+        public Transaction() {
+            Date = DateTime.Now;
+            TransactionLines = new List<TransactionLine>();
+        }
     }
+
 }
