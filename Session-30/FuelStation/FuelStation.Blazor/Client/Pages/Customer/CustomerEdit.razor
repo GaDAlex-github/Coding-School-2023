@@ -1,0 +1,72 @@
+﻿@page "/customerlist/edit/{Id:int?}"
+@using FuelStation.Blazor.Shared.Customer;
+@using FuelStation.Model;
+@using System.Net.Http.Json;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+<h3>Edit Customer</h3>
+
+@if (Customer == null) {
+    <p>Loading ...</p>
+}
+else {
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@Customer.Name" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@Customer.Surname" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">CardNumber</label>
+            <input class="form-control" @bind="@Customer.CardNumber" />
+        </div>
+    </div>    
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    CustomerEditDto Customer { get; set; }
+    bool isLoading = true;
+
+    protected override async Task OnInitializedAsync() {
+        if (Id == null) {
+            Customer = new();
+            Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>("customer");
+
+        }
+        else {
+            Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+        }
+        bool isLoading = false;
+    }
+
+    private void OnCancel() {
+        navigationManager.NavigateTo("customerlist");
+    }
+
+    private async Task OnSave() {
+        HttpResponseMessage? response = null;
+        if (Id == null) {
+            response = await httpClient.PostAsJsonAsync("customer", Customer);
+        }
+        else {
+            response = await httpClient.PutAsJsonAsync("customer", Customer);
+        }
+
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("customerlist");
+    }
+}

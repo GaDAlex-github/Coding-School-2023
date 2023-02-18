@@ -32,7 +32,6 @@ else {
                     <td>@employee.HireDateEnd</td>
                     <td>@employee.SalaryPerMonth</td>
                     <td>@employee.EmployeeType</td>
-                    
 
                     <td>
                         <button class="btn btn-primary" @onclick="()=> EditItem(employee)">Edit</button>
@@ -40,6 +39,7 @@ else {
                     </td>
                 </tr>
             }
+            <button class="btn btn-warning" @onclick="()=>BackTo()">Back</button>
         </tbody>
     </table>
 }
@@ -72,5 +72,9 @@ else {
             response.EnsureSuccessStatusCode();
             await LoadItemsFromServer();
         }
+    }
+
+    private void BackTo() {
+        navigationManager.NavigateTo("manager");
     }
 }
