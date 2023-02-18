@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FuelStation.EF\FuelStation.EF.csproj" />
+    <ProjectReference Include="..\..\FuelStation.Model\FuelStation.Model.csproj" />
     <ProjectReference Include="..\Client\FuelStation.Blazor.Client.csproj" />
     <ProjectReference Include="..\Shared\FuelStation.Blazor.Shared.csproj" />
   </ItemGroup>

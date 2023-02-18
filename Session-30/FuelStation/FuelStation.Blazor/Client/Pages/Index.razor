@@ -1,9 +1,61 @@
 ﻿@page "/"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using FuelStation.Blazor.Shared.Employee;
+@using FuelStation.Model;
+@using FuelStation.Model.Enums;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Role Choosing</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Select Your Role</h1>
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@if (Employee == null) {
+    //<Spinner Type="SpinnerType.Grow" />
+}
+else {
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Please choose your Type:</label>
+            <select class="form-control" @bind="Employee.EmployeeType">
+
+                @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
+                    <option value="@enumValue">@enumValue</option>
+                }
+            </select>
+            <button class="btn btn-primary" @onclick="()=> EnterRole(Employee)">Enter</button>
+        </div>
+    </div>
+}
+@code {
+    [Parameter] public int? Id { get; set; }
+    private EmployeeListDto Employee = new();
+
+    bool isLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync() {
+        await LoadItemsFromServer();
+        isLoading = false;
+    }
+
+    private async Task LoadItemsFromServer() {
+        Employee = await httpClient.GetFromJsonAsync<EmployeeListDto>("employee");
+    }
+
+    private async Task EnterRole(EmployeeListDto employee) {
+        switch (employee.EmployeeType) {
+            case EmployeeType.Manager:
+                navigationManager.NavigateTo("manager");
+                break;
+            case EmployeeType.Staff:
+                navigationManager.NavigateTo("staff");
+                break;
+            case EmployeeType.Cashier:
+                navigationManager.NavigateTo("cashier");
+                break;
+        }
+    }
+}
