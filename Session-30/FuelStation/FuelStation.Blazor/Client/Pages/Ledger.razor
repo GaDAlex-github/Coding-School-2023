@@ -1,0 +1,54 @@
+﻿@page "/ledger"
+@inject HttpClient httpClient
+@using System.Net.Http.Json;
+<h3>Ledger</h3>
+
+@if (LedgerList == null) {
+    <p>Loading ...</p>
+}
+else {
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Income</th>
+                <th>Expenses</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var L in LedgerList) {
+                <tr>
+                    <td>@L.Year</td>
+                    <td>@L.Month</td>
+                    <td>@L.Income</td>
+                    <td>@L.Expenses</td>
+                    <td>@L.Total</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<LedgerDto> LedgerList = new();
+    //private List<TransactionListDto> transactionList = new();
+    bool isLoading = true;
+
+
+
+
+    protected override async Task OnInitializedAsync() {
+        await LoadItemsFromServer();
+        isLoading = false;
+    }
+
+    private async Task LoadItemsFromServer() {
+        LedgerList = await httpClient.GetFromJsonAsync<List<LedgerDto>>("ledger");
+
+
+    }
+}
