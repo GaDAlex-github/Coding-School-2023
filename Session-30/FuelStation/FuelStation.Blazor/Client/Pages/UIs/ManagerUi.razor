@@ -1,11 +1,7 @@
 ﻿@page "/manager"
 @inject NavigationManager navigationManager
-<h3>ManagerUi</h3>
+<h3>Manager's Ui</h3>
 
-@*@if (isLoading) {
-    <p>Loading ...</p>
-}
-else {*@
     <div class="row mt-5">
         <div class="col-md-1">
             <button btn btn-primary @onclick="ToCustomers">Customers</button>
@@ -19,20 +15,9 @@ else {*@
         <div class="col-md-1">
             <button btn btn-primary @onclick="ToLedger">Ledger</button>
         </div>
-
     </div>
-@*}
-*@
-@code {
-    public bool isLoading { get; set; } = true;
 
-    protected override async Task OnInitializedAsync() {
-        //    await LoadItemsFromServer();
-        isLoading = false;
-    }
-    //private async Task LoadItemsFromServer() {
-    //    transactionList = await httpClient.GetFromJsonAsync<List<TransactionListDto>>("transaction");
-    //}
+@code {      
     private void ToEmployees() {
         navigationManager.NavigateTo("employeelist");
     }

@@ -63,10 +63,10 @@ namespace FuelStation.Blazor.Server.Controllers {
                 return Ok();
             }
             catch (DbUpdateException ex) {
-                return BadRequest("This employee cannot be deleted!");
+                return BadRequest("This customer cannot be deleted!");
             }
             catch (KeyNotFoundException ex) {
-                return BadRequest($"Employee with id {id} not found!");
+                return BadRequest($"Customer with id {id} not found!");
             }
         }
     }

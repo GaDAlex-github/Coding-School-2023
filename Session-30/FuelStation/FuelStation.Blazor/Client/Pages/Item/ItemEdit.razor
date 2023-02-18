@@ -1,0 +1,90 @@
+﻿@page "/itemlist/edit/{Id:int?}"
+@using FuelStation.Blazor.Shared.Employee;
+@using FuelStation.Blazor.Shared.Item;
+@using FuelStation.Model;
+@using System.Net.Http.Json;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Create/Edit Item</h3>
+
+@if (Item == null) {
+    <p>Loading ...</p>
+}
+else {
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Code</label>
+            <input class="form-control" @bind="@Item.Code" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Description</label>
+            <input class="form-control" @bind="@Item.Description" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Item Type</label>
+            <select class="form-control" @bind="Item.ItemType">
+                @foreach (var enumValue in Enum.GetValues<ItemType>()) {
+                    <option value="@enumValue">@enumValue</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input class="form-control" @bind="@Item.Price" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Cost</label>
+            <input class="form-control" @bind="@Item.Cost" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    ItemEditDto Item { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        if (Id == null) {
+
+            Item = new();
+            Item = await httpClient.GetFromJsonAsync<ItemEditDto>("item");
+
+        }
+        else {
+            Item = await httpClient.GetFromJsonAsync<ItemEditDto>($"item/{Id}");
+        }
+    }
+
+    private void OnCancel() {
+        navigationManager.NavigateTo("itemlist");
+    }
+
+    private async Task OnSave() {
+        HttpResponseMessage? response = null;
+        if (Id == null) {
+            response = await httpClient.PostAsJsonAsync("item", Item);
+        }
+        else {
+            response = await httpClient.PutAsJsonAsync("item", Item);
+        }
+
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("itemlist");
+    }
+}
+

@@ -1,0 +1,16 @@
+﻿@page "/cashier"
+@inject NavigationManager navigationManager
+<h3>Cashier's Ui</h3>
+
+<div class="row mt-5">
+    <div class="col-md-1">
+        <button btn btn-primary @onclick="ToCustomers">Customers</button>
+    </div>
+</div>
+
+@code {    
+    private void ToCustomers() {
+        navigationManager.NavigateTo("customerlist");
+    }    
+}
+

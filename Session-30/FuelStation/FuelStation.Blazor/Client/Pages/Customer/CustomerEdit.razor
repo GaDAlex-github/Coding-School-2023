@@ -4,7 +4,8 @@
 @using System.Net.Http.Json;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
-<h3>Edit Customer</h3>
+
+<h3>Create/Edit Customer</h3>
 
 @if (Customer == null) {
     <p>Loading ...</p>
@@ -24,7 +25,7 @@ else {
     </div>
     <div class="row mt-2">
         <div class="col-md-6">
-            <label class="form-label">CardNumber</label>
+            <label class="form-label">Card Number</label>
             <input class="form-control" @bind="@Customer.CardNumber" />
         </div>
     </div>    

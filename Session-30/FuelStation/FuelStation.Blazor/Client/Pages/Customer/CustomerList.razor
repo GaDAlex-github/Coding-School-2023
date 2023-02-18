@@ -18,7 +18,7 @@ else {
             <tr>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>CardNumber</th>
+                <th>Card Number</th>
             </tr>
         </thead>
         <tbody>
@@ -61,7 +61,7 @@ else {
     }
 
     private async Task DeleteItem(CustomerListDto customer) {
-        var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Delete Item. Are you sure?");
+        var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Delete Customer. Are you sure?");
         if (confirm) {
             var response = await httpClient.DeleteAsync($"customer/{customer.Id}");
             response.EnsureSuccessStatusCode();
@@ -70,6 +70,6 @@ else {
     }
 
     private void BackTo() {
-        navigationManager.NavigateTo("manager");
+        navigationManager.NavigateTo("/");
     }
 }

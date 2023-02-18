@@ -29,14 +29,7 @@ else {
 @code {
     [Parameter] public int? Id { get; set; }
     private EmployeeListDto Employee = new();
-      
-    //protected override async Task OnInitializedAsync() {
-    //    await LoadItemsFromServer();        
-    //}
-    //private async Task LoadItemsFromServer() {
-    //    Employee = await httpClient.GetFromJsonAsync<EmployeeListDto>("employee");
-    //}
-
+         
     private async Task EnterRole(EmployeeListDto employee) {
         switch (employee.EmployeeType) {
             case EmployeeType.Manager:
