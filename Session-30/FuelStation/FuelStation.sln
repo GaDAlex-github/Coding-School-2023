@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Model", "FuelStation.Model\FuelStation.Model.csproj", "{69178202-BB31-479B-A932-7559D8C232AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.Model", "FuelStation.Model\FuelStation.Model.csproj", "{69178202-BB31-479B-A932-7559D8C232AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.EF", "FuelStation.EF\FuelStation.EF.csproj", "{FA234E21-B76E-429E-9908-CD8D09D51E7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.EF", "FuelStation.EF\FuelStation.EF.csproj", "{FA234E21-B76E-429E-9908-CD8D09D51E7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Blazor.Server", "FuelStation.Blazor\Server\FuelStation.Blazor.Server.csproj", "{6A63C0F6-C8DC-444C-93C3-E2C7420195E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.Blazor.Server", "FuelStation.Blazor\Server\FuelStation.Blazor.Server.csproj", "{6A63C0F6-C8DC-444C-93C3-E2C7420195E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Blazor.Client", "FuelStation.Blazor\Client\FuelStation.Blazor.Client.csproj", "{E5310948-E19F-4802-B0BA-4FDA6ADF16C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.Blazor.Client", "FuelStation.Blazor\Client\FuelStation.Blazor.Client.csproj", "{E5310948-E19F-4802-B0BA-4FDA6ADF16C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelStation.Blazor.Shared", "FuelStation.Blazor\Shared\FuelStation.Blazor.Shared.csproj", "{14608555-FBB3-401E-9D96-34B0B7199641}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuelStation.Blazor.Shared", "FuelStation.Blazor\Shared\FuelStation.Blazor.Shared.csproj", "{14608555-FBB3-401E-9D96-34B0B7199641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

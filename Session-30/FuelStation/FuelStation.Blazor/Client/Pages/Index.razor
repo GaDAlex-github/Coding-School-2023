@@ -9,12 +9,8 @@
 
 <h1>Select Your Role</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
 @if (Employee == null) {
-    //<Spinner Type="SpinnerType.Grow" />
+    <p>Loading ...</p>
 }
 else {
     <div class="row">

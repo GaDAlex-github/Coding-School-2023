@@ -1,0 +1,81 @@
+﻿@page "/employeelist/edit/{Id:int?}"
+@using FuelStation.Blazor.Shared.Employee;
+@using FuelStation.Model;
+@using System.Net.Http.Json;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Create/Edit Employee</h3>
+
+@if (Employee == null) {
+    <p>Loading ...</p>
+}
+else {
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@Employee.Name" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@Employee.Surname" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">SalaryPerMonth</label>
+            <input class="form-control" @bind="@Employee.SalaryPerMonth" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Employee Type</label>
+            <select class="form-control" @bind="Employee.EmployeeType">
+                @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
+                    <option value="@enumValue">@enumValue</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    EmployeeEditDto Employee { get; set; }
+ 
+    protected override async Task OnInitializedAsync() {
+        if (Id == null) {
+            
+            Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
+
+        }
+        else {
+            Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        }    
+    }
+
+    private void OnCancel() {
+        navigationManager.NavigateTo("employeelist");
+    }
+
+    private async Task OnSave() {
+        HttpResponseMessage? response = null;
+        if (Id == null) {
+            response = await httpClient.PostAsJsonAsync("employee", Employee);
+        }
+        else {
+            response = await httpClient.PutAsJsonAsync("employee", Employee);
+        }
+
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("employeelist");
+    }
+}

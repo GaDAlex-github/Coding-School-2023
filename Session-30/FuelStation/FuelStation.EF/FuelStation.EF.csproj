@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FuelStation.Model\FuelStation.Model.csproj" />
-    <ProjectReference Include="..\FuelStation\FuelStation.Model.csproj" />
   </ItemGroup>
 
 </Project>
