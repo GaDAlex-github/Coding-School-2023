@@ -20,6 +20,7 @@ namespace FuelStation.Model {
         public List<Transaction> Transactions { get; set; }
 
         public Employee(string name, string surname, int salaryPerMonth,EmployeeType employeeType ) {
+            HireDateStart = DateTime.Now;
             Name = name;
             Surname = surname;
             SalaryPerMonth = salaryPerMonth;

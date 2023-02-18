@@ -29,17 +29,13 @@ else {
 @code {
     [Parameter] public int? Id { get; set; }
     private EmployeeListDto Employee = new();
-
-    bool isLoading { get; set; } = true;
-
-    protected override async Task OnInitializedAsync() {
-        await LoadItemsFromServer();
-        isLoading = false;
-    }
-
-    private async Task LoadItemsFromServer() {
-        Employee = await httpClient.GetFromJsonAsync<EmployeeListDto>("employee");
-    }
+      
+    //protected override async Task OnInitializedAsync() {
+    //    await LoadItemsFromServer();        
+    //}
+    //private async Task LoadItemsFromServer() {
+    //    Employee = await httpClient.GetFromJsonAsync<EmployeeListDto>("employee");
+    //}
 
     private async Task EnterRole(EmployeeListDto employee) {
         switch (employee.EmployeeType) {

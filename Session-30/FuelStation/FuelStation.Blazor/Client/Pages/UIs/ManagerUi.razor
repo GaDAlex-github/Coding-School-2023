@@ -2,10 +2,10 @@
 @inject NavigationManager navigationManager
 <h3>ManagerUi</h3>
 
-@if (isLoading) {
+@*@if (isLoading) {
     <p>Loading ...</p>
 }
-else {
+else {*@
     <div class="row mt-5">
         <div class="col-md-1">
             <button btn btn-primary @onclick="ToCustomers">Customers</button>
@@ -21,8 +21,8 @@ else {
         </div>
 
     </div>
-}
-
+@*}
+*@
 @code {
     public bool isLoading { get; set; } = true;
 
