@@ -19,13 +19,18 @@ namespace FuelStation.Model {
         public Customer() {
 
         }
-        public Customer(string name, string surname, string cardnumber) {
+        public Customer(string name, string surname) {
             Name = name;
             Surname = surname;
-            CardNumber = cardnumber;
-
+            CardNumber = CardNumberCreate(CardNumber);
             Transactions = new List<Transaction>();
         }
 
+        public string CardNumberCreate(string? cardnumber) {
+            int num = 1000000;
+            num++;
+            string cardnum = String.Format("A" + num);
+            return cardnum;
+        }
     }
 }

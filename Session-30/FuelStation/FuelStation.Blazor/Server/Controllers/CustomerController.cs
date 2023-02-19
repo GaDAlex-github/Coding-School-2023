@@ -37,12 +37,12 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Name = customer.Name,
                 Surname = customer.Surname,
                 CardNumber = customer.CardNumber
-                // Transactions = employee.Transactions
+                // Transactions = customer.Transactions
             };
         }
         [HttpPost]
         public async Task Post(CustomerEditDto customer) {
-            var newCustomer = new Customer(customer.Name, customer.Surname, customer.CardNumber);
+            var newCustomer = new Customer(customer.Name, customer.Surname);
             _customerRepo.Add(newCustomer);
         }
 

@@ -1,7 +1,7 @@
 ﻿@page "/employeelist/edit/{Id:int?}"
 @using FuelStation.Blazor.Shared.Employee;
 @using FuelStation.Model;
-@using System.Net.Http.Json;
+@inject IJSRuntime jsRuntime
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
@@ -21,6 +21,12 @@ else {
         <div class="col-md-6">
             <label class="form-label">Surname</label>
             <input class="form-control" @bind="@Employee.Surname" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Hire Date End</label>
+            <input class="form-control" @bind="@Employee.HireDateEnd" />
         </div>
     </div>
     <div class="row mt-2">
@@ -71,9 +77,15 @@ else {
         HttpResponseMessage? response = null;
         if (Id == null) {
             response = await httpClient.PostAsJsonAsync("employee", Employee);
+            if ((int)response.StatusCode == 406) { await jsRuntime.
+                InvokeVoidAsync("alert", "Cant add more Employees"); }
+            else { navigationManager.NavigateTo($"employeelist"); }            
         }
         else {
             response = await httpClient.PutAsJsonAsync("employee", Employee);
+            if ((int)response.StatusCode == 406) { await jsRuntime.InvokeVoidAsync("alert", "Cant Change to that role. Max number reached"); }
+            else { navigationManager.NavigateTo($"transactionlist/edit/{Employee.Id}");
+            }
         }
 
         response.EnsureSuccessStatusCode();

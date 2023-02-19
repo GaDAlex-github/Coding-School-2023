@@ -1,5 +1,6 @@
 ﻿@page "/ledger"
 @inject HttpClient httpClient
+@inject NavigationManager navigationManager
 @using System.Net.Http.Json;
 <h3>Ledger</h3>
 
@@ -29,6 +30,7 @@ else {
                     <td>@L.Total</td>
                 </tr>
             }
+            <button class="btn btn-warning" @onclick="()=>BackTo()">Back</button>
         </tbody>
     </table>
 }
@@ -48,7 +50,9 @@ else {
 
     private async Task LoadItemsFromServer() {
         LedgerList = await httpClient.GetFromJsonAsync<List<LedgerDto>>("ledger");
+    }
 
-
+    private void BackTo() {
+        navigationManager.NavigateTo("/manager");
     }
 }
