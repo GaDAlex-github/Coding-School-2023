@@ -1,14 +1,14 @@
 ﻿@page "/customerlist"
+@using FuelStation.Blazor.Client.Shared.Extra
 @using FuelStation.Blazor.Shared.Customer;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<h3>Customer Managment</h3>
-
+<h3>Customer List</h3>
 
 @if (isLoading) {
-    <p>Loading ...</p>
+   <Spinner Type="SpinnerType.Border" />
 }
 else {
     <button class="btn btn-primary" @onclick="()=> CreateItem()">Create</button>

@@ -1,5 +1,6 @@
 ﻿@page "/employeelist/edit/{Id:int?}"
 @using FuelStation.Blazor.Shared.Employee;
+@using FuelStation.Blazor.Client.Shared.Extra
 @using FuelStation.Model;
 @inject IJSRuntime jsRuntime
 @inject HttpClient httpClient
@@ -8,65 +9,71 @@
 <h3>Create/Edit Employee</h3>
 
 @if (Employee == null) {
-    <p>Loading ...</p>
+    <Spinner Type="SpinnerType.Border" />
 }
 else {
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Name</label>
-            <input class="form-control" @bind="@Employee.Name" />
+    <EditForm Model="Employee" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="@Employee.Name" />
+                <ValidationMessage For="@(() => Employee.Name)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Surname</label>
-            <input class="form-control" @bind="@Employee.Surname" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" @bind-Value="@Employee.Surname" />
+                <ValidationMessage For="@(() => Employee.Surname)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Hire Date End</label>
-            <input class="form-control" @bind="@Employee.HireDateEnd" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Hire Date End</label>
+                <InputDate class="form-control" @bind-Value="@Employee.HireDateEnd" />
+                <ValidationMessage For="@(() => Employee.HireDateEnd)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Salary Per Month</label>
-            <input class="form-control" @bind="@Employee.SalaryPerMonth" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Salary Per Month</label>
+                <InputNumber class="form-control" @bind-Value="@Employee.SalaryPerMonth" />
+                <ValidationMessage For="@(() => Employee.SalaryPerMonth)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Employee Type</label>
-            <select class="form-control" @bind="Employee.EmployeeType">
-                @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
-                    <option value="@enumValue">@enumValue</option>
-                }
-            </select>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Employee Type</label>
+                <InputSelect class="form-control" @bind-Value="Employee.EmployeeType">
+                    @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
+                        <option value="@enumValue">@enumValue</option>
+                    }
+                </InputSelect>
+                @*<ValidationMessage For="@(() => Employee.EmployeeType" />*@
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
-            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save Changes</button>
+                <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
         </div>
-    </div>
+    </EditForm>
 }
 
 @code {
     [Parameter] public int? Id { get; set; }
-    EmployeeEditDto Employee { get; set; }
+    EmployeeEditDto Employee { get; set; } = new();
 
     protected override async Task OnInitializedAsync() {
         if (Id == null) {
-
-            Employee = new();
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
-
         }
         else {
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
-        }    
+        }
     }
 
     private void OnCancel() {
@@ -77,17 +84,20 @@ else {
         HttpResponseMessage? response = null;
         if (Id == null) {
             response = await httpClient.PostAsJsonAsync("employee", Employee);
-            if ((int)response.StatusCode == 406) { await jsRuntime.
-                InvokeVoidAsync("alert", "Cant add more Employees"); }
-            else { navigationManager.NavigateTo($"employeelist"); }            
+            if ((int)response.StatusCode == 406) {
+                await jsRuntime.
+                InvokeVoidAsync("alert", "Cant add more Employees");
+            }
+            else { navigationManager.NavigateTo($"employeelist"); }
         }
         else {
             response = await httpClient.PutAsJsonAsync("employee", Employee);
             if ((int)response.StatusCode == 406) { await jsRuntime.InvokeVoidAsync("alert", "Cant Change to that role. Max number reached"); }
-            else { navigationManager.NavigateTo($"transactionlist/edit/{Employee.Id}");
+            else {
+                navigationManager.NavigateTo($"transactionlist/edit/{Employee.Id}");
             }
         }
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("employeelist");
-    }    
+    }
 }

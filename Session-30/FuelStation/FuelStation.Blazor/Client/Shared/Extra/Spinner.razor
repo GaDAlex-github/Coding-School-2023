@@ -1,0 +1,12 @@
+﻿<div class="@spinnerClass text-primary" role="status">
+    <span class="visually-hidden">@LoadingText</span>
+</div>
+
+@code {
+    [Parameter] public SpinnerType Type { get; set; }
+    [Parameter] public string LoadingText { get; set; } = "Loading...";
+    private string spinnerClass => Type switch {
+        SpinnerType.Border => "spinner-border",
+        SpinnerType.Grow => "spinner-grow"
+    };
+}

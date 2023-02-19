@@ -1,4 +1,5 @@
 ﻿@page "/customerlist/edit/{Id:int?}"
+@using FuelStation.Blazor.Client.Shared.Extra
 @using FuelStation.Blazor.Shared.Customer;
 @using FuelStation.Model;
 @using System.Net.Http.Json;
@@ -8,45 +9,43 @@
 <h3>Create/Edit Customer</h3>
 
 @if (Customer == null) {
-    <p>Loading ...</p>
+    <Spinner Type="SpinnerType.Border" />
 }
 else {
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Name</label>
-            <input class="form-control" @bind="@Customer.Name" />
+    <EditForm Model="Customer" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="@Customer.Name" />
+                <ValidationMessage For="@(() => Customer.Name)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Surname</label>
-            <input class="form-control" @bind="@Customer.Surname" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" @bind-Value="@Customer.Surname" />
+                <ValidationMessage For="@(() => Customer.Surname)" />
+            </div>
         </div>
-    </div>
-   @* <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Card Number</label>
-            <input class="form-control" @bind="@Customer.CardNumber" readonly />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save Changes</button>
+                <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
         </div>
-    </div>*@    
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
-            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
-        </div>
-    </div>
+    </EditForm>
 }
 
 @code {
     [Parameter] public int? Id { get; set; }
-    CustomerEditDto Customer { get; set; }
+    CustomerEditDto Customer { get; set; } = new();
     bool isLoading = true;
 
     protected override async Task OnInitializedAsync() {
         if (Id == null) {
-            Customer = new();
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>("customer");
-
         }
         else {
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
@@ -70,5 +69,5 @@ else {
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("customerlist");
     }
-   
+
 }

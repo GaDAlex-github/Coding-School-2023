@@ -1,4 +1,5 @@
 ﻿@page "/itemlist/edit/{Id:int?}"
+@using FuelStation.Blazor.Client.Shared.Extra
 @using FuelStation.Blazor.Shared.Employee;
 @using FuelStation.Blazor.Shared.Item;
 @using FuelStation.Model;
@@ -9,55 +10,60 @@
 <h3>Create/Edit Item</h3>
 
 @if (Item == null) {
-    <p>Loading ...</p>
+    <Spinner Type="SpinnerType.Border" />
 }
 else {
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Description</label>
-            <input class="form-control" @bind="@Item.Description" />
+    <EditForm Model="Item" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Description</label>
+                <InputText class="form-control" @bind-Value="@Item.Description" />
+                <ValidationMessage For="@(() => Item.Description)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Item Type</label>
-            <select class="form-control" @bind="Item.ItemType">
-                @foreach (var enumValue in Enum.GetValues<ItemType>()) {
-                    <option value="@enumValue">@enumValue</option>
-                }
-            </select>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Item Type</label>
+                <InputSelect class="form-control" @bind-Value="Item.ItemType">
+                    @foreach (var enumValue in Enum.GetValues<ItemType>()) {
+                        <option value="@enumValue">@enumValue</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => Item.ItemType)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Price</label>
-            <input class="form-control" @bind="@Item.Price" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Price</label>
+                <InputNumber class="form-control" @bind-Value="@Item.Price" />
+                <ValidationMessage For="@(() => Item.Price)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Cost</label>
-            <input class="form-control" @bind="@Item.Cost" />
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="form-label">Cost</label>
+                <InputNumber class="form-control" @bind-Value="@Item.Cost" />
+                <ValidationMessage For="@(() => Item.Cost)" />
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save Changes</button>
-            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save Changes</button>
+                <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
         </div>
-    </div>
+    </EditForm>
 }
 
 @code {
     [Parameter] public int? Id { get; set; }
-    ItemEditDto Item { get; set; }
+    ItemEditDto Item { get; set; } = new();
 
     protected override async Task OnInitializedAsync() {
         if (Id == null) {
-
-            Item = new();
             Item = await httpClient.GetFromJsonAsync<ItemEditDto>("item");
-
         }
         else {
             Item = await httpClient.GetFromJsonAsync<ItemEditDto>($"item/{Id}");
