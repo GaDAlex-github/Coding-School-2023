@@ -22,15 +22,8 @@ namespace FuelStation.Model {
         public Customer(string name, string surname) {
             Name = name;
             Surname = surname;
-            CardNumber = CardNumberCreate(CardNumber);
+            
             Transactions = new List<Transaction>();
-        }
-
-        public string CardNumberCreate(string? cardnumber) {
-            int num = 1000000;
-            num++;
-            string cardnum = String.Format("A" + num);
-            return cardnum;
         }
     }
 }

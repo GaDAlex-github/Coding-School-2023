@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using FuelStation.Blazor.Shared.Customer;
+using System.Text.RegularExpressions;
 
 namespace FuelStation.Blazor.Server.Controllers {
 
@@ -43,6 +44,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         [HttpPost]
         public async Task Post(CustomerEditDto customer) {
             var newCustomer = new Customer(customer.Name, customer.Surname);
+            newCustomer.CardNumber = CardNumberCreate(customer);
             _customerRepo.Add(newCustomer);
         }
 
@@ -68,6 +70,14 @@ namespace FuelStation.Blazor.Server.Controllers {
             catch (KeyNotFoundException ex) {
                 return BadRequest($"Customer with id {id} not found!");
             }
+        }
+        public string CardNumberCreate(CustomerEditDto customer) {
+
+            var max = _customerRepo.GetAll().Max(customer => customer.CardNumber);
+            max = Regex.Replace(max, "\\d+",
+            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));
+            customer.CardNumber = max;
+            return customer.CardNumber;
         }
     }
 }

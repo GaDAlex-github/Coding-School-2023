@@ -27,7 +27,7 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Description = item.Description,
                 ItemType = item.ItemType,
                 Price = item.Price,
-                Cost = item.Cost               
+                Cost = item.Cost
             });
         }
 
@@ -48,6 +48,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         [HttpPost]
         public async Task Post(ItemEditDto item) {
             var newItem = new Item(item.Description, item.ItemType, item.Price, item.Cost);
+            newItem.Code = CodeCreate(item);
             _itemRepo.Add(newItem);
         }
 
@@ -75,6 +76,11 @@ namespace FuelStation.Blazor.Server.Controllers {
             catch (KeyNotFoundException ex) {
                 return BadRequest($"Item with id {id} not found!");
             }
+        }
+        public int CodeCreate(ItemEditDto item) {
+            var max = _itemRepo.GetAll().Max(item => item.Code);            
+            item.Code += ++max;
+            return item.Code;
         }
     }
 }

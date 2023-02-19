@@ -19,19 +19,13 @@ namespace FuelStation.Model {
 
         public Item( string? description, ItemType itemType, decimal price, decimal cost) {
 
-            Code = CodeCreate(Code);
             Description = description;
             ItemType = itemType;
             Price = price;
             Cost = cost;
 
             TransactionLines = new List<TransactionLine>();
-        }
-        public int CodeCreate(int code) {
-            code = 10000;
-            code++;
-            return code;
-        }
+        }       
     }
 }
 

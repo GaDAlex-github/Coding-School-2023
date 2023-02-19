@@ -13,5 +13,7 @@ namespace FuelStation.Blazor.Shared.Customer {
         public string? CardNumber { get; set; }
 
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+       
     }
 }
