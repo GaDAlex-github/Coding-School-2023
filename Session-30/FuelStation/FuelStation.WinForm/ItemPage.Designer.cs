@@ -34,9 +34,9 @@
             this.ClmItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bsItem = new System.Windows.Forms.BindingSource(this.components);
+            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsItems)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -147,7 +147,7 @@
             this.Text = "ItemPage";
             this.Load += new System.EventHandler(this.ItemPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsItems)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -164,6 +164,6 @@
         private DataGridViewTextBoxColumn ClmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
-        private BindingSource bsItem;
+        private BindingSource bsItems;
     }
 }

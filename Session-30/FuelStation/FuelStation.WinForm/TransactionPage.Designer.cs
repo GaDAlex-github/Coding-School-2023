@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -46,8 +47,12 @@
             this.btnTLSave = new System.Windows.Forms.Button();
             this.btnTLDelete = new System.Windows.Forms.Button();
             this.btnTLCreate = new System.Windows.Forms.Button();
+            this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
+            this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsTransactionLines)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -281,6 +286,8 @@
             this.Load += new System.EventHandler(this.TransactionPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsTransactionLines)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,5 +318,7 @@
         private Button btnTLSave;
         private Button btnTLDelete;
         private Button btnTLCreate;
+        private BindingSource bsTransactions;
+        private BindingSource bsTransactionLines;
     }
 }

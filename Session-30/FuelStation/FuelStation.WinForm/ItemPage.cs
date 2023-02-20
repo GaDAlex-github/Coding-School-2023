@@ -20,11 +20,11 @@ namespace FuelStation.WinForm {
 
         private void btnCreate_Click(object sender, EventArgs e) {
             Item newItem = new Item();
-            bsItem.Add(newItem);
+            bsItems.Add(newItem);
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            bsItem.RemoveCurrent();
+            bsItems.RemoveCurrent();
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
