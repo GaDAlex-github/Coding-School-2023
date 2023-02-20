@@ -16,7 +16,8 @@ namespace FuelStation.Model {
 
         // Relations
         public List<TransactionLine> TransactionLines { get; set; }
-
+        public Item() {
+        }
         public Item( string? description, ItemType itemType, decimal price, decimal cost) {
 
             Description = description;

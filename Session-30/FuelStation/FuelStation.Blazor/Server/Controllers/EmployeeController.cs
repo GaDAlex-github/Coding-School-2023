@@ -46,56 +46,21 @@ namespace FuelStation.Blazor.Server.Controllers {
             };
         }
         [HttpPost]
-        public async Task<ActionResult> Post(EmployeeEditDto employee) {
-            var employees = _employeeRepo.GetAll();
-            int managers = 0;
-            int staff = 0;
-            int cashiers = 0;
-            foreach (Employee emp in employees) {
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
-                    managers += 1;
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
-                    staff += 1;
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
-                    cashiers += 1;
-            }
-            if (managers >= 3 || staff >= 10 || cashiers >= 4) {
-                return StatusCode(StatusCodes.Status406NotAcceptable, "Cant add more Employees");
-            }
-            else {
+        public async Task Post(EmployeeEditDto employee) {            
                 var newEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
-                _employeeRepo.Add(newEmployee);
-                return Ok();
+                _employeeRepo.Add(newEmployee);               
             }
-        }
+        
 
         [HttpPut]
-        public async Task<ActionResult> Put(EmployeeEditDto employee) {
-            var employees = _employeeRepo.GetAll();
-            int managers = 0;
-            int staff = 0;
-            int cashiers = 0;
-            foreach (Employee emp in employees) {
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
-                    managers += 1;
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
-                    staff += 1;
-                if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
-                    cashiers += 1;
-            }
-            if (managers >= 3 || staff >= 10 || cashiers >= 4) {
-                return StatusCode(StatusCodes.Status406NotAcceptable, "Cant add more Employees");
-            }
-            else {
+        public async Task Put(EmployeeEditDto employee) {           
                 var itemToUpdate = _employeeRepo.GetById(employee.Id);
                 itemToUpdate.Id = employee.Id;
                 itemToUpdate.Name = employee.Name;
                 itemToUpdate.Surname = employee.Surname;
                 itemToUpdate.SalaryPerMonth = employee.SalaryPerMonth;
                 itemToUpdate.EmployeeType = employee.EmployeeType;
-                _employeeRepo.Update(employee.Id, itemToUpdate);
-                return Ok();
-            }
+                _employeeRepo.Update(employee.Id, itemToUpdate);   
         }
 
         [HttpDelete("{id}")]

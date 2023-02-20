@@ -1,11 +1,11 @@
 ﻿@page "/customerlist"
-@using FuelStation.Blazor.Client.Shared.Extra
 @using FuelStation.Blazor.Shared.Customer;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
 <h3>Customer List</h3>
+
 
 @if (isLoading) {
    <Spinner Type="SpinnerType.Border" />
@@ -72,4 +72,8 @@ else {
     private void BackTo() {
         navigationManager.NavigateTo("/");
     }
+//    private async void NavigationBack() {
+//        await JSRuntime.InvokeVoidAsync("history.back");
+
+//    }
 }

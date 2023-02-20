@@ -46,7 +46,7 @@ else {
         <div class="row mt-2">
             <div class="col-md-6">
                 <label class="form-label">Employee Type</label>
-                <InputSelect class="form-control" @bind-Value="Employee.EmployeeType">
+                <InputSelect class="form-control" @bind-Value="Employee.EmployeeType" @bind-Value:after="@( ()=> EmployeeCount(Employee.EmployeeType))">
                     @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
                         <option value="@enumValue">@enumValue</option>
                     }
@@ -66,9 +66,25 @@ else {
 @code {
     [Parameter] public int? Id { get; set; }
     EmployeeEditDto Employee { get; set; } = new();
+    List<EmployeeListDto> Employees { get; set; }
+    int managers = 0;
+    int staff = 0;
+    int cashiers = 0;
 
     protected override async Task OnInitializedAsync() {
+        Employees = await httpClient.GetFromJsonAsync<List<EmployeeListDto>>("employee");
+
+        foreach (EmployeeListDto emp in Employees) {
+            if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
+                managers++;
+            if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
+                staff++;
+            if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
+                cashiers++;
+        }
+
         if (Id == null) {
+
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
         }
         else {
@@ -84,20 +100,29 @@ else {
         HttpResponseMessage? response = null;
         if (Id == null) {
             response = await httpClient.PostAsJsonAsync("employee", Employee);
-            if ((int)response.StatusCode == 406) {
-                await jsRuntime.
-                InvokeVoidAsync("alert", "Cant add more Employees");
-            }
-            else { navigationManager.NavigateTo($"employeelist"); }
         }
         else {
             response = await httpClient.PutAsJsonAsync("employee", Employee);
-            if ((int)response.StatusCode == 406) { await jsRuntime.InvokeVoidAsync("alert", "Cant Change to that role. Max number reached"); }
-            else {
-                navigationManager.NavigateTo($"transactionlist/edit/{Employee.Id}");
-            }
         }
+
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("employeelist");
+    }
+    async Task EmployeeCount(EmployeeType employeeType) {
+        if (employeeType == EmployeeType.Manager) {
+            if (managers >= 3) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Managers");
+            }
+        }
+        else if (employeeType == EmployeeType.Staff) {
+            if (staff > 10) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Staff");
+            }
+        }
+        else if (employeeType == EmployeeType.Cashier) {
+            if (cashiers > 4) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Cashiers");
+            }
+        }
     }
 }
