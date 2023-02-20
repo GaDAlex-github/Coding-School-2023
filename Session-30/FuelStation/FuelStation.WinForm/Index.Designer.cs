@@ -31,6 +31,9 @@
             // 
             // ChooseRole
             // 
+            this.ChooseRole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ChooseRole.AutoSize = true;
             this.ChooseRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ChooseRole.Location = new System.Drawing.Point(251, 116);
@@ -41,6 +44,9 @@
             // 
             // btnManager
             // 
+            this.btnManager.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnManager.Location = new System.Drawing.Point(99, 165);
             this.btnManager.Name = "btnManager";
             this.btnManager.Size = new System.Drawing.Size(114, 41);
@@ -51,6 +57,9 @@
             // 
             // btnStaff
             // 
+            this.btnStaff.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStaff.Location = new System.Drawing.Point(264, 165);
             this.btnStaff.Name = "btnStaff";
             this.btnStaff.Size = new System.Drawing.Size(114, 41);
@@ -61,6 +70,9 @@
             // 
             // btnCashier
             // 
+            this.btnCashier.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCashier.Location = new System.Drawing.Point(434, 165);
             this.btnCashier.Name = "btnCashier";
             this.btnCashier.Size = new System.Drawing.Size(114, 41);
@@ -78,6 +90,8 @@
             this.Controls.Add(this.btnStaff);
             this.Controls.Add(this.btnManager);
             this.Controls.Add(this.ChooseRole);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "FuelStation";
             this.Text = "FuelStation";
             this.ResumeLayout(false);

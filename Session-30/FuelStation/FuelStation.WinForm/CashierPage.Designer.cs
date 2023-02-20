@@ -30,6 +30,9 @@
             // 
             // btnCustomers
             // 
+            this.btnCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomers.Location = new System.Drawing.Point(140, 72);
             this.btnCustomers.Name = "btnCustomers";
             this.btnCustomers.Size = new System.Drawing.Size(131, 61);
@@ -40,6 +43,9 @@
             // 
             // btnTransactions
             // 
+            this.btnTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTransactions.Location = new System.Drawing.Point(363, 72);
             this.btnTransactions.Name = "btnTransactions";
             this.btnTransactions.Size = new System.Drawing.Size(131, 61);
@@ -66,6 +72,8 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnTransactions);
             this.Controls.Add(this.btnCustomers);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "CashierPage";
             this.Text = "Cashier";
             this.ResumeLayout(false);

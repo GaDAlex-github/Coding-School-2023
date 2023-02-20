@@ -39,6 +39,9 @@
             // 
             // grvCustomers
             // 
+            this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmName,
@@ -47,7 +50,7 @@
             this.grvCustomers.Location = new System.Drawing.Point(24, 30);
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.RowTemplate.Height = 25;
-            this.grvCustomers.Size = new System.Drawing.Size(493, 393);
+            this.grvCustomers.Size = new System.Drawing.Size(493, 400);
             this.grvCustomers.TabIndex = 0;
             // 
             // clmName
@@ -71,7 +74,8 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(536, 78);
+            this.btnCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCreate.Location = new System.Drawing.Point(537, 77);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(86, 42);
             this.btnCreate.TabIndex = 1;
@@ -81,7 +85,8 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(536, 126);
+            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnDelete.Location = new System.Drawing.Point(537, 125);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 42);
             this.btnDelete.TabIndex = 2;
@@ -91,7 +96,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(536, 174);
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSave.Location = new System.Drawing.Point(537, 173);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 42);
             this.btnSave.TabIndex = 3;
@@ -101,7 +107,8 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(536, 381);
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Location = new System.Drawing.Point(537, 388);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(86, 42);
             this.btnBack.TabIndex = 4;
@@ -119,6 +126,8 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.grvCustomers);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "CustomerPage";
             this.Text = "CustomerPage";
             this.Load += new System.EventHandler(this.CustomerPage_Load);

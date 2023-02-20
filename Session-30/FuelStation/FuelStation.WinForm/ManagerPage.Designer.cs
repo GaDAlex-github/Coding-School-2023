@@ -31,6 +31,9 @@
             // 
             // btnCustomers
             // 
+            this.btnCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomers.Location = new System.Drawing.Point(63, 67);
             this.btnCustomers.Name = "btnCustomers";
             this.btnCustomers.Size = new System.Drawing.Size(131, 61);
@@ -41,6 +44,9 @@
             // 
             // btnItems
             // 
+            this.btnItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnItems.Location = new System.Drawing.Point(260, 67);
             this.btnItems.Name = "btnItems";
             this.btnItems.Size = new System.Drawing.Size(131, 61);
@@ -51,7 +57,10 @@
             // 
             // btnTransactions
             // 
-            this.btnTransactions.Location = new System.Drawing.Point(467, 67);
+            this.btnTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTransactions.Location = new System.Drawing.Point(460, 67);
             this.btnTransactions.Name = "btnTransactions";
             this.btnTransactions.Size = new System.Drawing.Size(131, 61);
             this.btnTransactions.TabIndex = 2;
@@ -61,7 +70,8 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(535, 385);
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Location = new System.Drawing.Point(536, 386);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(86, 42);
             this.btnBack.TabIndex = 10;
@@ -78,6 +88,8 @@
             this.Controls.Add(this.btnTransactions);
             this.Controls.Add(this.btnItems);
             this.Controls.Add(this.btnCustomers);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "ManagerPage";
             this.Text = "Manager";
             this.ResumeLayout(false);

@@ -41,7 +41,8 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(537, 375);
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Location = new System.Drawing.Point(537, 381);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(86, 42);
             this.btnBack.TabIndex = 9;
@@ -51,7 +52,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(537, 168);
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSave.Location = new System.Drawing.Point(537, 166);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 42);
             this.btnSave.TabIndex = 8;
@@ -61,7 +63,8 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(537, 120);
+            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnDelete.Location = new System.Drawing.Point(537, 118);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 42);
             this.btnDelete.TabIndex = 7;
@@ -71,7 +74,8 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(537, 72);
+            this.btnCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCreate.Location = new System.Drawing.Point(537, 70);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(86, 42);
             this.btnCreate.TabIndex = 6;
@@ -81,6 +85,9 @@
             // 
             // grvCustomers
             // 
+            this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmCode,
@@ -91,7 +98,7 @@
             this.grvCustomers.Location = new System.Drawing.Point(24, 24);
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.RowTemplate.Height = 25;
-            this.grvCustomers.Size = new System.Drawing.Size(493, 393);
+            this.grvCustomers.Size = new System.Drawing.Size(493, 400);
             this.grvCustomers.TabIndex = 5;
             // 
             // clmCode

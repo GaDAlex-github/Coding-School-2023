@@ -52,6 +52,7 @@
             // 
             // btnBack
             // 
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.Location = new System.Drawing.Point(536, 396);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(86, 42);
@@ -62,6 +63,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnSave.Location = new System.Drawing.Point(536, 129);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 42);
@@ -72,6 +74,7 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnDelete.Location = new System.Drawing.Point(536, 81);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 42);
@@ -82,6 +85,7 @@
             // 
             // btnCreate
             // 
+            this.btnCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnCreate.Location = new System.Drawing.Point(536, 33);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(86, 42);
@@ -92,6 +96,9 @@
             // 
             // grvCustomers
             // 
+            this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmDate,
@@ -136,6 +143,9 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmItemId,
@@ -217,6 +227,7 @@
             // 
             // btnTLSave
             // 
+            this.btnTLSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnTLSave.Location = new System.Drawing.Point(536, 326);
             this.btnTLSave.Name = "btnTLSave";
             this.btnTLSave.Size = new System.Drawing.Size(86, 42);
@@ -227,6 +238,7 @@
             // 
             // btnTLDelete
             // 
+            this.btnTLDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnTLDelete.Location = new System.Drawing.Point(536, 278);
             this.btnTLDelete.Name = "btnTLDelete";
             this.btnTLDelete.Size = new System.Drawing.Size(86, 42);
@@ -237,6 +249,7 @@
             // 
             // btnTLCreate
             // 
+            this.btnTLCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnTLCreate.Location = new System.Drawing.Point(536, 230);
             this.btnTLCreate.Name = "btnTLCreate";
             this.btnTLCreate.Size = new System.Drawing.Size(86, 42);
@@ -261,6 +274,8 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.grvCustomers);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "TransactionPage";
             this.Text = "TransactionPage";
             this.Load += new System.EventHandler(this.TransactionPage_Load);
