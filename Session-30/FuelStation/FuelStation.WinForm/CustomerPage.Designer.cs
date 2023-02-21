@@ -25,14 +25,15 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.grvCustomers = new System.Windows.Forms.DataGridView();
-            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmCardnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsCustomers = new System.Windows.Forms.BindingSource(this.components);
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomers)).BeginInit();
             this.SuspendLayout();
@@ -46,31 +47,13 @@
             this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmName,
             this.clmSurname,
-            this.ClmCardnumber});
+            this.clmCardNumber,
+            this.clmId});
             this.grvCustomers.Location = new System.Drawing.Point(24, 30);
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.RowTemplate.Height = 25;
             this.grvCustomers.Size = new System.Drawing.Size(493, 400);
             this.grvCustomers.TabIndex = 0;
-            // 
-            // clmName
-            // 
-            this.clmName.HeaderText = "Name";
-            this.clmName.Name = "clmName";
-            this.clmName.Width = 150;
-            // 
-            // clmSurname
-            // 
-            this.clmSurname.HeaderText = "Surname";
-            this.clmSurname.Name = "clmSurname";
-            this.clmSurname.Width = 150;
-            // 
-            // ClmCardnumber
-            // 
-            this.ClmCardnumber.HeaderText = "CardNumber";
-            this.ClmCardnumber.Name = "ClmCardnumber";
-            this.ClmCardnumber.ReadOnly = true;
-            this.ClmCardnumber.Width = 150;
             // 
             // btnCreate
             // 
@@ -116,6 +99,35 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // clmName
+            // 
+            this.clmName.DataPropertyName = "Name";
+            this.clmName.HeaderText = "Name";
+            this.clmName.Name = "clmName";
+            this.clmName.Width = 150;
+            // 
+            // clmSurname
+            // 
+            this.clmSurname.DataPropertyName = "Surname";
+            this.clmSurname.HeaderText = "Surname";
+            this.clmSurname.Name = "clmSurname";
+            this.clmSurname.Width = 150;
+            // 
+            // clmCardNumber
+            // 
+            this.clmCardNumber.DataPropertyName = "CardNumber";
+            this.clmCardNumber.HeaderText = "CardNumber";
+            this.clmCardNumber.Name = "clmCardNumber";
+            this.clmCardNumber.ReadOnly = true;
+            this.clmCardNumber.Width = 150;
+            // 
+            // clmId
+            // 
+            this.clmId.DataPropertyName = "Id";
+            this.clmId.HeaderText = "Id";
+            this.clmId.Name = "clmId";
+            this.clmId.Visible = false;
+            // 
             // CustomerPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -140,13 +152,14 @@
         #endregion
 
         private DataGridView grvCustomers;
-        private DataGridViewTextBoxColumn clmName;
-        private DataGridViewTextBoxColumn clmSurname;
-        private DataGridViewTextBoxColumn ClmCardnumber;
         private BindingSource bsCustomers;
         private Button btnCreate;
         private Button btnDelete;
         private Button btnSave;
         private Button btnBack;
+        private DataGridViewTextBoxColumn clmName;
+        private DataGridViewTextBoxColumn clmSurname;
+        private DataGridViewTextBoxColumn clmCardNumber;
+        private DataGridViewTextBoxColumn clmId;
     }
 }

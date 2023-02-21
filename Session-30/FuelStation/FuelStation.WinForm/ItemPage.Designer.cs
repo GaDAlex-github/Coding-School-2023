@@ -28,14 +28,15 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.grvCustomers = new System.Windows.Forms.DataGridView();
+            this.grvItems = new System.Windows.Forms.DataGridView();
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsItems = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,26 +84,29 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // grvCustomers
+            // grvItems
             // 
-            this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grvItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmCode,
             this.clmDescription,
             this.ClmItemType,
             this.clmPrice,
-            this.clmCost});
-            this.grvCustomers.Location = new System.Drawing.Point(24, 24);
-            this.grvCustomers.Name = "grvCustomers";
-            this.grvCustomers.RowTemplate.Height = 25;
-            this.grvCustomers.Size = new System.Drawing.Size(493, 400);
-            this.grvCustomers.TabIndex = 5;
+            this.clmCost,
+            this.clmId});
+            this.grvItems.Location = new System.Drawing.Point(24, 24);
+            this.grvItems.Name = "grvItems";
+            this.grvItems.RowTemplate.Height = 25;
+            this.grvItems.Size = new System.Drawing.Size(493, 400);
+            this.grvItems.TabIndex = 5;
+            this.grvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvItems_DataError);
             // 
             // clmCode
             // 
+            this.clmCode.DataPropertyName = "Code";
             this.clmCode.HeaderText = "Code";
             this.clmCode.Name = "clmCode";
             this.clmCode.ReadOnly = true;
@@ -110,28 +114,42 @@
             // 
             // clmDescription
             // 
+            this.clmDescription.DataPropertyName = "Description";
             this.clmDescription.HeaderText = "Description";
             this.clmDescription.Name = "clmDescription";
             this.clmDescription.Width = 200;
             // 
             // ClmItemType
             // 
+            this.ClmItemType.DataPropertyName = "ItemType";
+            this.ClmItemType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.ClmItemType.HeaderText = "ItemType";
             this.ClmItemType.Name = "ClmItemType";
             this.ClmItemType.ReadOnly = true;
+            this.ClmItemType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ClmItemType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ClmItemType.Width = 90;
             // 
             // clmPrice
             // 
+            this.clmPrice.DataPropertyName = "Price";
             this.clmPrice.HeaderText = "Price";
             this.clmPrice.Name = "clmPrice";
             this.clmPrice.Width = 50;
             // 
             // clmCost
             // 
+            this.clmCost.DataPropertyName = "Cost";
             this.clmCost.HeaderText = "Cost";
             this.clmCost.Name = "clmCost";
             this.clmCost.Width = 50;
+            // 
+            // clmId
+            // 
+            this.clmId.DataPropertyName = "Id";
+            this.clmId.HeaderText = "Id";
+            this.clmId.Name = "clmId";
+            this.clmId.Visible = false;
             // 
             // ItemPage
             // 
@@ -142,11 +160,11 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
-            this.Controls.Add(this.grvCustomers);
+            this.Controls.Add(this.grvItems);
             this.Name = "ItemPage";
             this.Text = "ItemPage";
             this.Load += new System.EventHandler(this.ItemPage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).EndInit();
             this.ResumeLayout(false);
 
@@ -158,12 +176,13 @@
         private Button btnSave;
         private Button btnDelete;
         private Button btnCreate;
-        private DataGridView grvCustomers;
+        private DataGridView grvItems;
+        private BindingSource bsItems;
         private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
-        private DataGridViewTextBoxColumn ClmItemType;
+        private DataGridViewComboBoxColumn ClmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
-        private BindingSource bsItems;
+        private DataGridViewTextBoxColumn clmId;
     }
 }

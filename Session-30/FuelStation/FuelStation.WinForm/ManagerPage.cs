@@ -30,8 +30,8 @@ namespace FuelStation.WinForm {
 
         private void btnTransactions_Click(object sender, EventArgs e) {
             this.Hide();
-            TransactionPage transactionPage = new();
-            transactionPage.ShowDialog();
+            CardNumberPage cardNumberPage = new();
+            cardNumberPage.ShowDialog();
             this.Show();
         }
 
