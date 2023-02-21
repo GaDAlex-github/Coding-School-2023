@@ -1,4 +1,5 @@
 ﻿using FuelStation.Blazor.Shared.Customer;
+using FuelStation.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,18 +28,26 @@ namespace FuelStation.WinForm {
 
         private async void btnEnter_Click(object sender, EventArgs e) {
             customers = await LoadItemsFromServer();
+            bool dontExist = false;
             foreach (var customer in customers) {
                 if (customer.CardNumber == inputCardNumber.Text) {
                     this.Hide();
                     TransactionPage transactionPage = new();
                     transactionPage.ShowDialog();
                     this.Show();
+                    dontExist = false;
+                    if (customer.CardNumber == inputCardNumber.Text)
+                        break;
                 }
+                else
+                    dontExist = true;
             }
-            this.Hide();
-            CustomerPage customerPage = new();
-            customerPage.ShowDialog();
-            this.Show();
+            if (dontExist) {
+                this.Hide();
+                CustomerPage customerPage = new();
+                customerPage.ShowDialog();
+                this.Show();
+            }
         }
         private async Task<IEnumerable<CustomerListDto>> LoadItemsFromServer() {
             using (HttpClient client = new HttpClient()) {

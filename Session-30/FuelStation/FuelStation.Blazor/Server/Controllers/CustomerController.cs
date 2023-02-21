@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using FuelStation.Blazor.Shared.Customer;
 using System.Text.RegularExpressions;
+using FuelStation.Blazor.Client.Pages.Customer;
 
 namespace FuelStation.Blazor.Server.Controllers {
 
@@ -21,8 +22,8 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         [HttpGet]
         public async Task<IEnumerable<CustomerListDto>> Get() {
-            var customer = _customerRepo.GetAll();
-            return customer.Select(customer => new CustomerListDto {
+            var customers = _customerRepo.GetAll();
+            return customers.Select(customer => new CustomerListDto {
                 Id = customer.Id,
                 Name = customer.Name,
                 Surname = customer.Surname,
@@ -79,5 +80,17 @@ namespace FuelStation.Blazor.Server.Controllers {
             customer.CardNumber = max;
             return customer.CardNumber;
         }
+
+        //[HttpGet("{cardnumber}")]
+        //public async Task<CustomerEditDto> CheckCardNumber(string cardNumber) {
+        //    var customers = _customerRepo.GetAll();
+        //    var customer = customers.Where(customer => customer.CardNumber == cardNumber).FirstOrDefault();
+        //    return new CustomerEditDto {
+        //        Id = customer.Id,
+        //        Name = customer.Name,
+        //        Surname = customer.Surname,
+        //        CardNumber = customer.CardNumber
+        //    };
+        //}
     }
 }
