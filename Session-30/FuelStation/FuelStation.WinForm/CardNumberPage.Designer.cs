@@ -23,10 +23,13 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnEnter = new System.Windows.Forms.Button();
             this.lblCardNumber = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.inputCardNumber = new System.Windows.Forms.TextBox();
+            this.bsCardNumber = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bsCardNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // btnEnter
@@ -65,20 +68,20 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // textBox1
+            // inputCardNumber
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(259, 145);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(114, 29);
-            this.textBox1.TabIndex = 12;
+            this.inputCardNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.inputCardNumber.Location = new System.Drawing.Point(259, 145);
+            this.inputCardNumber.Name = "inputCardNumber";
+            this.inputCardNumber.Size = new System.Drawing.Size(114, 29);
+            this.inputCardNumber.TabIndex = 12;
             // 
             // CardNumberPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 451);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.inputCardNumber);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.lblCardNumber);
@@ -86,6 +89,8 @@
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "CardNumberPage";
             this.Text = "CardNumberPage";
+            this.Load += new System.EventHandler(this.CardNumberPage_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.bsCardNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,6 +101,7 @@
         private Button btnEnter;
         private Label lblCardNumber;
         private Button btnBack;
-        private TextBox textBox1;
+        private TextBox inputCardNumber;
+        private BindingSource bsCardNumber;
     }
 }
