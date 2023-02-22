@@ -2,37 +2,46 @@
 using FuelStation.Blazor.Shared.Item;
 using FuelStation.Model;
 using FuelStation.Model.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FuelStation.WinForm {
     public partial class ItemPage : Form {
+
+        private readonly HttpClient httpClient;
+
         public ItemPage() {
             InitializeComponent();
+            httpClient = new HttpClient();
+            ConUri uri = new();
+            httpClient.BaseAddress = new Uri(uri.GetUri());
         }
-        private async void ItemPage_Load(object sender, EventArgs e) {
-            await LoadItemsFromServer();
-            SetControllers();
+        private void ItemPage_Load(object sender, EventArgs e) {
+            _ = SetControllers();
         }
-        public void SetControllers() {
-            grvItems.AutoGenerateColumns = false;
-            grvItems.DataSource = bsItems;
 
-            
-            DataGridViewComboBoxColumn itemType = new DataGridViewComboBoxColumn();
-            itemType.DataSource = Enum.GetValues(typeof(ItemType));
-
-            //itemType.ValueType = typeof(int);
-            grvItems.Columns.Add(itemType);
-
-        }
+        public async Task SetControllers() {
+            var items = await GetItems();
+            if (items != null) {
+                bsItems.DataSource = items;
+                grvItems.AutoGenerateColumns = false;
+                grvItems.DataSource = bsItems;
+                DataGridViewComboBoxColumn ClmItemType = new DataGridViewComboBoxColumn();
+                ClmItemType.DataPropertyName = "ItemType";
+                ClmItemType.DisplayMember = "GetItemType";
+                ClmItemType.ValueMember = "Value";
+                ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
+            }    
+        }      
 
         private void btnCreate_Click(object sender, EventArgs e) {
             ItemListDto newItem = new ItemListDto();
@@ -40,27 +49,70 @@ namespace FuelStation.WinForm {
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            bsItems.RemoveCurrent();
+            ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+            DeleteItem(item.Id);
+            _ = SetControllers();
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-
+            ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+            if (item.Id == 0) {
+                _ = NewItem(item);
+            }
+            else {
+                _ = EditItem(item);
+            }
+            _ = SetControllers();
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
-        private async Task LoadItemsFromServer() {
-            using (HttpClient client = new HttpClient()) {
-                var response = await client.GetAsync("https://localhost:7157/item");
-                var data = await response.Content.ReadAsAsync<IEnumerable<ItemListDto>>();
-                grvItems.DataSource = data;
-                bsItems.DataSource = data;
+        private async Task<List<ItemListDto?>> GetItems() {
+            var response = await httpClient.GetAsync("item");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<ItemListDto?>>(data);
             }
-        }       
-
-        private void grvItems_DataError(object sender, DataGridViewDataErrorEventArgs e) {
-            e.Cancel = true;
+            else {
+                return null;
+            }
         }
-    }
+        private async Task NewItem(ItemListDto? item) {
+            var response = await httpClient.PostAsJsonAsync("item", item);
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Item Created!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
+            }
+        }
+        private async Task EditItem(ItemListDto? item) {
+
+            var response = await httpClient.PutAsJsonAsync("item", item);
+
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Item Edited!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
+            }
+        }
+
+        private async Task DeleteItem(int id) {
+            var response = await httpClient.DeleteAsync($"item/{id}");
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Item Deleted!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
+            }
+        }
+        public string GetItemType(Enum itemType) {
+            return Enum.GetName(itemType.GetType(), itemType);
+        }
+    }    
 }

@@ -15,8 +15,7 @@ namespace FuelStation.WinForm {
             httpClient.BaseAddress = new Uri(uri.GetUri());
         }
 
-        private void CustomerPage_Load(object sender, EventArgs e) {
-            ;
+        private void CustomerPage_Load(object sender, EventArgs e) {            
             _ = SetControllers();
         }
 
@@ -31,22 +30,24 @@ namespace FuelStation.WinForm {
 
         private void btnCreate_Click(object sender, EventArgs e) {
             CustomerListDto newCustomer = new CustomerListDto();
-            bsCustomers.Add(newCustomer);            
+            bsCustomers.Add(newCustomer);
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
             CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
-            DeleteCustomer(customer.Id);   
+            DeleteCustomer(customer.Id);
+            _ = SetControllers();
         }
 
-        private  void btnSave_Click(object sender, EventArgs e) {
+        private void btnSave_Click(object sender, EventArgs e) {
             CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
             if (customer.Id == 0) {
                 _ = NewCustomer(customer);
             }
             else {
                 _ = EditCustomer(customer);
-            }           
+            }
+            _ = SetControllers();
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -78,7 +79,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PutAsJsonAsync("customer", customer);
 
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("Customer Deleted!", "Success Message");
+                MessageBox.Show("Customer Edited!", "Success Message");
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -89,7 +90,7 @@ namespace FuelStation.WinForm {
         private async Task DeleteCustomer(int id) {
             var response = await httpClient.DeleteAsync($"customer/{id}");
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("Success!", "Success Message");
+                MessageBox.Show("Customer Deleted!", "Success Message");
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");

@@ -29,13 +29,13 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvItems = new System.Windows.Forms.DataGridView();
+            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ClmItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).BeginInit();
             this.SuspendLayout();
@@ -102,7 +102,6 @@
             this.grvItems.RowTemplate.Height = 25;
             this.grvItems.Size = new System.Drawing.Size(493, 400);
             this.grvItems.TabIndex = 5;
-            this.grvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvItems_DataError);
             // 
             // clmCode
             // 
@@ -122,12 +121,10 @@
             // ClmItemType
             // 
             this.ClmItemType.DataPropertyName = "ItemType";
-            this.ClmItemType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.ClmItemType.HeaderText = "ItemType";
             this.ClmItemType.Name = "ClmItemType";
             this.ClmItemType.ReadOnly = true;
             this.ClmItemType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ClmItemType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ClmItemType.Width = 90;
             // 
             // clmPrice
@@ -180,7 +177,7 @@
         private BindingSource bsItems;
         private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
-        private DataGridViewComboBoxColumn ClmItemType;
+        private DataGridViewTextBoxColumn ClmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
         private DataGridViewTextBoxColumn clmId;
