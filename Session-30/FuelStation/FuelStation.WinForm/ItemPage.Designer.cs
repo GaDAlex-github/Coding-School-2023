@@ -32,7 +32,7 @@
             this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,10 +121,12 @@
             // ClmItemType
             // 
             this.ClmItemType.DataPropertyName = "ItemType";
+            this.ClmItemType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.ClmItemType.HeaderText = "ItemType";
             this.ClmItemType.Name = "ClmItemType";
             this.ClmItemType.ReadOnly = true;
             this.ClmItemType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ClmItemType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ClmItemType.Width = 90;
             // 
             // clmPrice
@@ -177,7 +179,7 @@
         private BindingSource bsItems;
         private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
-        private DataGridViewTextBoxColumn ClmItemType;
+        private DataGridViewComboBoxColumn ClmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
         private DataGridViewTextBoxColumn clmId;

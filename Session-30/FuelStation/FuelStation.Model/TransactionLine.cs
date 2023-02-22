@@ -21,13 +21,13 @@ namespace FuelStation.Model {
         public int ItemId { get; set; }
         public Item Item { get; set; } = null!;
 
-        public TransactionLine(int quantity, decimal itemPrice, decimal netValue, int discountPercent, decimal discountValue, decimal totalValue) {
+        public TransactionLine(int quantity, decimal itemPrice, int discountPercent) {
             Quantity = quantity;
             ItemPrice = itemPrice;
-            NetValue = netValue;
+            NetValue = Quantity * ItemPrice;
             DiscountPercent = discountPercent;
-            DiscountValue = discountValue;
-            TotalValue = totalValue;
+            DiscountValue = DiscountPercent * NetValue;
+            TotalValue = NetValue - DiscountValue;
         }
     }
 }

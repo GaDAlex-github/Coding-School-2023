@@ -36,10 +36,10 @@ namespace FuelStation.WinForm {
                 grvItems.AutoGenerateColumns = false;
                 grvItems.DataSource = bsItems;
                 DataGridViewComboBoxColumn ClmItemType = new DataGridViewComboBoxColumn();
-                ClmItemType.DataPropertyName = "ItemType";
                 ClmItemType.DisplayMember = "GetItemType";
-                ClmItemType.ValueMember = "Value";
+                ClmItemType.ValueMember = "ItemType";
                 ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
+                grvItems.Columns.Add(ClmItemType);
             }    
         }      
 
@@ -111,8 +111,8 @@ namespace FuelStation.WinForm {
                 _ = SetControllers();
             }
         }
-        public string GetItemType(Enum itemType) {
-            return Enum.GetName(itemType.GetType(), itemType);
-        }
+        //public string GetItemType(Enum itemType) {
+        //    return Enum.GetName(itemType.GetType(), itemType);
+        //}
     }    
 }

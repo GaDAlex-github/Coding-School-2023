@@ -29,6 +29,6 @@ namespace FuelStation.Blazor.Shared.Employee {
         [Required]
         public EmployeeType EmployeeType { get; set; }
 
-        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public List<FuelStation.Model.Transaction> Transactions { get; set; } = new List<FuelStation.Model.Transaction>();
     }
 }

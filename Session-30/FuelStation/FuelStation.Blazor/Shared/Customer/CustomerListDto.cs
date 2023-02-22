@@ -12,7 +12,7 @@ namespace FuelStation.Blazor.Shared.Customer {
         public string? Surname { get; set; }
         public string? CardNumber { get; set; }
 
-        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public List<FuelStation.Model.Transaction> Transactions { get; set; } = new List<FuelStation.Model.Transaction>();
 
        
     }

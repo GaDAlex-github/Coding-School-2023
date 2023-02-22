@@ -15,6 +15,6 @@ namespace FuelStation.Blazor.Shared.Item {
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
 
-        public List<TransactionLine> TransactionLiness { get; set; } = new List<TransactionLine>();
+        public List<FuelStation.Model.TransactionLine> TransactionLiness { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }

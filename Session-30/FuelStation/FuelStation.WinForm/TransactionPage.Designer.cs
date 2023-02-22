@@ -28,13 +28,13 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.grvCustomers = new System.Windows.Forms.DataGridView();
+            this.grvTransactions = new System.Windows.Forms.DataGridView();
             this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEmployeeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grvTransactionLines = new System.Windows.Forms.DataGridView();
             this.clmItemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,8 +49,8 @@
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
             this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactionLines)).BeginInit();
             this.SuspendLayout();
@@ -99,23 +99,23 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // grvCustomers
+            // grvTransactions
             // 
-            this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grvTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvTransactions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmDate,
             this.clmEmployeeId,
             this.clmCustomerId,
             this.clmPaymentMethod,
             this.clmTotalValue});
-            this.grvCustomers.Location = new System.Drawing.Point(22, 33);
-            this.grvCustomers.Name = "grvCustomers";
-            this.grvCustomers.RowTemplate.Height = 25;
-            this.grvCustomers.Size = new System.Drawing.Size(493, 151);
-            this.grvCustomers.TabIndex = 10;
+            this.grvTransactions.Location = new System.Drawing.Point(22, 33);
+            this.grvTransactions.Name = "grvTransactions";
+            this.grvTransactions.RowTemplate.Height = 25;
+            this.grvTransactions.Size = new System.Drawing.Size(493, 151);
+            this.grvTransactions.TabIndex = 10;
             // 
             // clmDate
             // 
@@ -146,13 +146,13 @@
             this.clmTotalValue.Name = "clmTotalValue";
             this.clmTotalValue.Width = 80;
             // 
-            // dataGridView1
+            // grvTransactionLines
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grvTransactionLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grvTransactionLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvTransactionLines.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmItemId,
             this.clmQuantity,
             this.clmItemPrice,
@@ -160,11 +160,11 @@
             this.clmDiscountPercent,
             this.clmDiscountValue,
             this.dataGridViewTextBoxColumn5});
-            this.dataGridView1.Location = new System.Drawing.Point(22, 230);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(493, 208);
-            this.dataGridView1.TabIndex = 15;
+            this.grvTransactionLines.Location = new System.Drawing.Point(22, 230);
+            this.grvTransactionLines.Name = "grvTransactionLines";
+            this.grvTransactionLines.RowTemplate.Height = 25;
+            this.grvTransactionLines.Size = new System.Drawing.Size(493, 208);
+            this.grvTransactionLines.TabIndex = 15;
             // 
             // clmItemId
             // 
@@ -273,19 +273,19 @@
             this.Controls.Add(this.btnTLCreate);
             this.Controls.Add(this.lblTransactionLine);
             this.Controls.Add(this.lblTransaction);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.grvTransactionLines);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
-            this.Controls.Add(this.grvCustomers);
+            this.Controls.Add(this.grvTransactions);
             this.MaximumSize = new System.Drawing.Size(660, 490);
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "TransactionPage";
             this.Text = "TransactionPage";
             this.Load += new System.EventHandler(this.TransactionPage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactionLines)).EndInit();
             this.ResumeLayout(false);
@@ -299,13 +299,13 @@
         private Button btnSave;
         private Button btnDelete;
         private Button btnCreate;
-        private DataGridView grvCustomers;
+        private DataGridView grvTransactions;
         private DataGridViewTextBoxColumn clmDate;
         private DataGridViewTextBoxColumn clmEmployeeId;
         private DataGridViewTextBoxColumn clmCustomerId;
         private DataGridViewTextBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
-        private DataGridView dataGridView1;
+        private DataGridView grvTransactionLines;
         private Label lblTransaction;
         private Label lblTransactionLine;
         private DataGridViewTextBoxColumn clmItemId;
