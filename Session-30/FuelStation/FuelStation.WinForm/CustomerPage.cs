@@ -1,44 +1,32 @@
-﻿using FuelStation.Blazor.Client.Pages.Customer;
-using FuelStation.Blazor.Shared.Customer;
-using FuelStation.Blazor.Server.Controllers;
-using FuelStation.EF.Repositories;
-using FuelStation.Model;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Azure;
-using Microsoft.JSInterop;
+﻿using FuelStation.Blazor.Shared.Customer;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
 
 namespace FuelStation.WinForm {
     public partial class CustomerPage : Form {
 
+        private readonly HttpClient httpClient;
         private List<CustomerListDto> customerList = new();
-        //private CustomerListDto customer;
 
         public CustomerPage() {
             InitializeComponent();
-
+            httpClient = new HttpClient();
+            ConUri uri = new();
+            httpClient.BaseAddress = new Uri(uri.GetUri());
         }
 
-        private async void CustomerPage_Load(object sender, EventArgs e) {
-
-            await LoadItemsFromServer();
-            SetControllers();
-
+        private void CustomerPage_Load(object sender, EventArgs e) {
+            ;
+            _ = SetControllers();
         }
 
-        public void SetControllers() {           
-            grvCustomers.AutoGenerateColumns = false;
-            grvCustomers.DataSource = bsCustomers;
+        public async Task SetControllers() {
+            var Customers = await GetCustomers();
+            if (Customers != null) {
+                bsCustomers.DataSource = Customers;
+                grvCustomers.AutoGenerateColumns = false;
+                grvCustomers.DataSource = bsCustomers;
+            }
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
@@ -47,35 +35,65 @@ namespace FuelStation.WinForm {
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            
+            CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
+            DeleteCustomer(customer.Id);   
         }
 
-        private async void btnSave_Click(object sender, EventArgs e) {
-            //var customer = bsCustomers.Current;
-            //await DeleteItem(customer);
-
+        private  void btnSave_Click(object sender, EventArgs e) {
+            CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
+            if (customer.Id == 0) {
+                _ = NewCustomer(customer);
+            }
+            else {
+                _ = EditCustomer(customer);
+            }           
         }
+
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
-        }      
+        }
 
-        private async Task LoadItemsFromServer() {
-            using (HttpClient client = new HttpClient()) {
-                var response = await client.GetAsync("https://localhost:7157/customer");
-                var data = await response.Content.ReadAsAsync<IEnumerable<CustomerListDto>>();
-                grvCustomers.DataSource = data;
-                bsCustomers.DataSource = data;
+        private async Task<List<CustomerListDto?>> GetCustomers() {
+            var response = await httpClient.GetAsync("customer");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<CustomerListDto?>>(data);
+            }
+            else {
+                return null;
             }
         }
-        private async Task DeleteItem(CustomerListDto customer) {
-            using (HttpClient client = new HttpClient()) {
-                DialogResult dialogResult = MessageBox.Show("Sure", "Are you sure you want to delete that Customer?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes) {
-                    bsCustomers.RemoveCurrent();
-                    var response = await client.DeleteAsync($"customer/{customer.Id}");
-                    response.EnsureSuccessStatusCode();
-                    await LoadItemsFromServer();
-                }
+        private async Task NewCustomer(CustomerListDto? customer) {
+            var response = await httpClient.PostAsJsonAsync("customer", customer);
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Customer Created!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
+            }
+        }
+        private async Task EditCustomer(CustomerListDto? customer) {
+
+            var response = await httpClient.PutAsJsonAsync("customer", customer);
+
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Customer Deleted!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
+            }
+        }
+
+        private async Task DeleteCustomer(int id) {
+            var response = await httpClient.DeleteAsync($"customer/{id}");
+            if (response.IsSuccessStatusCode) {
+                MessageBox.Show("Success!", "Success Message");
+            }
+            else {
+                MessageBox.Show("Error! Try again.", "Alert Message");
+                _ = SetControllers();
             }
         }
     }
