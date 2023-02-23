@@ -29,19 +29,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvTransactions = new System.Windows.Forms.DataGridView();
-            this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmEmployeeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grvTransactionLines = new System.Windows.Forms.DataGridView();
-            this.clmItemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNetValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDiscountPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDiscountValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTransaction = new System.Windows.Forms.Label();
             this.lblTransactionLine = new System.Windows.Forms.Label();
             this.btnTLSave = new System.Windows.Forms.Button();
@@ -49,6 +37,18 @@
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
             this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
+            this.clmItemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNetValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDiscountPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDiscountValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCustomer = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmEmployee = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
@@ -107,8 +107,8 @@
             this.grvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvTransactions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmDate,
-            this.clmEmployeeId,
-            this.clmCustomerId,
+            this.clmCustomer,
+            this.clmEmployee,
             this.clmPaymentMethod,
             this.clmTotalValue});
             this.grvTransactions.Location = new System.Drawing.Point(22, 33);
@@ -116,35 +116,6 @@
             this.grvTransactions.RowTemplate.Height = 25;
             this.grvTransactions.Size = new System.Drawing.Size(493, 151);
             this.grvTransactions.TabIndex = 10;
-            // 
-            // clmDate
-            // 
-            this.clmDate.HeaderText = "Date";
-            this.clmDate.Name = "clmDate";
-            this.clmDate.ReadOnly = true;
-            this.clmDate.Width = 70;
-            // 
-            // clmEmployeeId
-            // 
-            this.clmEmployeeId.HeaderText = "Employee";
-            this.clmEmployeeId.Name = "clmEmployeeId";
-            // 
-            // clmCustomerId
-            // 
-            this.clmCustomerId.HeaderText = "Customer";
-            this.clmCustomerId.Name = "clmCustomerId";
-            this.clmCustomerId.ReadOnly = true;
-            // 
-            // clmPaymentMethod
-            // 
-            this.clmPaymentMethod.HeaderText = "PaymentMethod";
-            this.clmPaymentMethod.Name = "clmPaymentMethod";
-            // 
-            // clmTotalValue
-            // 
-            this.clmTotalValue.HeaderText = "TotalValue";
-            this.clmTotalValue.Name = "clmTotalValue";
-            this.clmTotalValue.Width = 80;
             // 
             // grvTransactionLines
             // 
@@ -165,50 +136,6 @@
             this.grvTransactionLines.RowTemplate.Height = 25;
             this.grvTransactionLines.Size = new System.Drawing.Size(493, 208);
             this.grvTransactionLines.TabIndex = 15;
-            // 
-            // clmItemId
-            // 
-            this.clmItemId.HeaderText = "Item";
-            this.clmItemId.Name = "clmItemId";
-            this.clmItemId.ReadOnly = true;
-            this.clmItemId.Width = 80;
-            // 
-            // clmQuantity
-            // 
-            this.clmQuantity.HeaderText = "Quantity";
-            this.clmQuantity.Name = "clmQuantity";
-            this.clmQuantity.Width = 60;
-            // 
-            // clmItemPrice
-            // 
-            this.clmItemPrice.HeaderText = "ItemPrice";
-            this.clmItemPrice.Name = "clmItemPrice";
-            this.clmItemPrice.ReadOnly = true;
-            this.clmItemPrice.Width = 60;
-            // 
-            // clmNetValue
-            // 
-            this.clmNetValue.HeaderText = "NetValue";
-            this.clmNetValue.Name = "clmNetValue";
-            this.clmNetValue.Width = 60;
-            // 
-            // clmDiscountPercent
-            // 
-            this.clmDiscountPercent.HeaderText = "Discount%";
-            this.clmDiscountPercent.Name = "clmDiscountPercent";
-            this.clmDiscountPercent.Width = 70;
-            // 
-            // clmDiscountValue
-            // 
-            this.clmDiscountValue.HeaderText = "Discount";
-            this.clmDiscountValue.Name = "clmDiscountValue";
-            this.clmDiscountValue.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Total";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 60;
             // 
             // lblTransaction
             // 
@@ -263,6 +190,94 @@
             this.btnTLCreate.UseVisualStyleBackColor = true;
             this.btnTLCreate.Click += new System.EventHandler(this.btnTLCreate_Click);
             // 
+            // clmItemId
+            // 
+            this.clmItemId.DataPropertyName = "ItemId";
+            this.clmItemId.HeaderText = "Item";
+            this.clmItemId.Name = "clmItemId";
+            this.clmItemId.Width = 80;
+            // 
+            // clmQuantity
+            // 
+            this.clmQuantity.DataPropertyName = "Quantity";
+            this.clmQuantity.HeaderText = "Quantity";
+            this.clmQuantity.Name = "clmQuantity";
+            this.clmQuantity.Width = 60;
+            // 
+            // clmItemPrice
+            // 
+            this.clmItemPrice.DataPropertyName = "ItemPrice";
+            this.clmItemPrice.HeaderText = "ItemPrice";
+            this.clmItemPrice.Name = "clmItemPrice";
+            this.clmItemPrice.Width = 60;
+            // 
+            // clmNetValue
+            // 
+            this.clmNetValue.DataPropertyName = "NetValue";
+            this.clmNetValue.HeaderText = "NetValue";
+            this.clmNetValue.Name = "clmNetValue";
+            this.clmNetValue.Width = 60;
+            // 
+            // clmDiscountPercent
+            // 
+            this.clmDiscountPercent.DataPropertyName = "DiscountPercent";
+            this.clmDiscountPercent.HeaderText = "Discount%";
+            this.clmDiscountPercent.Name = "clmDiscountPercent";
+            this.clmDiscountPercent.Width = 70;
+            // 
+            // clmDiscountValue
+            // 
+            this.clmDiscountValue.DataPropertyName = "DiscountValue";
+            this.clmDiscountValue.HeaderText = "Discount";
+            this.clmDiscountValue.Name = "clmDiscountValue";
+            this.clmDiscountValue.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalValue";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Total";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 60;
+            // 
+            // clmDate
+            // 
+            this.clmDate.DataPropertyName = "Date";
+            this.clmDate.HeaderText = "Date";
+            this.clmDate.Name = "clmDate";
+            this.clmDate.ReadOnly = true;
+            this.clmDate.Width = 70;
+            // 
+            // clmCustomer
+            // 
+            this.clmCustomer.DataPropertyName = "CustomerId";
+            this.clmCustomer.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmCustomer.HeaderText = "Customer";
+            this.clmCustomer.Name = "clmCustomer";
+            this.clmCustomer.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmCustomer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmEmployee
+            // 
+            this.clmEmployee.DataPropertyName = "EmployeeId";
+            this.clmEmployee.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmEmployee.HeaderText = "Employee";
+            this.clmEmployee.Name = "clmEmployee";
+            this.clmEmployee.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmEmployee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmPaymentMethod
+            // 
+            this.clmPaymentMethod.DataPropertyName = "PaymentMethod";
+            this.clmPaymentMethod.HeaderText = "PaymentMethod";
+            this.clmPaymentMethod.Name = "clmPaymentMethod";
+            // 
+            // clmTotalValue
+            // 
+            this.clmTotalValue.DataPropertyName = "TotalValue";
+            this.clmTotalValue.HeaderText = "TotalValue";
+            this.clmTotalValue.Name = "clmTotalValue";
+            this.clmTotalValue.Width = 80;
+            // 
             // TransactionPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -300,14 +315,19 @@
         private Button btnDelete;
         private Button btnCreate;
         private DataGridView grvTransactions;
-        private DataGridViewTextBoxColumn clmDate;
-        private DataGridViewTextBoxColumn clmEmployeeId;
-        private DataGridViewTextBoxColumn clmCustomerId;
-        private DataGridViewTextBoxColumn clmPaymentMethod;
-        private DataGridViewTextBoxColumn clmTotalValue;
         private DataGridView grvTransactionLines;
         private Label lblTransaction;
         private Label lblTransactionLine;
+        private Button btnTLSave;
+        private Button btnTLDelete;
+        private Button btnTLCreate;
+        private BindingSource bsTransactions;
+        private BindingSource bsTransactionLines;
+        private DataGridViewTextBoxColumn clmDate;
+        private DataGridViewComboBoxColumn clmCustomer;
+        private DataGridViewComboBoxColumn clmEmployee;
+        private DataGridViewTextBoxColumn clmPaymentMethod;
+        private DataGridViewTextBoxColumn clmTotalValue;
         private DataGridViewTextBoxColumn clmItemId;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmItemPrice;
@@ -315,10 +335,5 @@
         private DataGridViewTextBoxColumn clmDiscountPercent;
         private DataGridViewTextBoxColumn clmDiscountValue;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private Button btnTLSave;
-        private Button btnTLDelete;
-        private Button btnTLCreate;
-        private BindingSource bsTransactions;
-        private BindingSource bsTransactionLines;
     }
 }

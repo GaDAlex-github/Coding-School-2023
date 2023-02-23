@@ -32,16 +32,22 @@ namespace FuelStation.WinForm {
         public async Task SetControllers() {
             var items = await GetItems();
             if (items != null) {
-                bsItems.DataSource = items;
-                grvItems.AutoGenerateColumns = false;
-                grvItems.DataSource = bsItems;
-                DataGridViewComboBoxColumn ClmItemType = new DataGridViewComboBoxColumn();
-                ClmItemType.DisplayMember = "GetItemType";
-                ClmItemType.ValueMember = "ItemType";
-                ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
-                grvItems.Columns.Add(ClmItemType);
-            }    
-        }      
+                try {
+                    bsItems.DataSource = items;
+                    grvItems.AutoGenerateColumns = false;
+                    grvItems.DataSource = bsItems;
+
+                    //DataGridViewComboBoxColumn ClmItemType = grvItems.Columns["ClmItemType"] as DataGridViewComboBoxColumn;
+                    ClmItemType.DataSource = Enum.GetValues(typeof(ItemType));
+                    //ClmItemType.DisplayMember = "GetItemType";
+                    //ClmItemType.ValueMember = "ItemId";
+                    //ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
 
         private void btnCreate_Click(object sender, EventArgs e) {
             ItemListDto newItem = new ItemListDto();
@@ -111,8 +117,8 @@ namespace FuelStation.WinForm {
                 _ = SetControllers();
             }
         }
-        //public string GetItemType(Enum itemType) {
-        //    return Enum.GetName(itemType.GetType(), itemType);
-        //}
-    }    
+        public string GetItemType(Enum itemType) {
+            return Enum.GetName(itemType.GetType(), itemType);
+        }
+    }
 }

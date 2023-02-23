@@ -15,6 +15,11 @@ namespace FuelStation.Blazor.Shared.Customer {
         [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "The Surname field can only contain Latin letters ")]
         [Required]
         public string? Surname { get; set; }
+        public string FullName {
+            get {
+                return string.Format("{0} {1}", Name, Surname);
+            }
+        }
         public string? CardNumber { get; set; }
 
         public List<FuelStation.Model.Transaction> Transactions { get; set; } = new List<FuelStation.Model.Transaction>();

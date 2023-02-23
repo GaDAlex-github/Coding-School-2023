@@ -19,7 +19,6 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
             var ItemDb = context.Items
                 .Where(item => item.Id == id)
-                .Include(item => item.TransactionLines)
                 .SingleOrDefault();
             if (ItemDb is null)
                 throw new KeyNotFoundException($"Given id '{id}' was not found");
@@ -43,7 +42,6 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
             var ItemDb = context.Items
                 .Where(item => item.Id == id)
-                .Include(item => item.TransactionLines)
                 .SingleOrDefault();
             if (ItemDb is null) throw new KeyNotFoundException($"Given id '{id}' was not found");
             ItemDb.Code = entity.Code;

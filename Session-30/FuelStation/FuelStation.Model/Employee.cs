@@ -10,6 +10,11 @@ namespace FuelStation.Model {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Surname { get; set; }
+        public string FullName {
+            get {
+                return string.Format("{0} {1}", Name, Surname);
+            }
+        }
         public DateTime HireDateStart { get; set; }
         public DateTime HireDateEnd { get; set; }
         public int SalaryPerMonth { get; set; }

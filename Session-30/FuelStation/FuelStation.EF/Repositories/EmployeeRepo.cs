@@ -19,7 +19,6 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
             var EmployeeDb = context.Employees
                 .Where(employee => employee.Id == id)
-                .Include(employee => employee.Transactions)
                 .SingleOrDefault();
             if (EmployeeDb is null)
                 throw new KeyNotFoundException($"Given id '{id}' was not found");
@@ -43,7 +42,6 @@ namespace FuelStation.EF.Repositories {
             using var context = new FuelStationDbContext();
             var EmployeeDb = context.Employees
                 .Where(employee => employee.Id == id)
-                .Include(employee => employee.Transactions)
                 .SingleOrDefault();
             if (EmployeeDb is null) throw new KeyNotFoundException($"Given id '{id}' was not found");
             EmployeeDb.Name = entity.Name;

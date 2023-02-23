@@ -1,18 +1,6 @@
-﻿using FuelStation.Blazor.Shared.Customer;
-using FuelStation.Blazor.Shared.Item;
-using FuelStation.Blazor.Shared.Transaction;
+﻿using FuelStation.Blazor.Shared.Transaction;
 using FuelStation.Blazor.Shared.TransactionLine;
-using FuelStation.Model.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FuelStation.WinForm {
     public partial class TransactionPage : Form {
@@ -33,16 +21,16 @@ namespace FuelStation.WinForm {
             if (transactions != null) {
                 bsTransactions.DataSource = transactions;
                 grvTransactions.AutoGenerateColumns = false;
-                grvTransactions.DataSource = bsTransactions;
-                //DataGridViewComboBoxColumn ClmItemType = new DataGridViewComboBoxColumn();
-                //ClmItemType.DataPropertyName = "ItemType";
-                //ClmItemType.DisplayMember = "GetItemType";
-                //ClmItemType.ValueMember = "Value";
-                //ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
+                grvTransactions.DataSource = bsTransactions;                
+                    DataGridViewComboBoxColumn clmCustomer = grvTransactions.Columns["clmCustomer"] as DataGridViewComboBoxColumn;
+                    //clmCustomer.DataSource = transaction.Customer;
+                    clmCustomer.DisplayMember = "FullName";
+                    clmCustomer.ValueMember = "CustomerId";
+                
             }
             var transactionLines = await GetTransactionLines();
             if (transactionLines != null) {
-                bsTransactionLines.DataSource = transactions;
+                bsTransactionLines.DataSource = transactionLines;
                 grvTransactionLines.AutoGenerateColumns = false;
                 grvTransactionLines.DataSource = bsTransactionLines;
             }
