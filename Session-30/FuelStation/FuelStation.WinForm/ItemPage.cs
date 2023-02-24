@@ -57,19 +57,17 @@ namespace FuelStation.WinForm {
         private void btnDelete_Click(object sender, EventArgs e) {
             ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
             DeleteItem(item.Id);
-            _ = SetControllers();
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
           
                 ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
-                if (item.Id == 0) {
+                if (item.Code == null) {
                     _ = NewItem(item);
                 }
                 else {
                     _ = EditItem(item);
-                }
-                _ = SetControllers();                     
+                }                    
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -89,6 +87,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("item", item);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Created!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -101,6 +100,7 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Edited!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -112,14 +112,12 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"item/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Deleted!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
             }
-        }
-        public string GetItemType(Enum itemType) {
-            return Enum.GetName(itemType.GetType(), itemType);
-        }
+        }       
     }
 }

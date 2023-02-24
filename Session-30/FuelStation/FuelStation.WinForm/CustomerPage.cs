@@ -36,7 +36,6 @@ namespace FuelStation.WinForm {
         private void btnDelete_Click(object sender, EventArgs e) {
             CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
             DeleteCustomer(customer.Id);
-            _ = SetControllers();
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -46,8 +45,7 @@ namespace FuelStation.WinForm {
             }
             else {
                 _ = EditCustomer(customer);
-            }
-            _ = SetControllers();
+            }            
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -68,6 +66,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("customer", customer);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Created!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -80,6 +79,7 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Edited!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -91,6 +91,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"customer/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Deleted!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");

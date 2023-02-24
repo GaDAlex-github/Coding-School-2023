@@ -22,8 +22,7 @@ namespace FuelStation.Blazor.Shared.Employee {
             }
         }
         public DateTime HireDateStart { get; set; }
-        public DateTime HireDateEnd { get; set; }
-        //[RegularExpression("\"^\\\\d{9}$", ErrorMessage = "The Salary field can only contain digits")]
+        public DateTime HireDateEnd { get; set; }        
         [Required]        
         public int SalaryPerMonth { get; set; }
         [Required]

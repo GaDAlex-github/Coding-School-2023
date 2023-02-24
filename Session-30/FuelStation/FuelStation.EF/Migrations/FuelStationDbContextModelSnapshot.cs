@@ -93,8 +93,10 @@ namespace FuelStation.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Cost")
                         .HasPrecision(7, 2)

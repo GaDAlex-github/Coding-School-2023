@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelStation.EF.Migrations
 {
     [DbContext(typeof(FuelStationDbContext))]
-    [Migration("20230217142344_Initial")]
+    [Migration("20230224151354_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -96,8 +96,10 @@ namespace FuelStation.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Cost")
                         .HasPrecision(7, 2)

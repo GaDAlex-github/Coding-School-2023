@@ -50,7 +50,7 @@ namespace FuelStation.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ItemType = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),

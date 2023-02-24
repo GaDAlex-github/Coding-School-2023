@@ -39,7 +39,6 @@ namespace FuelStation.Blazor.Server.Controllers {
                 Name = customer.Name,
                 Surname = customer.Surname,
                 CardNumber = customer.CardNumber
-                // Transactions = customer.Transactions
             };
         }
         [HttpPost]

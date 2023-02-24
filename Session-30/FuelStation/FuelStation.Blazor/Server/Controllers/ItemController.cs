@@ -42,8 +42,6 @@ namespace FuelStation.Blazor.Server.Controllers {
                 ItemType = item.ItemType,
                 Price = item.Price,
                 Cost = item.Cost
-
-                // Transactions = employee.Transactions
             };
         }
         [HttpPost]

@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FuelStation.Blazor.Shared.Item {
     public class ItemEditDto {
-        public int Id { get; set; }
+        public int Id { get; set; }        
         public string? Code { get; set; }
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "The Description field can only contain Latin letters and digits")]
         [Required]
