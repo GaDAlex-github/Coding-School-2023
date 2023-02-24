@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace FuelStation.Blazor.Shared.Item {
     public class ItemListDto {
         public int Id { get; set; }
-        public int Code { get; set; }
+        public string? Code { get; set; }
         public string? Description { get; set; }
         public ItemType ItemType { get; set; }
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
 
-        public List<FuelStation.Model.TransactionLine> TransactionLiness { get; set; } = new List<FuelStation.Model.TransactionLine>();
+        public List<FuelStation.Model.TransactionLine> TransactionLines { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }

@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FuelStation.Blazor.Shared.Item {
     public class ItemEditDto {
         public int Id { get; set; }
-        public int Code { get; set; }
+        public string? Code { get; set; }
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "The Description field can only contain Latin letters and digits")]
         [Required]
         public string? Description { get; set; }
@@ -23,6 +23,6 @@ namespace FuelStation.Blazor.Shared.Item {
         [Required]
         public decimal Cost { get; set; }
 
-        public List<FuelStation.Model.TransactionLine> TransactionLiness { get; set; } = new List<FuelStation.Model.TransactionLine>();
+        public List<FuelStation.Model.TransactionLine> TransactionLines { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }

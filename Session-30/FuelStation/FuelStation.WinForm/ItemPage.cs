@@ -2,6 +2,7 @@
 using FuelStation.Blazor.Shared.Item;
 using FuelStation.Model;
 using FuelStation.Model.Enums;
+using Microsoft.VisualBasic.Devices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FuelStation.WinForm {
     public partial class ItemPage : Form {
@@ -37,11 +39,9 @@ namespace FuelStation.WinForm {
                     grvItems.AutoGenerateColumns = false;
                     grvItems.DataSource = bsItems;
 
-                    //DataGridViewComboBoxColumn ClmItemType = grvItems.Columns["ClmItemType"] as DataGridViewComboBoxColumn;
-                    ClmItemType.DataSource = Enum.GetValues(typeof(ItemType));
-                    //ClmItemType.DisplayMember = "GetItemType";
-                    //ClmItemType.ValueMember = "ItemId";
-                    //ClmItemType.Items.AddRange(Enum.GetValues(typeof(ItemType)).Cast<object>().ToArray());
+                    clmItemType.DataPropertyName = "ItemType";
+                    clmItemType.DataSource = Enum.GetValues(typeof(ItemType));
+
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -61,14 +61,15 @@ namespace FuelStation.WinForm {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
-            if (item.Id == 0) {
-                _ = NewItem(item);
-            }
-            else {
-                _ = EditItem(item);
-            }
-            _ = SetControllers();
+          
+                ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+                if (item.Id == 0) {
+                    _ = NewItem(item);
+                }
+                else {
+                    _ = EditItem(item);
+                }
+                _ = SetControllers();                     
         }
 
         private void btnBack_Click(object sender, EventArgs e) {

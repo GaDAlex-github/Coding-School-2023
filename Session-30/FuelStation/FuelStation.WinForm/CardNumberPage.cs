@@ -1,11 +1,14 @@
 ﻿using FuelStation.Blazor.Shared.Customer;
 using FuelStation.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,9 +16,13 @@ using System.Windows.Forms;
 namespace FuelStation.WinForm {
     public partial class CardNumberPage : Form {
 
+        private readonly HttpClient httpClient;        
         IEnumerable<CustomerListDto> customers;
         public CardNumberPage() {
             InitializeComponent();
+            httpClient = new HttpClient();
+            ConUri uri = new();
+            httpClient.BaseAddress = new Uri(uri.GetUri());
         }
 
         private async void CardNumberPage_Load(object sender, EventArgs e) {
@@ -27,7 +34,7 @@ namespace FuelStation.WinForm {
         }
 
         private async void btnEnter_Click(object sender, EventArgs e) {
-            customers = await LoadItemsFromServer();
+            customers = await GetCustomers();
             bool dontExist = false;
             foreach (var customer in customers) {
                 if (customer.CardNumber == inputCardNumber.Text) {
@@ -49,14 +56,23 @@ namespace FuelStation.WinForm {
                 this.Show();
             }
         }
-        private async Task<IEnumerable<CustomerListDto>> LoadItemsFromServer() {
-            using (HttpClient client = new HttpClient()) {
-                var response = await client.GetAsync("https://localhost:7157/customer");
-                var customers = await response.Content.ReadAsAsync<IEnumerable<CustomerListDto>>();
-                return customers;
+        private async Task<List<CustomerListDto?>> GetCustomers() {
+            var response = await httpClient.GetAsync("customer");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<CustomerListDto?>>(data);
+            }
+            else {
+                return null;
             }
         }
 
+        private void inputCardNumber_TextChanged(object sender, EventArgs e) {
 
+        }
+
+        private void lblCardNumber_Click(object sender, EventArgs e) {
+
+        }
     }
 }

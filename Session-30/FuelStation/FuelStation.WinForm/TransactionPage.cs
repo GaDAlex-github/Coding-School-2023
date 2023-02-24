@@ -1,6 +1,10 @@
-﻿using FuelStation.Blazor.Shared.Transaction;
+﻿using FuelStation.Blazor.Shared.Customer;
+using FuelStation.Blazor.Shared.Employee;
+using FuelStation.Blazor.Shared.Item;
+using FuelStation.Blazor.Shared.Transaction;
 using FuelStation.Blazor.Shared.TransactionLine;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace FuelStation.WinForm {
     public partial class TransactionPage : Form {
@@ -18,21 +22,33 @@ namespace FuelStation.WinForm {
         }
         public async Task SetControllers() {
             var transactions = await GetTransactions();
+            var customers = await GetCustomers();
+            var employees = await GetEmployees();
             if (transactions != null) {
                 bsTransactions.DataSource = transactions;
                 grvTransactions.AutoGenerateColumns = false;
-                grvTransactions.DataSource = bsTransactions;                
-                    DataGridViewComboBoxColumn clmCustomer = grvTransactions.Columns["clmCustomer"] as DataGridViewComboBoxColumn;
-                    //clmCustomer.DataSource = transaction.Customer;
-                    clmCustomer.DisplayMember = "FullName";
-                    clmCustomer.ValueMember = "CustomerId";
-                
+                grvTransactions.DataSource = bsTransactions;
+
+                DataGridViewComboBoxColumn clmCustomer = grvTransactions.Columns["clmCustomer"] as DataGridViewComboBoxColumn;
+                clmCustomer.DataSource = customers;
+                clmCustomer.DisplayMember = "FullName";
+                clmCustomer.ValueMember = "CustomerId";
+                DataGridViewComboBoxColumn clmEmployee = grvTransactions.Columns["clmEmployee"] as DataGridViewComboBoxColumn;
+                clmEmployee.DataSource = employees;
+                clmEmployee.DisplayMember = "FullName";
+                clmEmployee.ValueMember = "EmployeeId";
             }
             var transactionLines = await GetTransactionLines();
+            var items = await GetItems();
             if (transactionLines != null) {
                 bsTransactionLines.DataSource = transactionLines;
                 grvTransactionLines.AutoGenerateColumns = false;
                 grvTransactionLines.DataSource = bsTransactionLines;
+
+                DataGridViewComboBoxColumn clmItem = grvTransactionLines.Columns["clmItem"] as DataGridViewComboBoxColumn;
+                clmItem.DataSource = items;
+                clmItem.DisplayMember = "FullName";
+                clmItem.ValueMember = "EmployeeId";
             }
         }
 
@@ -168,6 +184,37 @@ namespace FuelStation.WinForm {
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
+            }
+        }
+        private async Task<List<CustomerListDto?>> GetCustomers() {
+            var response = await httpClient.GetAsync("customer");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<CustomerListDto?>>(data);
+            }
+            else {
+                return null;
+            }
+        }
+
+        private async Task<List<EmployeeListDto?>> GetEmployees() {
+            var response = await httpClient.GetAsync("employee");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<EmployeeListDto?>>(data);
+            }
+            else {
+                return null;
+            }
+        }
+        private async Task<List<ItemListDto?>> GetItems() {
+            var response = await httpClient.GetAsync("item");
+            if (response.IsSuccessStatusCode) {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<ItemListDto?>>(data);
+            }
+            else {
+                return null;
             }
         }
     }

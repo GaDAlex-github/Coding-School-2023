@@ -19,7 +19,7 @@ namespace FuelStation.EF.Configurations {
             builder.Property(t => t.Id).ValueGeneratedOnAdd();
 
             // Properties
-            builder.Property(t => t.Code).IsRequired();
+            builder.Property(t => t.Code).HasMaxLength(20).IsRequired();
             builder.Property(t => t.Description).HasMaxLength(200).IsRequired();
             builder.Property(t => t.ItemType).IsRequired();
             builder.Property(t => t.Price).HasPrecision(7, 2).IsRequired();

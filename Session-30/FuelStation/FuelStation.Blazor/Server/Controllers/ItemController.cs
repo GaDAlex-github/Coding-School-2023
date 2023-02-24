@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using FuelStation.Blazor.Shared.Item;
+using System.Text.RegularExpressions;
 
 namespace FuelStation.Blazor.Server.Controllers {
 
@@ -77,9 +78,11 @@ namespace FuelStation.Blazor.Server.Controllers {
                 return BadRequest($"Item with id {id} not found!");
             }
         }
-        public int CodeCreate(ItemEditDto item) {
+        public string CodeCreate(ItemEditDto item) {
             var max = _itemRepo.GetAll().Max(item => item.Code);            
-            item.Code += ++max;
+            max = Regex.Replace(max, "\\d+",
+            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));          
+            item.Code = max;
             return item.Code;
         }
     }

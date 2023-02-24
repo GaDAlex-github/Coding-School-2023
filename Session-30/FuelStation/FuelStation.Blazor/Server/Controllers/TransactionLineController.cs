@@ -97,7 +97,7 @@ namespace FuelStation.Blazor.Server.Controllers {
             itemToUpdate.TotalValue = transLine.TotalValue;
             var transaction = _transactionRepo.GetById(itemToUpdate.TransactionId);
             transaction.TotalValue = itemToUpdate.TotalValue;
-            _transactionRepo.Update(itemToUpdate.TransactionId, transaction);
+            _transactionRepo.Update(itemToUpdate.TransactionId, trans);
 
         }
     }

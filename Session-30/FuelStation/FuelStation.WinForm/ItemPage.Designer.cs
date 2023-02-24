@@ -29,13 +29,13 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvItems = new System.Windows.Forms.DataGridView();
+            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +93,7 @@
             this.grvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmCode,
             this.clmDescription,
-            this.ClmItemType,
+            this.clmItemType,
             this.clmPrice,
             this.clmCost,
             this.clmId});
@@ -118,16 +118,11 @@
             this.clmDescription.Name = "clmDescription";
             this.clmDescription.Width = 200;
             // 
-            // ClmItemType
+            // clmItemType
             // 
-            this.ClmItemType.DataPropertyName = "ItemType";
-            this.ClmItemType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.ClmItemType.HeaderText = "ItemType";
-            this.ClmItemType.Name = "ClmItemType";
-            this.ClmItemType.ReadOnly = true;
-            this.ClmItemType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ClmItemType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ClmItemType.Width = 90;
+            this.clmItemType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmItemType.HeaderText = "ItemType";
+            this.clmItemType.Name = "clmItemType";
             // 
             // clmPrice
             // 
@@ -160,6 +155,8 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.grvItems);
+            this.MaximumSize = new System.Drawing.Size(660, 490);
+            this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "ItemPage";
             this.Text = "ItemPage";
             this.Load += new System.EventHandler(this.ItemPage_Load);
@@ -179,7 +176,7 @@
         private BindingSource bsItems;
         private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
-        private DataGridViewComboBoxColumn ClmItemType;
+        private DataGridViewComboBoxColumn clmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
         private DataGridViewTextBoxColumn clmId;

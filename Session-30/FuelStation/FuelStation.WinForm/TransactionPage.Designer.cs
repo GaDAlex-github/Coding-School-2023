@@ -29,6 +29,11 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvTransactions = new System.Windows.Forms.DataGridView();
+            this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCustomer = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmEmployee = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grvTransactionLines = new System.Windows.Forms.DataGridView();
             this.lblTransaction = new System.Windows.Forms.Label();
             this.lblTransactionLine = new System.Windows.Forms.Label();
@@ -37,18 +42,13 @@
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
             this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
-            this.clmItemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemId = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNetValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDiscountPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDiscountValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCustomer = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.clmEmployee = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
@@ -117,6 +117,43 @@
             this.grvTransactions.Size = new System.Drawing.Size(493, 151);
             this.grvTransactions.TabIndex = 10;
             // 
+            // clmDate
+            // 
+            this.clmDate.DataPropertyName = "Date";
+            this.clmDate.HeaderText = "Date";
+            this.clmDate.Name = "clmDate";
+            this.clmDate.ReadOnly = true;
+            this.clmDate.Width = 70;
+            // 
+            // clmCustomer
+            // 
+            this.clmCustomer.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmCustomer.HeaderText = "Customer";
+            this.clmCustomer.Name = "clmCustomer";
+            this.clmCustomer.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmCustomer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmEmployee
+            // 
+            this.clmEmployee.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmEmployee.HeaderText = "Employee";
+            this.clmEmployee.Name = "clmEmployee";
+            this.clmEmployee.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmEmployee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmPaymentMethod
+            // 
+            this.clmPaymentMethod.DataPropertyName = "PaymentMethod";
+            this.clmPaymentMethod.HeaderText = "PaymentMethod";
+            this.clmPaymentMethod.Name = "clmPaymentMethod";
+            // 
+            // clmTotalValue
+            // 
+            this.clmTotalValue.DataPropertyName = "TotalValue";
+            this.clmTotalValue.HeaderText = "TotalValue";
+            this.clmTotalValue.Name = "clmTotalValue";
+            this.clmTotalValue.Width = 80;
+            // 
             // grvTransactionLines
             // 
             this.grvTransactionLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -130,7 +167,7 @@
             this.clmNetValue,
             this.clmDiscountPercent,
             this.clmDiscountValue,
-            this.dataGridViewTextBoxColumn5});
+            this.Total});
             this.grvTransactionLines.Location = new System.Drawing.Point(22, 230);
             this.grvTransactionLines.Name = "grvTransactionLines";
             this.grvTransactionLines.RowTemplate.Height = 25;
@@ -193,8 +230,11 @@
             // clmItemId
             // 
             this.clmItemId.DataPropertyName = "ItemId";
+            this.clmItemId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.clmItemId.HeaderText = "Item";
             this.clmItemId.Name = "clmItemId";
+            this.clmItemId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmItemId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.clmItemId.Width = 80;
             // 
             // clmQuantity
@@ -232,51 +272,12 @@
             this.clmDiscountValue.Name = "clmDiscountValue";
             this.clmDiscountValue.Width = 60;
             // 
-            // dataGridViewTextBoxColumn5
+            // Total
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalValue";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Total";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 60;
-            // 
-            // clmDate
-            // 
-            this.clmDate.DataPropertyName = "Date";
-            this.clmDate.HeaderText = "Date";
-            this.clmDate.Name = "clmDate";
-            this.clmDate.ReadOnly = true;
-            this.clmDate.Width = 70;
-            // 
-            // clmCustomer
-            // 
-            this.clmCustomer.DataPropertyName = "CustomerId";
-            this.clmCustomer.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.clmCustomer.HeaderText = "Customer";
-            this.clmCustomer.Name = "clmCustomer";
-            this.clmCustomer.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmCustomer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // clmEmployee
-            // 
-            this.clmEmployee.DataPropertyName = "EmployeeId";
-            this.clmEmployee.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.clmEmployee.HeaderText = "Employee";
-            this.clmEmployee.Name = "clmEmployee";
-            this.clmEmployee.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmEmployee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // clmPaymentMethod
-            // 
-            this.clmPaymentMethod.DataPropertyName = "PaymentMethod";
-            this.clmPaymentMethod.HeaderText = "PaymentMethod";
-            this.clmPaymentMethod.Name = "clmPaymentMethod";
-            // 
-            // clmTotalValue
-            // 
-            this.clmTotalValue.DataPropertyName = "TotalValue";
-            this.clmTotalValue.HeaderText = "TotalValue";
-            this.clmTotalValue.Name = "clmTotalValue";
-            this.clmTotalValue.Width = 80;
+            this.Total.DataPropertyName = "TotalValue";
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.Width = 60;
             // 
             // TransactionPage
             // 
@@ -328,12 +329,12 @@
         private DataGridViewComboBoxColumn clmEmployee;
         private DataGridViewTextBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
-        private DataGridViewTextBoxColumn clmItemId;
+        private DataGridViewComboBoxColumn clmItemId;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmItemPrice;
         private DataGridViewTextBoxColumn clmNetValue;
         private DataGridViewTextBoxColumn clmDiscountPercent;
         private DataGridViewTextBoxColumn clmDiscountValue;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn Total;
     }
 }
