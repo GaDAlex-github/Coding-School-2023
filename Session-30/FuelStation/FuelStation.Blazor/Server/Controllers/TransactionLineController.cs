@@ -15,10 +15,10 @@ namespace FuelStation.Blazor.Server.Controllers {
     public class TransactionLineController : ControllerBase {
 
         private readonly IEntityRepo<Transaction> _transactionRepo;
-        private readonly IEntityRepo<TransactionLine> _transactionLineRepo;
+        private readonly ITransactionLineRepo<TransactionLine> _transactionLineRepo;
         private readonly IEntityRepo<Item> _itemRepo;
 
-        public TransactionLineController(IEntityRepo<TransactionLine> transactionLineRepo, IEntityRepo<Transaction> transactionRepo, IEntityRepo<Item> itemRepo) {
+        public TransactionLineController(ITransactionLineRepo<TransactionLine> transactionLineRepo, IEntityRepo<Transaction> transactionRepo, IEntityRepo<Item> itemRepo) {
             _transactionRepo = transactionRepo;
             _transactionLineRepo = transactionLineRepo;
             _itemRepo = itemRepo;
@@ -27,14 +27,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         [HttpGet]
         public async Task<IEnumerable<TransactionLineListDto>> Get() {
             var transLine = _transactionLineRepo.GetAll();
-
-            var selectTransactionLine = transLine.Select(transactionLine => GetTransactionLines(transactionLine));
-
-            return selectTransactionLine;
-        }
-
-        public TransactionLineListDto GetTransactionLines(TransactionLine transactionLine) {
-            TransactionLineListDto transLine = new TransactionLineListDto {
+            var TransactionLineList = transLine.Select(transactionLine => new TransactionLineListDto {
                 Id = transactionLine.Id,
                 TransactionId = transactionLine.TransactionId,
                 ItemId = transactionLine.ItemId,
@@ -48,27 +41,27 @@ namespace FuelStation.Blazor.Server.Controllers {
                     Id = transactionLine.Item.Id,
                     Code = transactionLine.Item.Code,
                     Description = transactionLine.Item.Description,
-                    ItemType= transactionLine.Item.ItemType,
+                    ItemType = transactionLine.Item.ItemType,
                     Price = transactionLine.Item.Price,
                     Cost = transactionLine.Item.Cost,
                 }
-            };
-            return transLine;
-        }
+            });
 
-        [HttpDelete("{id}")]
-        public async Task Delete(int id) {
-            var transactionLine = _transactionLineRepo.GetById(id).TransactionId;
-            _transactionLineRepo.Delete(id);
-        }
+            return TransactionLineList;
+        }        
 
-        [HttpGet("{id}")]
-        public async Task<TransactionLineEditDto> GetById(int id) {
-            var transactionLine = _transactionLineRepo.GetById(id);
+    [HttpDelete("{id}")]
+    public async Task Delete(int id) {
+        var transactionLine = _transactionLineRepo.GetById(id).TransactionId;
+        _transactionLineRepo.Delete(id);
+    }
+
+        [HttpGet("{id}")]        
+        public async Task<IEnumerable<TransactionLineListDto>> GetAllWithTransactionID(int id) {
+            var transactionLines = _transactionLineRepo.GetAllWithTransactionID(id);
             var items = _itemRepo.GetAll();
-            return new TransactionLineEditDto {
-                Id = transactionLine.Id,
-                TransactionId = transactionLine.TransactionId,
+            var TransactionLineList = transactionLines.Select(transactionLine => new TransactionLineListDto {
+                Id = transactionLine.Id,                
                 ItemId = transactionLine.ItemId,
                 Quantity = transactionLine.Quantity,
                 ItemPrice = transactionLine.ItemPrice,
@@ -76,41 +69,45 @@ namespace FuelStation.Blazor.Server.Controllers {
                 DiscountPercent = transactionLine.DiscountPercent,
                 DiscountValue = transactionLine.DiscountValue,
                 TotalValue = transactionLine.TotalValue,
-                Items = items.Select(item => new ItemListDto {
+                Item =  new ItemListDto {
                     Id = transactionLine.Item.Id,
-                    Description = transactionLine.Item.Description
-                }).ToList()
-            };
-        }
-
-        [HttpPost]
-        public async Task Post(TransactionLineEditDto transLine) {
-            var newTransactionLine = new TransactionLine(transLine.Quantity, transLine.ItemPrice, transLine.DiscountPercent);
-            newTransactionLine.TransactionId = transLine.TransactionId;
-            newTransactionLine.ItemId = transLine.ItemId;
-            newTransactionLine.TotalValue = transLine.TotalValue;
-
-            _transactionLineRepo.Add(newTransactionLine);
-            var transaction = _transactionRepo.GetById(newTransactionLine.TransactionId);
-            transaction.TotalValue = newTransactionLine.TotalValue;
-            _transactionRepo.Update(transLine.TransactionId, transaction);
-        }
-
-        public async Task Put(TransactionLineEditDto transLine) {
-            var trans = _transactionRepo.GetById(transLine.TransactionId);
-            var itemToUpdate = _transactionLineRepo.GetById(transLine.Id);
-            itemToUpdate.Id = transLine.Id;
-            itemToUpdate.ItemId = transLine.ItemId;
-            itemToUpdate.Quantity = transLine.Quantity;
-            itemToUpdate.ItemPrice = transLine.ItemPrice;
-            itemToUpdate.NetValue = transLine.NetValue;
-            itemToUpdate.DiscountPercent = transLine.DiscountPercent;
-            itemToUpdate.DiscountValue = transLine.DiscountValue;
-            itemToUpdate.TotalValue = transLine.TotalValue;
-            var transaction = _transactionRepo.GetById(itemToUpdate.TransactionId);
-            transaction.TotalValue = itemToUpdate.TotalValue;
-            _transactionRepo.Update(itemToUpdate.TransactionId, trans);
-
-        }
+                    Description = transactionLine.Item.Description,
+                    ItemType = transactionLine.Item.ItemType,
+                    Price = transactionLine.Item.Price,
+                    Cost = transactionLine.Item.Cost
+                },
+        });
+            return TransactionLineList;
     }
+
+    [HttpPost]
+    public async Task Post(TransactionLineEditDto transLine) {
+        var newTransactionLine = new TransactionLine(transLine.Quantity, transLine.ItemPrice, transLine.DiscountPercent);
+        newTransactionLine.TransactionId = transLine.TransactionId;
+        newTransactionLine.ItemId = transLine.ItemId;
+        newTransactionLine.TotalValue = transLine.TotalValue;
+
+        _transactionLineRepo.Add(newTransactionLine);
+        var transaction = _transactionRepo.GetById(newTransactionLine.TransactionId);
+        transaction.TotalValue = newTransactionLine.TotalValue;
+        _transactionRepo.Update(transLine.TransactionId, transaction);
+    }
+
+    public async Task Put(TransactionLineEditDto transLine) {
+        var trans = _transactionRepo.GetById(transLine.TransactionId);
+        var itemToUpdate = _transactionLineRepo.GetById(transLine.Id);
+        itemToUpdate.Id = transLine.Id;
+        itemToUpdate.ItemId = transLine.ItemId;
+        itemToUpdate.Quantity = transLine.Quantity;
+        itemToUpdate.ItemPrice = transLine.ItemPrice;
+        itemToUpdate.NetValue = transLine.NetValue;
+        itemToUpdate.DiscountPercent = transLine.DiscountPercent;
+        itemToUpdate.DiscountValue = transLine.DiscountValue;
+        itemToUpdate.TotalValue = transLine.TotalValue;
+        var transaction = _transactionRepo.GetById(itemToUpdate.TransactionId);
+        transaction.TotalValue = itemToUpdate.TotalValue;
+        _transactionRepo.Update(itemToUpdate.TransactionId, trans);
+
+    }
+}
 }

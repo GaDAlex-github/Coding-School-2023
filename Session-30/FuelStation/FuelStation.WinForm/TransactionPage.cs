@@ -3,6 +3,7 @@ using FuelStation.Blazor.Shared.Employee;
 using FuelStation.Blazor.Shared.Item;
 using FuelStation.Blazor.Shared.Transaction;
 using FuelStation.Blazor.Shared.TransactionLine;
+using FuelStation.Model;
 using FuelStation.Model.Enums;
 using Newtonsoft.Json;
 using System.Data;
@@ -20,7 +21,50 @@ namespace FuelStation.WinForm {
 
         private void TransactionPage_Load(object sender, EventArgs e) {
             _ = SetControllers();
+            grvTransactionLines.CellValueChanged += GrvTransactionLines_CellValueChanged;
         }
+
+        private async void GrvTransactionLines_CellValueChanged(object? sender, DataGridViewCellEventArgs e) {
+            TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
+            var x = bsTransactionLines.Current;
+            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+            bool updateTransactionTotalValue = false;
+            if (e.ColumnIndex == 1) { //column Quantity
+                CalculateAllValues(transactionLine);
+                updateTransactionTotalValue = true;
+            }
+            if (e.ColumnIndex == 0) { //column Item
+                //if (FuelExists(grvTransactionLines.DataSource as List<TransactionLineListDto>))
+                //    return;
+                var items = await GetItems();
+                var it = items.Where(item => item.Id == transactionLine.ItemId).FirstOrDefault();
+                transactionLine.Item = it;
+                transactionLine.ItemPrice = it.Price;
+                transactionLine.Quantity = 1;
+                transactionLine.NetValue = 0;
+                transactionLine.DiscountPercent = 0;
+                transactionLine.DiscountValue = 0;
+                transactionLine.TotalValue = transactionLine.ItemPrice;
+                CalculateAllValues(transactionLine);
+                updateTransactionTotalValue = true;
+                grvTransactionLines.Update();
+                grvTransactionLines.Refresh();
+            }
+            if (updateTransactionTotalValue) {
+                transaction.TotalValue = grvTransactionLines.Rows
+                    .OfType<DataGridViewRow>()
+                    .Select(row => Convert.ToDecimal(row.Cells[6].Value)).ToList().Sum();
+                if (transaction.TotalValue > 50) {
+                    transaction.PaymentMethod = PaymentMethod.Cash;
+                    clmPaymentMethod.ReadOnly = true;
+                }
+                else
+                    clmPaymentMethod.ReadOnly = false;
+                grvTransactions.Update();
+                grvTransactions.Refresh();
+            }
+        }
+
         public async Task SetControllers() {
             var transactions = await GetTransactions();
             var customers = await GetCustomers();
@@ -45,22 +89,32 @@ namespace FuelStation.WinForm {
                     clmPaymentMethod.DataPropertyName = "PaymentMethod";
                     clmPaymentMethod.DataSource = Enum.GetValues(typeof(PaymentMethod));
                 }
-
-                var transactionLines = await GetTransactionLines();
-                var items = await GetItems();
-                if (transactionLines != null) {
-                    bsTransactionLines.DataSource = transactionLines;
-                    grvTransactionLines.AutoGenerateColumns = false;
-                    grvTransactionLines.DataSource = bsTransactionLines;
-
-                    clmItem.DataSource = new BindingSource() { DataSource = items };
-                    clmItem.DataPropertyName = "ItemId";
-                    clmItem.DisplayMember = "Description";
-                    clmItem.ValueMember = "Id";
-                }
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
+            }
+        }
+        private void grvTransactions_CellClick(object sender, DataGridViewCellEventArgs e) {
+            LoadTransactionLines();
+        }
+
+        private async void LoadTransactionLines() {
+            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+            var transactionLines = await GetTransactionLines(transaction.Id);
+            if (transactionLines == null)
+                return;
+            var items = await GetItems();
+            if (transactionLines != null) {
+                bsTransactionLines.DataSource = transactionLines;
+                grvTransactionLines.AutoGenerateColumns = false;
+                grvTransactionLines.DataSource = bsTransactionLines;
+
+                clmItem.DataSource = new BindingSource() { DataSource = items };
+                clmItem.DataPropertyName = "ItemId";
+                clmItem.DisplayMember = "Description";
+                clmItem.ValueMember = "Id";
+
+                clmItemPrice.DataPropertyName = "ItemPrice";
             }
         }
 
@@ -73,7 +127,8 @@ namespace FuelStation.WinForm {
             if (ConfirmDelete()) {
                 TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
                 DeleteTransaction(transaction.Id);
-                _ = SetControllers();
+                grvTransactions.Update();
+                grvTransactions.Refresh();
             }
         }
 
@@ -91,6 +146,7 @@ namespace FuelStation.WinForm {
         private void btnTLCreate_Click(object sender, EventArgs e) {
             TransactionLineListDto newTransactionLine = new TransactionLineListDto();
             bsTransactionLines.Add(newTransactionLine);
+
         }
 
         private void btnTLDelete_Click(object sender, EventArgs e) {
@@ -102,14 +158,19 @@ namespace FuelStation.WinForm {
         }
 
         private void btnTLSave_Click(object sender, EventArgs e) {
-            TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
-            if (transactionLine.Id == 0) {
-                _ = NewTransactionLine(transactionLine);
+            try {
+                TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
+                if (transactionLine.Id == 0) {
+                    _ = NewTransactionLine(transactionLine);
+                }
+                else {
+                    _ = EditTransactionLine(transactionLine);
+                }
+                _ = SetControllers();
             }
-            else {
-                _ = EditTransactionLine(transactionLine);
+            catch (Exception exe) {
+                MessageBox.Show(exe.Message);
             }
-            _ = SetControllers();
         }
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
@@ -167,8 +228,8 @@ namespace FuelStation.WinForm {
             }
         }
 
-        private async Task<List<TransactionLineListDto?>> GetTransactionLines() {
-            var response = await httpClient.GetAsync("transactionLine");
+        private async Task<List<TransactionLineListDto?>> GetTransactionLines(int id) {
+            var response = await httpClient.GetAsync($"transactionLine/{id}");
             if (response.IsSuccessStatusCode) {
                 var data = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<List<TransactionLineListDto?>>(data);
@@ -248,6 +309,25 @@ namespace FuelStation.WinForm {
             else {
                 return null;
             }
+        }
+
+        public void CalculateAllValues(TransactionLineListDto transactionLine) {
+
+            transactionLine.NetValue = transactionLine.Quantity * transactionLine.ItemPrice;
+            if (transactionLine.Item.ItemType == ItemType.Fuel && transactionLine.NetValue > 20) {
+                transactionLine.DiscountPercent = 10;
+                transactionLine.DiscountValue = Decimal.Round(transactionLine.NetValue * (decimal)0.1, 2);
+            }
+            transactionLine.TotalValue = transactionLine.NetValue - transactionLine.DiscountValue;
+        }
+
+        public bool FuelExists(List<TransactionLineListDto> transactionLines) {
+            if (transactionLines.Where(line => line.Item.ItemType == ItemType.Fuel).Count() > 1) {
+                MessageBox.Show("Error! Cant Add More Fuel-Type");
+                return true;
+               // _ = SetControllers();
+            }
+            return false;
         }
 
         private void grvTransactions_DataError(object sender, DataGridViewDataErrorEventArgs e) {

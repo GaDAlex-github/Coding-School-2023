@@ -34,6 +34,7 @@
             this.clmEmployee = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPaymentMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grvTransactionLines = new System.Windows.Forms.DataGridView();
             this.clmItem = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,6 +102,7 @@
             // 
             // grvTransactions
             // 
+            this.grvTransactions.AllowUserToAddRows = false;
             this.grvTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -110,12 +112,14 @@
             this.clmCustomer,
             this.clmEmployee,
             this.clmPaymentMethod,
-            this.clmTotalValue});
+            this.clmTotalValue,
+            this.clmId});
             this.grvTransactions.Location = new System.Drawing.Point(22, 33);
             this.grvTransactions.Name = "grvTransactions";
             this.grvTransactions.RowTemplate.Height = 25;
             this.grvTransactions.Size = new System.Drawing.Size(493, 231);
             this.grvTransactions.TabIndex = 10;
+            this.grvTransactions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvTransactions_CellClick);
             this.grvTransactions.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransactions_DataError);
             // 
             // clmDate
@@ -149,10 +153,18 @@
             this.clmTotalValue.DataPropertyName = "TotalValue";
             this.clmTotalValue.HeaderText = "TotalValue";
             this.clmTotalValue.Name = "clmTotalValue";
+            this.clmTotalValue.ReadOnly = true;
             this.clmTotalValue.Width = 80;
+            // 
+            // clmId
+            // 
+            this.clmId.HeaderText = "Id";
+            this.clmId.Name = "clmId";
+            this.clmId.Visible = false;
             // 
             // grvTransactionLines
             // 
+            this.grvTransactionLines.AllowUserToAddRows = false;
             this.grvTransactionLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -190,9 +202,9 @@
             // 
             // clmItemPrice
             // 
-            this.clmItemPrice.DataPropertyName = "ItemPrice";
             this.clmItemPrice.HeaderText = "ItemPrice";
             this.clmItemPrice.Name = "clmItemPrice";
+            this.clmItemPrice.ReadOnly = true;
             this.clmItemPrice.Width = 60;
             // 
             // clmNetValue
@@ -200,6 +212,7 @@
             this.clmNetValue.DataPropertyName = "NetValue";
             this.clmNetValue.HeaderText = "NetValue";
             this.clmNetValue.Name = "clmNetValue";
+            this.clmNetValue.ReadOnly = true;
             this.clmNetValue.Width = 60;
             // 
             // clmDiscountPercent
@@ -207,6 +220,7 @@
             this.clmDiscountPercent.DataPropertyName = "DiscountPercent";
             this.clmDiscountPercent.HeaderText = "Discount%";
             this.clmDiscountPercent.Name = "clmDiscountPercent";
+            this.clmDiscountPercent.ReadOnly = true;
             this.clmDiscountPercent.Width = 70;
             // 
             // clmDiscountValue
@@ -214,6 +228,7 @@
             this.clmDiscountValue.DataPropertyName = "DiscountValue";
             this.clmDiscountValue.HeaderText = "Discount";
             this.clmDiscountValue.Name = "clmDiscountValue";
+            this.clmDiscountValue.ReadOnly = true;
             this.clmDiscountValue.Width = 60;
             // 
             // Total
@@ -221,6 +236,7 @@
             this.Total.DataPropertyName = "TotalValue";
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
             this.Total.Width = 60;
             // 
             // lblTransaction
@@ -321,11 +337,6 @@
         private Button btnTLCreate;
         private BindingSource bsTransactions;
         private BindingSource bsTransactionLines;
-        private DataGridViewTextBoxColumn clmDate;
-        private DataGridViewComboBoxColumn clmCustomer;
-        private DataGridViewComboBoxColumn clmEmployee;
-        private DataGridViewComboBoxColumn clmPaymentMethod;
-        private DataGridViewTextBoxColumn clmTotalValue;
         private DataGridViewComboBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmItemPrice;
@@ -333,5 +344,11 @@
         private DataGridViewTextBoxColumn clmDiscountPercent;
         private DataGridViewTextBoxColumn clmDiscountValue;
         private DataGridViewTextBoxColumn Total;
+        private DataGridViewTextBoxColumn clmDate;
+        private DataGridViewComboBoxColumn clmCustomer;
+        private DataGridViewComboBoxColumn clmEmployee;
+        private DataGridViewComboBoxColumn clmPaymentMethod;
+        private DataGridViewTextBoxColumn clmTotalValue;
+        private DataGridViewTextBoxColumn clmId;
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FuelStation.EF.Repositories {
-    public class TransactionLineRepo : IEntityRepo<TransactionLine> {
+    public class TransactionLineRepo : ITransactionLineRepo<TransactionLine> {
         public void Add(TransactionLine entity) {
             using var context = new FuelStationDbContext();
             context.Add(entity);
@@ -17,8 +17,9 @@ namespace FuelStation.EF.Repositories {
         public void Delete(int id) {
             using var context = new FuelStationDbContext();
             var TransactionLineDb = context.TransactionLines.Where(transactionLine => transactionLine.Id == id)
-                .Include(transactionLine => transactionLine.Transaction)
                 .Include(transactionLine => transactionLine.Item)
+                .Include(transactionLine => transactionLine.Transaction)
+                
                 .SingleOrDefault();
             if (TransactionLineDb is null)
                 throw new KeyNotFoundException($"Given id '{id}' was not found");
@@ -28,15 +29,15 @@ namespace FuelStation.EF.Repositories {
         public IList<TransactionLine> GetAll() {
             using var context = new FuelStationDbContext();
             return context.TransactionLines
-                .Include(transactionLine => transactionLine.Transaction)
                 .Include(transactionLine => transactionLine.Item)
+                .Include(transactionLine => transactionLine.Transaction)                
                 .ToList();
         }
         public IList<TransactionLine> GetAllWithTransactionID(int transactionId) {
             using var context = new FuelStationDbContext();
             return context.TransactionLines.Where(t => t.TransactionId == transactionId)
-                .Include(transactionLine => transactionLine.Item)                
-                .ToList();
+                .Include(transactionLine => transactionLine.Item)
+                .ToList(); 
         }
         public TransactionLine? GetById(int id) {
             using var context = new FuelStationDbContext();
@@ -49,8 +50,8 @@ namespace FuelStation.EF.Repositories {
         public void Update(int id, TransactionLine entity) {
             using var context = new FuelStationDbContext();
             var TransactionLineDb = context.TransactionLines.Where(transactionLine => transactionLine.Id == id)
-                .Include(transactionLine => transactionLine.Transaction)
                 .Include(transactionLine => transactionLine.Item)
+                .Include(transactionLine => transactionLine.Transaction)                
                 .SingleOrDefault();
             if (TransactionLineDb is null)
                 throw new KeyNotFoundException($"Given id '{id}' was not found");
