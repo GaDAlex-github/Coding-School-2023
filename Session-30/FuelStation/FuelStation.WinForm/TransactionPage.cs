@@ -3,6 +3,7 @@ using FuelStation.Blazor.Shared.Employee;
 using FuelStation.Blazor.Shared.Item;
 using FuelStation.Blazor.Shared.Transaction;
 using FuelStation.Blazor.Shared.TransactionLine;
+using FuelStation.Model.Enums;
 using Newtonsoft.Json;
 using System.Data;
 
@@ -24,31 +25,42 @@ namespace FuelStation.WinForm {
             var transactions = await GetTransactions();
             var customers = await GetCustomers();
             var employees = await GetEmployees();
-            if (transactions != null) {
-                bsTransactions.DataSource = transactions;
-                grvTransactions.AutoGenerateColumns = false;
-                grvTransactions.DataSource = bsTransactions;
+            try {
+                if (transactions != null) {
 
-                DataGridViewComboBoxColumn clmCustomer = grvTransactions.Columns["clmCustomer"] as DataGridViewComboBoxColumn;
-                clmCustomer.DataSource = customers;
-                clmCustomer.DisplayMember = "FullName";
-                clmCustomer.ValueMember = "CustomerId";
-                DataGridViewComboBoxColumn clmEmployee = grvTransactions.Columns["clmEmployee"] as DataGridViewComboBoxColumn;
-                clmEmployee.DataSource = employees;
-                clmEmployee.DisplayMember = "FullName";
-                clmEmployee.ValueMember = "EmployeeId";
+                    bsTransactions.DataSource = transactions;
+                    grvTransactions.AutoGenerateColumns = false;
+                    grvTransactions.DataSource = bsTransactions;
+
+                    clmCustomer.DataSource = new BindingSource() { DataSource = customers };
+                    clmCustomer.DataPropertyName = "CustomerId";
+                    clmCustomer.DisplayMember = "FullName";
+                    clmCustomer.ValueMember = "Id";
+
+                    clmEmployee.DataSource = new BindingSource() { DataSource = employees };
+                    clmEmployee.DataPropertyName = "EmployeeId";
+                    clmEmployee.DisplayMember = "FullName";
+                    clmEmployee.ValueMember = "Id";
+
+                    clmPaymentMethod.DataPropertyName = "PaymentMethod";
+                    clmPaymentMethod.DataSource = Enum.GetValues(typeof(PaymentMethod));
+                }
+
+                var transactionLines = await GetTransactionLines();
+                var items = await GetItems();
+                if (transactionLines != null) {
+                    bsTransactionLines.DataSource = transactionLines;
+                    grvTransactionLines.AutoGenerateColumns = false;
+                    grvTransactionLines.DataSource = bsTransactionLines;
+
+                    clmItem.DataSource = new BindingSource() { DataSource = items };
+                    clmItem.DataPropertyName = "ItemId";
+                    clmItem.DisplayMember = "Description";
+                    clmItem.ValueMember = "Id";
+                }
             }
-            var transactionLines = await GetTransactionLines();
-            var items = await GetItems();
-            if (transactionLines != null) {
-                bsTransactionLines.DataSource = transactionLines;
-                grvTransactionLines.AutoGenerateColumns = false;
-                grvTransactionLines.DataSource = bsTransactionLines;
-
-                DataGridViewComboBoxColumn clmItem = grvTransactionLines.Columns["clmItem"] as DataGridViewComboBoxColumn;
-                clmItem.DataSource = items;
-                clmItem.DisplayMember = "FullName";
-                clmItem.ValueMember = "EmployeeId";
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -58,9 +70,11 @@ namespace FuelStation.WinForm {
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
-            DeleteTransaction(transaction.Id);
-            _ = SetControllers();
+            if (ConfirmDelete()) {
+                TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+                DeleteTransaction(transaction.Id);
+                _ = SetControllers();
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -80,9 +94,11 @@ namespace FuelStation.WinForm {
         }
 
         private void btnTLDelete_Click(object sender, EventArgs e) {
-            TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
-            DeleteTransactionLine(transactionLine.Id);
-            _ = SetControllers();
+            if (ConfirmDeleteTL()) {
+                TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
+                DeleteTransactionLine(transactionLine.Id);
+                _ = SetControllers();
+            }
         }
 
         private void btnTLSave_Click(object sender, EventArgs e) {
@@ -113,6 +129,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("transaction", transaction);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Created!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -125,17 +142,24 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Edited!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
             }
         }
+        private bool ConfirmDelete() {
+            var result = MessageBox.Show(this, "Procceed Deleting Selected Transaction?",
+                this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
+        }
 
         private async Task DeleteTransaction(int id) {
             var response = await httpClient.DeleteAsync($"transaction/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Deleted!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -157,6 +181,7 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("transactionLine", transactionLine);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Created!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -169,17 +194,24 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Edited!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
             }
         }
+        private bool ConfirmDeleteTL() {
+            var result = MessageBox.Show(this, "Procceed Deleting Selected TransactionLine?",
+                this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
+        }
 
         private async Task DeleteTransactionLine(int id) {
             var response = await httpClient.DeleteAsync($"transactionLine/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Deleted!", "Success Message");
+                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
@@ -216,6 +248,14 @@ namespace FuelStation.WinForm {
             else {
                 return null;
             }
+        }
+
+        private void grvTransactions_DataError(object sender, DataGridViewDataErrorEventArgs e) {
+            e.Cancel = false;
+        }
+
+        private void grvTransactionLines_DataError(object sender, DataGridViewDataErrorEventArgs e) {
+            e.Cancel = false;
         }
     }
 }

@@ -32,9 +32,16 @@
             this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCustomer = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmEmployee = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPaymentMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grvTransactionLines = new System.Windows.Forms.DataGridView();
+            this.clmItem = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNetValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDiscountPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDiscountValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTransaction = new System.Windows.Forms.Label();
             this.lblTransactionLine = new System.Windows.Forms.Label();
             this.btnTLSave = new System.Windows.Forms.Button();
@@ -42,13 +49,6 @@
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
             this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
-            this.clmItemId = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNetValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDiscountPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDiscountValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
@@ -114,8 +114,9 @@
             this.grvTransactions.Location = new System.Drawing.Point(22, 33);
             this.grvTransactions.Name = "grvTransactions";
             this.grvTransactions.RowTemplate.Height = 25;
-            this.grvTransactions.Size = new System.Drawing.Size(493, 151);
+            this.grvTransactions.Size = new System.Drawing.Size(493, 231);
             this.grvTransactions.TabIndex = 10;
+            this.grvTransactions.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransactions_DataError);
             // 
             // clmDate
             // 
@@ -130,20 +131,16 @@
             this.clmCustomer.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.clmCustomer.HeaderText = "Customer";
             this.clmCustomer.Name = "clmCustomer";
-            this.clmCustomer.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmCustomer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // clmEmployee
             // 
             this.clmEmployee.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.clmEmployee.HeaderText = "Employee";
             this.clmEmployee.Name = "clmEmployee";
-            this.clmEmployee.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmEmployee.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // clmPaymentMethod
             // 
-            this.clmPaymentMethod.DataPropertyName = "PaymentMethod";
+            this.clmPaymentMethod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.clmPaymentMethod.HeaderText = "PaymentMethod";
             this.clmPaymentMethod.Name = "clmPaymentMethod";
             // 
@@ -161,81 +158,28 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grvTransactionLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvTransactionLines.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmItemId,
+            this.clmItem,
             this.clmQuantity,
             this.clmItemPrice,
             this.clmNetValue,
             this.clmDiscountPercent,
             this.clmDiscountValue,
             this.Total});
-            this.grvTransactionLines.Location = new System.Drawing.Point(22, 230);
+            this.grvTransactionLines.Location = new System.Drawing.Point(22, 291);
             this.grvTransactionLines.Name = "grvTransactionLines";
             this.grvTransactionLines.RowTemplate.Height = 25;
-            this.grvTransactionLines.Size = new System.Drawing.Size(493, 208);
+            this.grvTransactionLines.Size = new System.Drawing.Size(493, 147);
             this.grvTransactionLines.TabIndex = 15;
+            this.grvTransactionLines.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransactionLines_DataError);
             // 
-            // lblTransaction
+            // clmItem
             // 
-            this.lblTransaction.AutoSize = true;
-            this.lblTransaction.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTransaction.Location = new System.Drawing.Point(22, 9);
-            this.lblTransaction.Name = "lblTransaction";
-            this.lblTransaction.Size = new System.Drawing.Size(89, 21);
-            this.lblTransaction.TabIndex = 16;
-            this.lblTransaction.Text = "Transaction";
-            // 
-            // lblTransactionLine
-            // 
-            this.lblTransactionLine.AutoSize = true;
-            this.lblTransactionLine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTransactionLine.Location = new System.Drawing.Point(22, 206);
-            this.lblTransactionLine.Name = "lblTransactionLine";
-            this.lblTransactionLine.Size = new System.Drawing.Size(129, 21);
-            this.lblTransactionLine.TabIndex = 17;
-            this.lblTransactionLine.Text = "Transaction Lines";
-            // 
-            // btnTLSave
-            // 
-            this.btnTLSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLSave.Location = new System.Drawing.Point(536, 326);
-            this.btnTLSave.Name = "btnTLSave";
-            this.btnTLSave.Size = new System.Drawing.Size(86, 42);
-            this.btnTLSave.TabIndex = 20;
-            this.btnTLSave.Text = "Save";
-            this.btnTLSave.UseVisualStyleBackColor = true;
-            this.btnTLSave.Click += new System.EventHandler(this.btnTLSave_Click);
-            // 
-            // btnTLDelete
-            // 
-            this.btnTLDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLDelete.Location = new System.Drawing.Point(536, 278);
-            this.btnTLDelete.Name = "btnTLDelete";
-            this.btnTLDelete.Size = new System.Drawing.Size(86, 42);
-            this.btnTLDelete.TabIndex = 19;
-            this.btnTLDelete.Text = "Delete";
-            this.btnTLDelete.UseVisualStyleBackColor = true;
-            this.btnTLDelete.Click += new System.EventHandler(this.btnTLDelete_Click);
-            // 
-            // btnTLCreate
-            // 
-            this.btnTLCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLCreate.Location = new System.Drawing.Point(536, 230);
-            this.btnTLCreate.Name = "btnTLCreate";
-            this.btnTLCreate.Size = new System.Drawing.Size(86, 42);
-            this.btnTLCreate.TabIndex = 18;
-            this.btnTLCreate.Text = "Create";
-            this.btnTLCreate.UseVisualStyleBackColor = true;
-            this.btnTLCreate.Click += new System.EventHandler(this.btnTLCreate_Click);
-            // 
-            // clmItemId
-            // 
-            this.clmItemId.DataPropertyName = "ItemId";
-            this.clmItemId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.clmItemId.HeaderText = "Item";
-            this.clmItemId.Name = "clmItemId";
-            this.clmItemId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmItemId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.clmItemId.Width = 80;
+            this.clmItem.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.clmItem.HeaderText = "Item";
+            this.clmItem.Name = "clmItem";
+            this.clmItem.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmItem.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.clmItem.Width = 80;
             // 
             // clmQuantity
             // 
@@ -278,6 +222,59 @@
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             this.Total.Width = 60;
+            // 
+            // lblTransaction
+            // 
+            this.lblTransaction.AutoSize = true;
+            this.lblTransaction.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTransaction.Location = new System.Drawing.Point(22, 9);
+            this.lblTransaction.Name = "lblTransaction";
+            this.lblTransaction.Size = new System.Drawing.Size(89, 21);
+            this.lblTransaction.TabIndex = 16;
+            this.lblTransaction.Text = "Transaction";
+            // 
+            // lblTransactionLine
+            // 
+            this.lblTransactionLine.AutoSize = true;
+            this.lblTransactionLine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTransactionLine.Location = new System.Drawing.Point(22, 267);
+            this.lblTransactionLine.Name = "lblTransactionLine";
+            this.lblTransactionLine.Size = new System.Drawing.Size(129, 21);
+            this.lblTransactionLine.TabIndex = 17;
+            this.lblTransactionLine.Text = "Transaction Lines";
+            // 
+            // btnTLSave
+            // 
+            this.btnTLSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnTLSave.Location = new System.Drawing.Point(536, 326);
+            this.btnTLSave.Name = "btnTLSave";
+            this.btnTLSave.Size = new System.Drawing.Size(86, 42);
+            this.btnTLSave.TabIndex = 20;
+            this.btnTLSave.Text = "Save";
+            this.btnTLSave.UseVisualStyleBackColor = true;
+            this.btnTLSave.Click += new System.EventHandler(this.btnTLSave_Click);
+            // 
+            // btnTLDelete
+            // 
+            this.btnTLDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnTLDelete.Location = new System.Drawing.Point(536, 278);
+            this.btnTLDelete.Name = "btnTLDelete";
+            this.btnTLDelete.Size = new System.Drawing.Size(86, 42);
+            this.btnTLDelete.TabIndex = 19;
+            this.btnTLDelete.Text = "Delete";
+            this.btnTLDelete.UseVisualStyleBackColor = true;
+            this.btnTLDelete.Click += new System.EventHandler(this.btnTLDelete_Click);
+            // 
+            // btnTLCreate
+            // 
+            this.btnTLCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnTLCreate.Location = new System.Drawing.Point(536, 230);
+            this.btnTLCreate.Name = "btnTLCreate";
+            this.btnTLCreate.Size = new System.Drawing.Size(86, 42);
+            this.btnTLCreate.TabIndex = 18;
+            this.btnTLCreate.Text = "Create";
+            this.btnTLCreate.UseVisualStyleBackColor = true;
+            this.btnTLCreate.Click += new System.EventHandler(this.btnTLCreate_Click);
             // 
             // TransactionPage
             // 
@@ -327,9 +324,9 @@
         private DataGridViewTextBoxColumn clmDate;
         private DataGridViewComboBoxColumn clmCustomer;
         private DataGridViewComboBoxColumn clmEmployee;
-        private DataGridViewTextBoxColumn clmPaymentMethod;
+        private DataGridViewComboBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
-        private DataGridViewComboBoxColumn clmItemId;
+        private DataGridViewComboBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmItemPrice;
         private DataGridViewTextBoxColumn clmNetValue;

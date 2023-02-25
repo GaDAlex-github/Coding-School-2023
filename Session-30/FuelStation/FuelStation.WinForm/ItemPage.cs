@@ -55,13 +55,15 @@ namespace FuelStation.WinForm {
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
-            DeleteItem(item.Id);
+            if (ConfirmDelete()) {
+                ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+                DeleteItem(item.Id);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
           
-                ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+                ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;                       
                 if (item.Code == null) {
                     _ = NewItem(item);
                 }
@@ -106,6 +108,11 @@ namespace FuelStation.WinForm {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
             }
+        }
+        private bool ConfirmDelete() {
+            var result = MessageBox.Show(this, "Procceed Deleting Selected Item?",
+                this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
         }
 
         private async Task DeleteItem(int id) {

@@ -24,9 +24,17 @@ namespace FuelStation.Blazor.Server.Controllers {
             _itemRepo = itemRepo;
         }
 
+        [HttpGet]
         public async Task<IEnumerable<TransactionLineListDto>> Get() {
-            var transactionLines = _transactionLineRepo.GetAll();
-            var transactionLineList = transactionLines.Select(transactionLine => new TransactionLineListDto {
+            var transLine = _transactionLineRepo.GetAll();
+
+            var selectTransactionLine = transLine.Select(transactionLine => GetTransactionLines(transactionLine));
+
+            return selectTransactionLine;
+        }
+
+        public TransactionLineListDto GetTransactionLines(TransactionLine transactionLine) {
+            TransactionLineListDto transLine = new TransactionLineListDto {
                 Id = transactionLine.Id,
                 TransactionId = transactionLine.TransactionId,
                 ItemId = transactionLine.ItemId,
@@ -38,10 +46,14 @@ namespace FuelStation.Blazor.Server.Controllers {
                 TotalValue = transactionLine.TotalValue,
                 Item = new ItemListDto() {
                     Id = transactionLine.Item.Id,
-                    Description = transactionLine.Item.Description
+                    Code = transactionLine.Item.Code,
+                    Description = transactionLine.Item.Description,
+                    ItemType= transactionLine.Item.ItemType,
+                    Price = transactionLine.Item.Price,
+                    Cost = transactionLine.Item.Cost,
                 }
-            });
-            return transactionLineList;
+            };
+            return transLine;
         }
 
         [HttpDelete("{id}")]

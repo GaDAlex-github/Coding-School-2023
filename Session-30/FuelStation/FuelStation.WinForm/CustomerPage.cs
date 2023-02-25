@@ -15,7 +15,7 @@ namespace FuelStation.WinForm {
             httpClient.BaseAddress = new Uri(uri.GetUri());
         }
 
-        private void CustomerPage_Load(object sender, EventArgs e) {            
+        private void CustomerPage_Load(object sender, EventArgs e) {
             _ = SetControllers();
         }
 
@@ -34,8 +34,10 @@ namespace FuelStation.WinForm {
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
-            CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
-            DeleteCustomer(customer.Id);
+            if (ConfirmDelete()) {
+                CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
+                DeleteCustomer(customer.Id);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -45,7 +47,7 @@ namespace FuelStation.WinForm {
             }
             else {
                 _ = EditCustomer(customer);
-            }            
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -85,6 +87,11 @@ namespace FuelStation.WinForm {
                 MessageBox.Show("Error! Try again.", "Alert Message");
                 _ = SetControllers();
             }
+        }
+        private bool ConfirmDelete() {
+            var result = MessageBox.Show(this, "Procceed Deleting Selected Customer?",
+                this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return result == DialogResult.Yes;
         }
 
         private async Task DeleteCustomer(int id) {
