@@ -81,7 +81,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         }
 
         [HttpPost]
-        public async Task Post(TransactionLineEditDto transLine) {
+        public async Task Post(TransactionLineListDto transLine) {
             var newTransactionLine = new TransactionLine(transLine.Quantity, transLine.ItemPrice, transLine.DiscountPercent);
             newTransactionLine.TransactionId = transLine.TransactionId;
             newTransactionLine.ItemId = transLine.ItemId;
@@ -94,8 +94,8 @@ namespace FuelStation.Blazor.Server.Controllers {
             //_transactionRepo.Update(transLine.TransactionId, transaction);
         }
 
-        public async Task Put(TransactionLineEditDto transLine) {
-            var trans = _transactionRepo.GetById(transLine.TransactionId);
+        [HttpPut]
+        public async Task Put(TransactionLineListDto transLine) {
             var itemToUpdate = _transactionLineRepo.GetById(transLine.Id);
             itemToUpdate.Id = transLine.Id;
             itemToUpdate.TransactionId = transLine.TransactionId;
@@ -106,10 +106,7 @@ namespace FuelStation.Blazor.Server.Controllers {
             itemToUpdate.DiscountPercent = transLine.DiscountPercent;
             itemToUpdate.DiscountValue = transLine.DiscountValue;
             itemToUpdate.TotalValue = transLine.TotalValue;
-            //var transaction = _transactionRepo.GetById(itemToUpdate.TransactionId);
-            //transaction.TotalValue = itemToUpdate.TotalValue;
-            _transactionRepo.Update(itemToUpdate.TransactionId, trans);
-
+            _transactionLineRepo.Update(transLine.Id, itemToUpdate);
         }
     }
 }

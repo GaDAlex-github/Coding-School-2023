@@ -38,20 +38,18 @@ namespace FuelStation.WinForm {
                 var it = items.Where(item => item.Id == transactionLine.ItemId).FirstOrDefault();
                 transactionLine.Item = it;
                 var x = bsTransactionLines.DataSource as List<TransactionLineListDto>;
+                CalculateAllValues(transactionLine);
+                updateTransactionTotalValue = true;
                 if (!FuelExists(x)) {
                     transactionLine.ItemPrice = it.Price;
                     transactionLine.Quantity = 1;
                     transactionLine.NetValue = 0;
                     transactionLine.DiscountPercent = 0;
                     transactionLine.DiscountValue = 0;
-                    transactionLine.TotalValue = transactionLine.ItemPrice;
-                    CalculateAllValues(transactionLine);
-                    updateTransactionTotalValue = true;
-                }               
-                    grvTransactionLines.Update();
-                    grvTransactionLines.Refresh();
-                
+                    transactionLine.TotalValue = transactionLine.ItemPrice;                                       
+                }       
             }
+            updateTransactionTotalValue = true;
             if (updateTransactionTotalValue) {
                 transaction.TotalValue = grvTransactionLines.Rows
                     .OfType<DataGridViewRow>()
@@ -59,10 +57,15 @@ namespace FuelStation.WinForm {
                 if (transaction.TotalValue > 50) {
                     transaction.PaymentMethod = PaymentMethod.Cash;
                     clmPaymentMethod.ReadOnly = true;
+                    
                 }
                 else
-                    clmPaymentMethod.ReadOnly = false;
+                    clmPaymentMethod.ReadOnly = false;                
             }
+            grvTransactions.Update();
+            grvTransactions.Refresh();
+            grvTransactionLines.Update();
+            grvTransactionLines.Refresh();
         }
 
         public async void SetControllers() {
@@ -157,6 +160,17 @@ namespace FuelStation.WinForm {
         }
 
         private void btnTLSave_Click(object sender, EventArgs e) {
+            foreach (var trans in bsTransactions) {
+                TransactionListDto transaction = trans as TransactionListDto;
+                if (transaction != null) {
+                    if (transaction.Id == 0) {
+                        _ = NewTransaction(transaction);
+                    }
+                    else {
+                        _ = EditTransaction(transaction);
+                    }
+                }
+            }
             foreach (var tL in bsTransactionLines) {
                 TransactionLineListDto transactionLine = tL as TransactionLineListDto;
                 if (transactionLine != null) {
