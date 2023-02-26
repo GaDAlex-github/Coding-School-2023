@@ -38,10 +38,7 @@ else {
 @code {
     private List<LedgerDto> LedgerList = new();
     //private List<TransactionListDto> transactionList = new();
-    bool isLoading = true;
-
-
-
+    bool isLoading = true;  
 
     protected override async Task OnInitializedAsync() {
         await LoadItemsFromServer();
@@ -50,6 +47,7 @@ else {
 
     private async Task LoadItemsFromServer() {
         LedgerList = await httpClient.GetFromJsonAsync<List<LedgerDto>>("ledger");
+        
     }
 
     private void BackTo() {

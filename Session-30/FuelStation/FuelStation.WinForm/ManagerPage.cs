@@ -38,5 +38,9 @@ namespace FuelStation.WinForm {
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
+
+        private void btnSet_Click(object sender, EventArgs e) {
+
+        }
     }
 }

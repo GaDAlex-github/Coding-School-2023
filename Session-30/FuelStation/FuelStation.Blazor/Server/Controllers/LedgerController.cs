@@ -50,9 +50,11 @@ namespace FuelStation.Blazor.Server.Controllers {
         }
 
         private static void LedgerExpenses(LedgerDto Ledger, IList<Employee> employees) {
-            Ledger.Expenses = 0;
+            var rent = 5000;
+            Ledger.Expenses = rent;
+
             foreach (Employee employee in employees)
-                Ledger.Expenses += employee.SalaryPerMonth;  
+                Ledger.Expenses += employee.SalaryPerMonth;
         }
     }
 }
