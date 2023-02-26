@@ -40,6 +40,7 @@
             // 
             // grvCustomers
             // 
+            this.grvCustomers.AllowUserToAddRows = false;
             this.grvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -53,7 +54,7 @@
             this.grvCustomers.Name = "grvCustomers";
             this.grvCustomers.RowTemplate.Height = 25;
             this.grvCustomers.Size = new System.Drawing.Size(493, 400);
-            this.grvCustomers.TabIndex = 0;           
+            this.grvCustomers.TabIndex = 0;
             // 
             // clmName
             // 

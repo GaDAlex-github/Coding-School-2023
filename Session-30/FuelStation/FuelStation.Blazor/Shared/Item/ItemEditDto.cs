@@ -16,10 +16,10 @@ namespace FuelStation.Blazor.Shared.Item {
         public string? Description { get; set; }
         [Required]
         public ItemType ItemType { get; set; }
-        [RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Price field can only contain 2 decimals ")]
+        //[RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Price field can only contain 2 decimals ")]
         [Required]
         public decimal Price { get; set; }
-        [RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Cost field can only contain 2 decimals ")]
+        //[RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Cost field can only contain 2 decimals ")]
         [Required]
         public decimal Cost { get; set; }
 

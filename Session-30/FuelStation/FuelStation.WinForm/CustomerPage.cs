@@ -16,10 +16,10 @@ namespace FuelStation.WinForm {
         }
 
         private void CustomerPage_Load(object sender, EventArgs e) {
-            _ = SetControllers();
+            SetControllers();
         }
 
-        public async Task SetControllers() {
+        public async void SetControllers() {
             var Customers = await GetCustomers();
             if (Customers != null) {
                 bsCustomers.DataSource = Customers;
@@ -38,6 +38,7 @@ namespace FuelStation.WinForm {
                 CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
                 DeleteCustomer(customer.Id);
             }
+            SetControllers();
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -48,6 +49,7 @@ namespace FuelStation.WinForm {
             else {
                 _ = EditCustomer(customer);
             }
+            SetControllers();
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -68,12 +70,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("customer", customer);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Created!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private async Task EditCustomer(CustomerListDto? customer) {
 
@@ -81,12 +82,11 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Edited!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private bool ConfirmDelete() {
             var result = MessageBox.Show(this, "Procceed Deleting Selected Customer?",
@@ -98,12 +98,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"customer/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Deleted!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
     }
 }

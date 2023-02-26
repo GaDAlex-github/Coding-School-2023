@@ -1,20 +1,6 @@
-﻿using FuelStation.Blazor.Shared.Customer;
-using FuelStation.Blazor.Shared.Item;
-using FuelStation.Model;
+﻿using FuelStation.Blazor.Shared.Item;
 using FuelStation.Model.Enums;
-using Microsoft.VisualBasic.Devices;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FuelStation.WinForm {
     public partial class ItemPage : Form {
@@ -28,10 +14,10 @@ namespace FuelStation.WinForm {
             httpClient.BaseAddress = new Uri(uri.GetUri());
         }
         private void ItemPage_Load(object sender, EventArgs e) {
-            _ = SetControllers();
+             SetControllers();
         }
 
-        public async Task SetControllers() {
+        public async void SetControllers() {
             var items = await GetItems();
             if (items != null) {
                 try {
@@ -64,12 +50,12 @@ namespace FuelStation.WinForm {
         private void btnSave_Click(object sender, EventArgs e) {
           
                 ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;                       
-                if (item.Code == null) {
+                if (item.Id == 0) {
                     _ = NewItem(item);
                 }
                 else {
                     _ = EditItem(item);
-                }                    
+                }            
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -89,25 +75,21 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("item", item);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Created!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private async Task EditItem(ItemListDto? item) {
-
             var response = await httpClient.PutAsJsonAsync("item", item);
-
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Edited!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private bool ConfirmDelete() {
             var result = MessageBox.Show(this, "Procceed Deleting Selected Item?",
@@ -119,12 +101,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"item/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Deleted!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }       
     }
 }

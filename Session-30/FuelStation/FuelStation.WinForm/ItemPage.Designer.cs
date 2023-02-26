@@ -86,6 +86,7 @@
             // 
             // grvItems
             // 
+            this.grvItems.AllowUserToAddRows = false;
             this.grvItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -116,7 +117,7 @@
             this.clmDescription.DataPropertyName = "Description";
             this.clmDescription.HeaderText = "Description";
             this.clmDescription.Name = "clmDescription";
-            this.clmDescription.Width = 200;
+            this.clmDescription.Width = 170;
             // 
             // clmItemType
             // 
@@ -129,14 +130,14 @@
             this.clmPrice.DataPropertyName = "Price";
             this.clmPrice.HeaderText = "Price";
             this.clmPrice.Name = "clmPrice";
-            this.clmPrice.Width = 50;
+            this.clmPrice.Width = 60;
             // 
             // clmCost
             // 
             this.clmCost.DataPropertyName = "Cost";
             this.clmCost.HeaderText = "Cost";
             this.clmCost.Name = "clmCost";
-            this.clmCost.Width = 50;
+            this.clmCost.Width = 60;
             // 
             // clmId
             // 

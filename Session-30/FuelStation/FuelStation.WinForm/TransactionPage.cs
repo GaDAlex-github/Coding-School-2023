@@ -20,7 +20,7 @@ namespace FuelStation.WinForm {
         }
 
         private void TransactionPage_Load(object sender, EventArgs e) {
-            _ = SetControllers();
+            SetControllers();
             grvTransactionLines.CellValueChanged += GrvTransactionLines_CellValueChanged;
         }
 
@@ -60,12 +60,10 @@ namespace FuelStation.WinForm {
                 }
                 else
                     clmPaymentMethod.ReadOnly = false;
-                grvTransactions.Update();
-                grvTransactions.Refresh();
             }
         }
 
-        public async Task SetControllers() {
+        public async void SetControllers() {
             var transactions = await GetTransactions();
             var customers = await GetCustomers();
             var employees = await GetEmployees();
@@ -127,20 +125,17 @@ namespace FuelStation.WinForm {
             if (ConfirmDelete()) {
                 TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
                 DeleteTransaction(transaction.Id);
-                grvTransactions.Update();
-                grvTransactions.Refresh();
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
-            if (transaction.Id == 0) {
+            var transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+            if (transaction == null) {
                 _ = NewTransaction(transaction);
             }
             else {
                 _ = EditTransaction(transaction);
             }
-            _ = SetControllers();
         }
 
         private void btnTLCreate_Click(object sender, EventArgs e) {
@@ -153,25 +148,21 @@ namespace FuelStation.WinForm {
             if (ConfirmDeleteTL()) {
                 TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
                 DeleteTransactionLine(transactionLine.Id);
-                _ = SetControllers();
             }
         }
 
         private void btnTLSave_Click(object sender, EventArgs e) {
-            try {
-                TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
-                if (transactionLine.Id == 0) {
-                    _ = NewTransactionLine(transactionLine);
-                }
-                else {
-                    _ = EditTransactionLine(transactionLine);
-                }
-                _ = SetControllers();
+
+            TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
+            if (transactionLine.Id == 0) {
+                _ = NewTransactionLine(transactionLine);
             }
-            catch (Exception exe) {
-                MessageBox.Show(exe.Message);
+            else {
+                _ = EditTransactionLine(transactionLine);
             }
         }
+
+
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
@@ -190,12 +181,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("transaction", transaction);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Created!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private async Task EditTransaction(TransactionListDto? transaction) {
 
@@ -203,12 +193,11 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Edited!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private bool ConfirmDelete() {
             var result = MessageBox.Show(this, "Procceed Deleting Selected Transaction?",
@@ -220,12 +209,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"transaction/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Transaction Deleted!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
 
         private async Task<List<TransactionLineListDto?>> GetTransactionLines(int id) {
@@ -242,12 +230,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.PostAsJsonAsync("transactionLine", transactionLine);
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Created!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private async Task EditTransactionLine(TransactionLineListDto? transactionLine) {
 
@@ -255,12 +242,11 @@ namespace FuelStation.WinForm {
 
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Edited!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private bool ConfirmDeleteTL() {
             var result = MessageBox.Show(this, "Procceed Deleting Selected TransactionLine?",
@@ -272,12 +258,11 @@ namespace FuelStation.WinForm {
             var response = await httpClient.DeleteAsync($"transactionLine/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("TransactionLine Deleted!", "Success Message");
-                _ = SetControllers();
             }
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
-                _ = SetControllers();
             }
+            SetControllers();
         }
         private async Task<List<CustomerListDto?>> GetCustomers() {
             var response = await httpClient.GetAsync("customer");
@@ -325,7 +310,6 @@ namespace FuelStation.WinForm {
             if (transactionLines.Where(line => line.Item.ItemType == ItemType.Fuel).Count() > 1) {
                 MessageBox.Show("Error! Cant Add More Fuel-Type");
                 return true;
-               // _ = SetControllers();
             }
             return false;
         }
