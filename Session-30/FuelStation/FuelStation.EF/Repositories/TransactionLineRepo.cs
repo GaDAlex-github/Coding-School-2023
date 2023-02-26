@@ -61,6 +61,8 @@ namespace FuelStation.EF.Repositories {
             TransactionLineDb.DiscountPercent = entity.DiscountPercent;
             TransactionLineDb.DiscountValue = entity.DiscountValue;
             TransactionLineDb.TotalValue = entity.TotalValue;
+            TransactionLineDb.TransactionId = entity.TransactionId;
+            TransactionLineDb.ItemId = entity.ItemId;
             context.SaveChanges();
         }
     }

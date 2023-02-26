@@ -26,29 +26,31 @@ namespace FuelStation.WinForm {
 
         private async void GrvTransactionLines_CellValueChanged(object? sender, DataGridViewCellEventArgs e) {
             TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
-            var x = bsTransactionLines.Current;
             TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+            transactionLine.TransactionId = transaction.Id;
             bool updateTransactionTotalValue = false;
             if (e.ColumnIndex == 1) { //column Quantity
                 CalculateAllValues(transactionLine);
                 updateTransactionTotalValue = true;
             }
-            if (e.ColumnIndex == 0) { //column Item
-                //if (FuelExists(grvTransactionLines.DataSource as List<TransactionLineListDto>))
-                //    return;
+            if (e.ColumnIndex == 0) { //column Item                
                 var items = await GetItems();
                 var it = items.Where(item => item.Id == transactionLine.ItemId).FirstOrDefault();
                 transactionLine.Item = it;
-                transactionLine.ItemPrice = it.Price;
-                transactionLine.Quantity = 1;
-                transactionLine.NetValue = 0;
-                transactionLine.DiscountPercent = 0;
-                transactionLine.DiscountValue = 0;
-                transactionLine.TotalValue = transactionLine.ItemPrice;
-                CalculateAllValues(transactionLine);
-                updateTransactionTotalValue = true;
-                grvTransactionLines.Update();
-                grvTransactionLines.Refresh();
+                var x = bsTransactionLines.DataSource as List<TransactionLineListDto>;
+                if (!FuelExists(x)) {
+                    transactionLine.ItemPrice = it.Price;
+                    transactionLine.Quantity = 1;
+                    transactionLine.NetValue = 0;
+                    transactionLine.DiscountPercent = 0;
+                    transactionLine.DiscountValue = 0;
+                    transactionLine.TotalValue = transactionLine.ItemPrice;
+                    CalculateAllValues(transactionLine);
+                    updateTransactionTotalValue = true;
+                }               
+                    grvTransactionLines.Update();
+                    grvTransactionLines.Refresh();
+                
             }
             if (updateTransactionTotalValue) {
                 transaction.TotalValue = grvTransactionLines.Rows
@@ -129,19 +131,22 @@ namespace FuelStation.WinForm {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            var transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
-            if (transaction == null) {
-                _ = NewTransaction(transaction);
-            }
-            else {
-                _ = EditTransaction(transaction);
+            foreach (var trans in bsTransactions) {
+                TransactionListDto transaction = trans as TransactionListDto;
+                if (transaction != null) {
+                    if (transaction.Id == 0) {
+                        _ = NewTransaction(transaction);
+                    }
+                    else {
+                        _ = EditTransaction(transaction);
+                    }
+                }
             }
         }
 
         private void btnTLCreate_Click(object sender, EventArgs e) {
             TransactionLineListDto newTransactionLine = new TransactionLineListDto();
             bsTransactionLines.Add(newTransactionLine);
-
         }
 
         private void btnTLDelete_Click(object sender, EventArgs e) {
@@ -152,16 +157,18 @@ namespace FuelStation.WinForm {
         }
 
         private void btnTLSave_Click(object sender, EventArgs e) {
-
-            TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
-            if (transactionLine.Id == 0) {
-                _ = NewTransactionLine(transactionLine);
-            }
-            else {
-                _ = EditTransactionLine(transactionLine);
+            foreach (var tL in bsTransactionLines) {
+                TransactionLineListDto transactionLine = tL as TransactionLineListDto;
+                if (transactionLine != null) {
+                    if (transactionLine.Id == 0) {
+                        _ = NewTransactionLine(transactionLine);
+                    }
+                    else {
+                        _ = EditTransactionLine(transactionLine);
+                    }
+                }
             }
         }
-
 
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
@@ -204,7 +211,6 @@ namespace FuelStation.WinForm {
                 this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return result == DialogResult.Yes;
         }
-
         private async Task DeleteTransaction(int id) {
             var response = await httpClient.DeleteAsync($"transaction/{id}");
             if (response.IsSuccessStatusCode) {
@@ -215,7 +221,6 @@ namespace FuelStation.WinForm {
             }
             SetControllers();
         }
-
         private async Task<List<TransactionLineListDto?>> GetTransactionLines(int id) {
             var response = await httpClient.GetAsync($"transactionLine/{id}");
             if (response.IsSuccessStatusCode) {
@@ -297,19 +302,23 @@ namespace FuelStation.WinForm {
         }
 
         public void CalculateAllValues(TransactionLineListDto transactionLine) {
-
-            transactionLine.NetValue = transactionLine.Quantity * transactionLine.ItemPrice;
-            if (transactionLine.Item.ItemType == ItemType.Fuel && transactionLine.NetValue > 20) {
-                transactionLine.DiscountPercent = 10;
-                transactionLine.DiscountValue = Decimal.Round(transactionLine.NetValue * (decimal)0.1, 2);
+            if (transactionLine != null) {
+                transactionLine.NetValue = transactionLine.Quantity * transactionLine.ItemPrice;
+                if (transactionLine.Item.ItemType == ItemType.Fuel && transactionLine.NetValue > 20) {
+                    transactionLine.DiscountPercent = 10;
+                    transactionLine.DiscountValue = Decimal.Round(transactionLine.NetValue * (decimal)0.1, 2);
+                }
+                transactionLine.TotalValue = transactionLine.NetValue - transactionLine.DiscountValue;
             }
-            transactionLine.TotalValue = transactionLine.NetValue - transactionLine.DiscountValue;
         }
 
         public bool FuelExists(List<TransactionLineListDto> transactionLines) {
-            if (transactionLines.Where(line => line.Item.ItemType == ItemType.Fuel).Count() > 1) {
-                MessageBox.Show("Error! Cant Add More Fuel-Type");
-                return true;
+            if (transactionLines != null) {
+                if (transactionLines.Where(line => line.Item.ItemType == ItemType.Fuel).Count() > 1) {
+                    MessageBox.Show("Error! Cant Add More Fuel-Type");
+                    bsTransactionLines.RemoveCurrent();
+                    return true;
+                }                    
             }
             return false;
         }
