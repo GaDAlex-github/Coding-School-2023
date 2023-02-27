@@ -2,7 +2,6 @@
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Blazor.Server.Controllers {

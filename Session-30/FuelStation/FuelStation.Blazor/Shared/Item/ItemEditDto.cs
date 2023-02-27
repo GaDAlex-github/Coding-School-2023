@@ -1,28 +1,21 @@
 ﻿using FuelStation.Model.Enums;
-using FuelStation.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace FuelStation.Blazor.Shared.Item {
     public class ItemEditDto {
         public int Id { get; set; }        
         public string? Code { get; set; }
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "The Description field can only contain Latin letters and digits")]
         [Required]
+        [MaxLength(50, ErrorMessage = "Max 15 Characters.")]
         public string? Description { get; set; }
         [Required]
-        public ItemType ItemType { get; set; }
-        //[RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Price field can only contain 2 decimals ")]
+        [Range(0, 2)]
+        public ItemType ItemType { get; set; }        
         [Required]
+        [Range(1, 99999)]
         public decimal Price { get; set; }
-        //[RegularExpression(@"[-+]?(\d{1,10}(\.\d{2})?)", ErrorMessage = "The Cost field can only contain 2 decimals ")]
         [Required]
+        [Range(1, 99999)]        
         public decimal Cost { get; set; }
-
-        public List<FuelStation.Model.TransactionLine> TransactionLines { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }

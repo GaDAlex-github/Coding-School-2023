@@ -1,10 +1,4 @@
-﻿using FuelStation.Blazor.Shared.Employee;
-using FuelStation.Blazor.Shared.Item;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FuelStation.Blazor.Shared.Item;
 
 namespace FuelStation.Blazor.Shared.TransactionLine {
     public class TransactionLineListDto {

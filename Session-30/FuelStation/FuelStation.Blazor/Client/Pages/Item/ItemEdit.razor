@@ -59,7 +59,7 @@ else {
 
 @code {
     [Parameter] public int? Id { get; set; }
-    ItemEditDto Item { get; set; } = new();
+    ItemEditDto? Item { get; set; } = new();
 
     protected override async Task OnInitializedAsync() {
         if (Id == null) {

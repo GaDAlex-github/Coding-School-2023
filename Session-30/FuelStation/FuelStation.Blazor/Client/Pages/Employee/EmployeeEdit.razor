@@ -65,8 +65,8 @@ else {
 
 @code {
     [Parameter] public int? Id { get; set; }
-    EmployeeEditDto Employee { get; set; } = new();
-    List<EmployeeListDto> Employees { get; set; }
+    EmployeeEditDto? Employee { get; set; } = new();
+    List<EmployeeListDto>? Employees { get; set; }
     int managers = 0;
     int staff = 0;
     int cashiers = 0;

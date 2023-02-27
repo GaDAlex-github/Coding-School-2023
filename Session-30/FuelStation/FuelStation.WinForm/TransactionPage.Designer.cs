@@ -49,6 +49,7 @@
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
             this.bsTransactionLines = new System.Windows.Forms.BindingSource(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransactions)).BeginInit();
@@ -250,7 +251,7 @@
             // btnSaveAll
             // 
             this.btnSaveAll.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnSaveAll.Location = new System.Drawing.Point(536, 182);
+            this.btnSaveAll.Location = new System.Drawing.Point(536, 318);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(86, 42);
             this.btnSaveAll.TabIndex = 20;
@@ -261,7 +262,7 @@
             // btnTLDelete
             // 
             this.btnTLDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLDelete.Location = new System.Drawing.Point(536, 328);
+            this.btnTLDelete.Location = new System.Drawing.Point(536, 270);
             this.btnTLDelete.Name = "btnTLDelete";
             this.btnTLDelete.Size = new System.Drawing.Size(86, 42);
             this.btnTLDelete.TabIndex = 19;
@@ -272,7 +273,7 @@
             // btnTLCreate
             // 
             this.btnTLCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLCreate.Location = new System.Drawing.Point(536, 280);
+            this.btnTLCreate.Location = new System.Drawing.Point(536, 222);
             this.btnTLCreate.Name = "btnTLCreate";
             this.btnTLCreate.Size = new System.Drawing.Size(86, 42);
             this.btnTLCreate.TabIndex = 18;
@@ -280,11 +281,23 @@
             this.btnTLCreate.UseVisualStyleBackColor = true;
             this.btnTLCreate.Click += new System.EventHandler(this.btnTLCreate_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSave.Location = new System.Drawing.Point(536, 129);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(86, 42);
+            this.btnSave.TabIndex = 21;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // TransactionPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 451);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnTLDelete);
             this.Controls.Add(this.btnTLCreate);
@@ -336,5 +349,6 @@
         private DataGridViewComboBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
         private DataGridViewTextBoxColumn clmId;
+        private Button btnSave;
     }
 }

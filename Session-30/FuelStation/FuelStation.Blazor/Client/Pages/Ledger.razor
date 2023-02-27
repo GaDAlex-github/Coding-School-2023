@@ -5,9 +5,20 @@
 <h3>Ledger</h3>
 
 @if (LedgerList == null) {
-    <p>Loading ...</p>
+    <Spinner Type="SpinnerType.Border" />
 }
 else {
+    <div class="row">
+        <div class="col-md-1">
+            <h5 class="form-label">Rent :</h5>
+        </div>
+        <div class="col-md-2">
+            <InputNumber class="form-control" @bind-Value="@rent" />
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success" @onclick="Rent"> Save </button>
+        </div>
+    </div>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -37,17 +48,25 @@ else {
 
 @code {
     private List<LedgerDto> LedgerList = new();
-    //private List<TransactionListDto> transactionList = new();
-    bool isLoading = true;  
+    public decimal rent;
+
+    public async void Rent() {
+        if (rent < 0)
+            rent = 0;
+        LedgerList = await httpClient.GetFromJsonAsync<List<LedgerDto>>("ledger");
+        foreach (LedgerDto ledger in LedgerList) {
+            ledger.Expenses += rent;
+            ledger.Total -= rent;
+        }
+    }
 
     protected override async Task OnInitializedAsync() {
         await LoadItemsFromServer();
-        isLoading = false;
     }
 
     private async Task LoadItemsFromServer() {
-        LedgerList = await httpClient.GetFromJsonAsync<List<LedgerDto>>("ledger");
-        
+        rent = 5000;
+        Rent();
     }
 
     private void BackTo() {

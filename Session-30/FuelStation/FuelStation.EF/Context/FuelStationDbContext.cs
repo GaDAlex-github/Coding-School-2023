@@ -1,12 +1,6 @@
 ﻿using FuelStation.EF.Configurations;
 using FuelStation.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FuelStation.EF.Context {
     public class FuelStationDbContext : DbContext {

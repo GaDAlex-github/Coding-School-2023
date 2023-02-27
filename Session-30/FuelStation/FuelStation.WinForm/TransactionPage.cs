@@ -120,6 +120,17 @@ namespace FuelStation.WinForm {
                 DeleteTransaction(transaction.Id);
             }
         }
+        private void btnSave_Click(object sender, EventArgs e) {
+            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
+            if (transaction != null) {
+                if (transaction.Id == 0) {
+                    _ = NewTransaction(transaction);
+                }
+                else {
+                    _ = EditTransaction(transaction);
+                }
+            }
+        }
         private void btnTLCreate_Click(object sender, EventArgs e) {
             TransactionLineListDto newTransactionLine = new TransactionLineListDto();
             bsTransactionLines.Add(newTransactionLine);
@@ -130,42 +141,30 @@ namespace FuelStation.WinForm {
                 DeleteTransactionLine(transactionLine.Id);
             }
         }
-        private void btnTLSave_Click(object sender, EventArgs e) {
+        private async void btnTLSave_Click(object sender, EventArgs e) {
+            TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
             try {
-                bool successTl = false;
+                bool success = false;
+                transaction.TotalValue = 0;
                 foreach (var tL in bsTransactionLines) {
                     TransactionLineListDto transactionLine = tL as TransactionLineListDto;
                     if (transactionLine != null) {
                         if (transactionLine.Id == 0) {
-                            _ = NewTransactionLine(successTl, transactionLine);
+                            success = await NewTransactionLine(transactionLine);
                         }
                         else {
-                            _ = EditTransactionLine(successTl, transactionLine);
+                            success = await EditTransactionLine(transactionLine);
                         }
                     }
+                    transaction.TotalValue += transactionLine.TotalValue;
                 }
-                if (successTl) {
+                _ = EditTransaction(transaction);
+                if (success) {
                     MessageBox.Show("All TransactionLines Created/Edited!", "Success Message");
                 }
-                else
+                else {
                     MessageBox.Show("Transaction Lines Failed. Try Again!", "Alert Message");
-                bool success = false;
-                foreach (var trans in bsTransactions) {
-                    TransactionListDto transaction = trans as TransactionListDto;
-                    if (transaction != null) {
-                        if (transaction.Id == 0) {
-                            _ = NewTransaction(success, transaction);
-                        }
-                        else {
-                            _ = EditTransaction(success, transaction);
-                        }
-                    }
                 }
-                if (success) {
-                    MessageBox.Show("All Transactions Created/Edited!", "Success Message");
-                }
-                else
-                    MessageBox.Show("Transactions Failed. Try Again!", "Alert Message");
             }
             catch (Exception exe) {
                 MessageBox.Show(exe.Message);
@@ -184,23 +183,23 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-        private async Task NewTransaction(bool success, TransactionListDto? transaction) {
+        private async Task NewTransaction(TransactionListDto? transaction) {
             var response = await httpClient.PostAsJsonAsync("transaction", transaction);
             if (response.IsSuccessStatusCode) {
-                success = true;
+                MessageBox.Show("Transaction Edited!", "Success Message");
             }
             else {
-                success = false;
+                MessageBox.Show("Something went Wrong. Try Again!", "Alert Message");
             }
             SetControllers();
         }
-        private async Task EditTransaction(bool success, TransactionListDto? transaction) {
+        private async Task EditTransaction(TransactionListDto? transaction) {
             var response = await httpClient.PutAsJsonAsync("transaction", transaction);
             if (response.IsSuccessStatusCode) {
-                success = true;
+                MessageBox.Show("Transaction Edited!", "Success Message");
             }
             else {
-                success = false;
+                MessageBox.Show("Something went Wrong. Try Again!", "Alert Message");
             }
             SetControllers();
         }
@@ -229,25 +228,23 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-        private async Task NewTransactionLine(bool success, TransactionLineListDto? transactionLine) {
+        private async Task<bool> NewTransactionLine(TransactionLineListDto? transactionLine) {
             var response = await httpClient.PostAsJsonAsync("transactionLine", transactionLine);
             if (response.IsSuccessStatusCode) {
-                success = true;
+                return true;
             }
             else {
-                success = false;
+                return false;
             }
-            SetControllers();
         }
-        private async Task EditTransactionLine(bool success, TransactionLineListDto? transactionLine) {
+        private async Task<bool> EditTransactionLine(TransactionLineListDto? transactionLine) {
             var response = await httpClient.PutAsJsonAsync("transactionLine", transactionLine);
             if (response.IsSuccessStatusCode) {
-                success = true;
+                return true;
             }
             else {
-                success = false;
+                return false;
             }
-            SetControllers();
         }
         private bool ConfirmDeleteTL() {
             var result = MessageBox.Show(this, "Procceed Deleting Selected TransactionLine?",

@@ -1,11 +1,9 @@
-﻿using FuelStation.Blazor.Client.Pages.UIs;
-using FuelStation.Blazor.Shared.Customer;
+﻿using FuelStation.Blazor.Shared.Customer;
 using FuelStation.Blazor.Shared.Employee;
 using FuelStation.Blazor.Shared.Transaction;
 using FuelStation.Blazor.Shared.TransactionLine;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
-using FuelStation.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelStation.Blazor.Server.Controllers {

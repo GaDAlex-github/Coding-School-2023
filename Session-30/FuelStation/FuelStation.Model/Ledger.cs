@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FuelStation.Model {
+﻿namespace FuelStation.Model {
     public class Ledger {
         public int Year { get; set; }
         public int Month { get; set; }
@@ -19,12 +13,12 @@ namespace FuelStation.Model {
         public Ledger() {
 
         }
-        public Ledger(int year, int month) {
+        public Ledger(int year, int month,decimal income, decimal expenses) {
             Year = year;
             Month = month;
-            Income = 0;
-            Expenses = 0;
-            Total = 0;
+            Income = income;
+            Expenses = expenses;
+            Total = Income - Expenses;
         }
     }
 }

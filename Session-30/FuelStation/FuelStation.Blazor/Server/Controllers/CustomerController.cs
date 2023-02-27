@@ -1,12 +1,9 @@
-﻿using FuelStation.Blazor.Shared.Employee;
-using FuelStation.EF.Repositories;
+﻿using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using FuelStation.Blazor.Shared.Customer;
 using System.Text.RegularExpressions;
-using FuelStation.Blazor.Client.Pages.Customer;
 
 namespace FuelStation.Blazor.Server.Controllers {
 
