@@ -69,7 +69,7 @@ else {
         var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Delete Item. Are you sure?");
         if (confirm) {
             var response = await httpClient.DeleteAsync($"item/{item.Id}");
-            response.EnsureSuccessStatusCode();
+            if ((int)response.StatusCode != 200) { await jsRuntime.InvokeVoidAsync("alert", "Cant Delete Customer Involved with Transaction!"); }
             await LoadItemsFromServer();
         }
     }

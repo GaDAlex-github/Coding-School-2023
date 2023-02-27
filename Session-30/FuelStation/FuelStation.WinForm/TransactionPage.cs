@@ -131,40 +131,45 @@ namespace FuelStation.WinForm {
             }
         }
         private void btnTLSave_Click(object sender, EventArgs e) {
-            bool successTl = false;
-            foreach (var tL in bsTransactionLines) {
-                TransactionLineListDto transactionLine = tL as TransactionLineListDto;
-                if (transactionLine != null) {
-                    if (transactionLine.Id == 0) {
-                        _ = NewTransactionLine(successTl, transactionLine);
-                    }
-                    else {
-                        _ = EditTransactionLine(successTl, transactionLine);
-                    }
-                }
-            }
-            if (successTl) {
-                MessageBox.Show("All TransactionLines Created/Edited!", "Success Message");
-            }
-            else
-                MessageBox.Show("Transaction Lines Failed. Try Again!", "Alert Message");
-            bool success = false;
-            foreach (var trans in bsTransactions) {
-                TransactionListDto transaction = trans as TransactionListDto;
-                if (transaction != null) {
-                    if (transaction.Id == 0) {
-                        _ = NewTransaction(success, transaction);
-                    }
-                    else {
-                        _ = EditTransaction(success, transaction);
+            try {
+                bool successTl = false;
+                foreach (var tL in bsTransactionLines) {
+                    TransactionLineListDto transactionLine = tL as TransactionLineListDto;
+                    if (transactionLine != null) {
+                        if (transactionLine.Id == 0) {
+                            _ = NewTransactionLine(successTl, transactionLine);
+                        }
+                        else {
+                            _ = EditTransactionLine(successTl, transactionLine);
+                        }
                     }
                 }
+                if (successTl) {
+                    MessageBox.Show("All TransactionLines Created/Edited!", "Success Message");
+                }
+                else
+                    MessageBox.Show("Transaction Lines Failed. Try Again!", "Alert Message");
+                bool success = false;
+                foreach (var trans in bsTransactions) {
+                    TransactionListDto transaction = trans as TransactionListDto;
+                    if (transaction != null) {
+                        if (transaction.Id == 0) {
+                            _ = NewTransaction(success, transaction);
+                        }
+                        else {
+                            _ = EditTransaction(success, transaction);
+                        }
+                    }
+                }
+                if (success) {
+                    MessageBox.Show("All Transactions Created/Edited!", "Success Message");
+                }
+                else
+                    MessageBox.Show("Transactions Failed. Try Again!", "Alert Message");
             }
-            if (success) {
-                MessageBox.Show("All Transactions Created/Edited!", "Success Message");
+            catch (Exception exe) {
+                MessageBox.Show(exe.Message);
             }
-            else
-                MessageBox.Show("Transactions Failed. Try Again!", "Alert Message");
         }
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;

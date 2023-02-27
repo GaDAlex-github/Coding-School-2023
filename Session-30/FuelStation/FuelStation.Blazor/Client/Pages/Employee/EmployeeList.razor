@@ -70,7 +70,7 @@ else {
         var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Delete Employee. Are you sure?");
         if (confirm) {
             var response = await httpClient.DeleteAsync($"employee/{employee.Id}");
-            response.EnsureSuccessStatusCode();
+            if ((int)response.StatusCode != 200) { await jsRuntime.InvokeVoidAsync("alert", "Cant Delete Employee Involved with Transaction!"); }
             await LoadItemsFromServer();
         }
     }
