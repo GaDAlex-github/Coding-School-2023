@@ -9,5 +9,6 @@
             }
         }
         public string? CardNumber { get; set; }
+        public List<FuelStation.Model.Transaction> Transactions { get; set; } = new List<FuelStation.Model.Transaction>();
     }
 }
