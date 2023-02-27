@@ -12,6 +12,7 @@ namespace FuelStation.WinForm {
     public partial class TransactionPage : Form {
 
         private readonly HttpClient httpClient;
+
         public TransactionPage() {
             InitializeComponent();
             httpClient = new HttpClient();
@@ -46,8 +47,8 @@ namespace FuelStation.WinForm {
                     transactionLine.NetValue = 0;
                     transactionLine.DiscountPercent = 0;
                     transactionLine.DiscountValue = 0;
-                    transactionLine.TotalValue = transactionLine.ItemPrice;                                       
-                }       
+                    transactionLine.TotalValue = transactionLine.ItemPrice;
+                }
             }
             updateTransactionTotalValue = true;
             if (updateTransactionTotalValue) {
@@ -57,50 +58,38 @@ namespace FuelStation.WinForm {
                 if (transaction.TotalValue > 50) {
                     transaction.PaymentMethod = PaymentMethod.Cash;
                     clmPaymentMethod.ReadOnly = true;
-                    
                 }
                 else
-                    clmPaymentMethod.ReadOnly = false;                
+                    clmPaymentMethod.ReadOnly = false;
             }
-            grvTransactions.Update();
-            grvTransactions.Refresh();
-            grvTransactionLines.Update();
-            grvTransactionLines.Refresh();
         }
 
         public async void SetControllers() {
             var transactions = await GetTransactions();
             var customers = await GetCustomers();
             var employees = await GetEmployees();
-            try {
-                if (transactions != null) {
 
-                    bsTransactions.DataSource = transactions;
-                    grvTransactions.AutoGenerateColumns = false;
-                    grvTransactions.DataSource = bsTransactions;
+            bsTransactions.DataSource = transactions;
+            grvTransactions.AutoGenerateColumns = false;
+            grvTransactions.DataSource = bsTransactions;
 
-                    clmCustomer.DataSource = new BindingSource() { DataSource = customers };
-                    clmCustomer.DataPropertyName = "CustomerId";
-                    clmCustomer.DisplayMember = "FullName";
-                    clmCustomer.ValueMember = "Id";
+            clmCustomer.DataSource = new BindingSource() { DataSource = customers };
+            clmCustomer.DataPropertyName = "CustomerId";
+            clmCustomer.DisplayMember = "FullName";
+            clmCustomer.ValueMember = "Id";
 
-                    clmEmployee.DataSource = new BindingSource() { DataSource = employees };
-                    clmEmployee.DataPropertyName = "EmployeeId";
-                    clmEmployee.DisplayMember = "FullName";
-                    clmEmployee.ValueMember = "Id";
+            clmEmployee.DataSource = new BindingSource() { DataSource = employees };
+            clmEmployee.DataPropertyName = "EmployeeId";
+            clmEmployee.DisplayMember = "FullName";
+            clmEmployee.ValueMember = "Id";
 
-                    clmPaymentMethod.DataPropertyName = "PaymentMethod";
-                    clmPaymentMethod.DataSource = Enum.GetValues(typeof(PaymentMethod));
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message);
-            }
+            clmPaymentMethod.DataPropertyName = "PaymentMethod";
+            clmPaymentMethod.DataSource = Enum.GetValues(typeof(PaymentMethod));
         }
+
         private void grvTransactions_CellClick(object sender, DataGridViewCellEventArgs e) {
             LoadTransactionLines();
         }
-
         private async void LoadTransactionLines() {
             TransactionListDto transaction = (TransactionListDto)grvTransactions.CurrentRow.DataBoundItem;
             var transactionLines = await GetTransactionLines(transaction.Id);
@@ -120,7 +109,6 @@ namespace FuelStation.WinForm {
                 clmItemPrice.DataPropertyName = "ItemPrice";
             }
         }
-
         private void btnCreate_Click(object sender, EventArgs e) {
             TransactionListDto newTransaction = new TransactionListDto();
             bsTransactions.Add(newTransaction);
@@ -132,62 +120,55 @@ namespace FuelStation.WinForm {
                 DeleteTransaction(transaction.Id);
             }
         }
-
-        private void btnSave_Click(object sender, EventArgs e) {
-            foreach (var trans in bsTransactions) {
-                TransactionListDto transaction = trans as TransactionListDto;
-                if (transaction != null) {
-                    if (transaction.Id == 0) {
-                        _ = NewTransaction(transaction);
-                    }
-                    else {
-                        _ = EditTransaction(transaction);
-                    }
-                }
-            }
-        }
-
         private void btnTLCreate_Click(object sender, EventArgs e) {
             TransactionLineListDto newTransactionLine = new TransactionLineListDto();
             bsTransactionLines.Add(newTransactionLine);
         }
-
         private void btnTLDelete_Click(object sender, EventArgs e) {
             if (ConfirmDeleteTL()) {
                 TransactionLineListDto transactionLine = (TransactionLineListDto)grvTransactionLines.CurrentRow.DataBoundItem;
                 DeleteTransactionLine(transactionLine.Id);
             }
         }
-
         private void btnTLSave_Click(object sender, EventArgs e) {
-            foreach (var trans in bsTransactions) {
-                TransactionListDto transaction = trans as TransactionListDto;
-                if (transaction != null) {
-                    if (transaction.Id == 0) {
-                        _ = NewTransaction(transaction);
-                    }
-                    else {
-                        _ = EditTransaction(transaction);
-                    }
-                }
-            }
+            bool successTl = false;
             foreach (var tL in bsTransactionLines) {
                 TransactionLineListDto transactionLine = tL as TransactionLineListDto;
                 if (transactionLine != null) {
                     if (transactionLine.Id == 0) {
-                        _ = NewTransactionLine(transactionLine);
+                        _ = NewTransactionLine(successTl, transactionLine);
                     }
                     else {
-                        _ = EditTransactionLine(transactionLine);
+                        _ = EditTransactionLine(successTl, transactionLine);
                     }
                 }
             }
+            if (successTl) {
+                MessageBox.Show("All TransactionLines Created/Edited!", "Success Message");
+            }
+            else
+                MessageBox.Show("Transaction Lines Failed. Try Again!", "Alert Message");
+            bool success = false;
+            foreach (var trans in bsTransactions) {
+                TransactionListDto transaction = trans as TransactionListDto;
+                if (transaction != null) {
+                    if (transaction.Id == 0) {
+                        _ = NewTransaction(success, transaction);
+                    }
+                    else {
+                        _ = EditTransaction(success, transaction);
+                    }
+                }
+            }
+            if (success) {
+                MessageBox.Show("All Transactions Created/Edited!", "Success Message");
+            }
+            else
+                MessageBox.Show("Transactions Failed. Try Again!", "Alert Message");
         }
-
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
-
         private async Task<List<TransactionListDto?>> GetTransactions() {
             var response = await httpClient.GetAsync("transaction");
             if (response.IsSuccessStatusCode) {
@@ -198,25 +179,23 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-        private async Task NewTransaction(TransactionListDto? transaction) {
+        private async Task NewTransaction(bool success, TransactionListDto? transaction) {
             var response = await httpClient.PostAsJsonAsync("transaction", transaction);
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("Transaction Created!", "Success Message");
+                success = true;
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                success = false;
             }
             SetControllers();
         }
-        private async Task EditTransaction(TransactionListDto? transaction) {
-
+        private async Task EditTransaction(bool success, TransactionListDto? transaction) {
             var response = await httpClient.PutAsJsonAsync("transaction", transaction);
-
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("Transaction Edited!", "Success Message");
+                success = true;
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                success = false;
             }
             SetControllers();
         }
@@ -231,7 +210,7 @@ namespace FuelStation.WinForm {
                 MessageBox.Show("Transaction Deleted!", "Success Message");
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                MessageBox.Show("Cant Delete Transaction! Delete Transaction Lines First!", "Alert Message");
             }
             SetControllers();
         }
@@ -245,25 +224,23 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-        private async Task NewTransactionLine(TransactionLineListDto? transactionLine) {
+        private async Task NewTransactionLine(bool success, TransactionLineListDto? transactionLine) {
             var response = await httpClient.PostAsJsonAsync("transactionLine", transactionLine);
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("TransactionLine Created!", "Success Message");
+                success = true;
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                success = false;
             }
             SetControllers();
         }
-        private async Task EditTransactionLine(TransactionLineListDto? transactionLine) {
-
+        private async Task EditTransactionLine(bool success, TransactionLineListDto? transactionLine) {
             var response = await httpClient.PutAsJsonAsync("transactionLine", transactionLine);
-
             if (response.IsSuccessStatusCode) {
-                MessageBox.Show("TransactionLine Edited!", "Success Message");
+                success = true;
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                success = false;
             }
             SetControllers();
         }
@@ -293,7 +270,6 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-
         private async Task<List<EmployeeListDto?>> GetEmployees() {
             var response = await httpClient.GetAsync("employee");
             if (response.IsSuccessStatusCode) {
@@ -314,7 +290,6 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-
         public void CalculateAllValues(TransactionLineListDto transactionLine) {
             if (transactionLine != null) {
                 transactionLine.NetValue = transactionLine.Quantity * transactionLine.ItemPrice;
@@ -325,18 +300,16 @@ namespace FuelStation.WinForm {
                 transactionLine.TotalValue = transactionLine.NetValue - transactionLine.DiscountValue;
             }
         }
-
         public bool FuelExists(List<TransactionLineListDto> transactionLines) {
             if (transactionLines != null) {
                 if (transactionLines.Where(line => line.Item.ItemType == ItemType.Fuel).Count() > 1) {
                     MessageBox.Show("Error! Cant Add More Fuel-Type");
                     bsTransactionLines.RemoveCurrent();
                     return true;
-                }                    
+                }
             }
             return false;
         }
-
         private void grvTransactions_DataError(object sender, DataGridViewDataErrorEventArgs e) {
             e.Cancel = false;
         }

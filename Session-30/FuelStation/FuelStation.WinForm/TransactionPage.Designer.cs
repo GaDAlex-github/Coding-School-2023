@@ -25,7 +25,6 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.btnBack = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvTransactions = new System.Windows.Forms.DataGridView();
@@ -45,7 +44,7 @@
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTransaction = new System.Windows.Forms.Label();
             this.lblTransactionLine = new System.Windows.Forms.Label();
-            this.btnTLSave = new System.Windows.Forms.Button();
+            this.btnSaveAll = new System.Windows.Forms.Button();
             this.btnTLDelete = new System.Windows.Forms.Button();
             this.btnTLCreate = new System.Windows.Forms.Button();
             this.bsTransactions = new System.Windows.Forms.BindingSource(this.components);
@@ -66,17 +65,6 @@
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnSave.Location = new System.Drawing.Point(536, 129);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(86, 42);
-            this.btnSave.TabIndex = 13;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
             // 
@@ -259,21 +247,21 @@
             this.lblTransactionLine.TabIndex = 17;
             this.lblTransactionLine.Text = "Transaction Lines";
             // 
-            // btnTLSave
+            // btnSaveAll
             // 
-            this.btnTLSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLSave.Location = new System.Drawing.Point(536, 326);
-            this.btnTLSave.Name = "btnTLSave";
-            this.btnTLSave.Size = new System.Drawing.Size(86, 42);
-            this.btnTLSave.TabIndex = 20;
-            this.btnTLSave.Text = "Save";
-            this.btnTLSave.UseVisualStyleBackColor = true;
-            this.btnTLSave.Click += new System.EventHandler(this.btnTLSave_Click);
+            this.btnSaveAll.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSaveAll.Location = new System.Drawing.Point(536, 182);
+            this.btnSaveAll.Name = "btnSaveAll";
+            this.btnSaveAll.Size = new System.Drawing.Size(86, 42);
+            this.btnSaveAll.TabIndex = 20;
+            this.btnSaveAll.Text = "Save All";
+            this.btnSaveAll.UseVisualStyleBackColor = true;
+            this.btnSaveAll.Click += new System.EventHandler(this.btnTLSave_Click);
             // 
             // btnTLDelete
             // 
             this.btnTLDelete.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLDelete.Location = new System.Drawing.Point(536, 278);
+            this.btnTLDelete.Location = new System.Drawing.Point(536, 328);
             this.btnTLDelete.Name = "btnTLDelete";
             this.btnTLDelete.Size = new System.Drawing.Size(86, 42);
             this.btnTLDelete.TabIndex = 19;
@@ -284,7 +272,7 @@
             // btnTLCreate
             // 
             this.btnTLCreate.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnTLCreate.Location = new System.Drawing.Point(536, 230);
+            this.btnTLCreate.Location = new System.Drawing.Point(536, 280);
             this.btnTLCreate.Name = "btnTLCreate";
             this.btnTLCreate.Size = new System.Drawing.Size(86, 42);
             this.btnTLCreate.TabIndex = 18;
@@ -297,14 +285,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 451);
-            this.Controls.Add(this.btnTLSave);
+            this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnTLDelete);
             this.Controls.Add(this.btnTLCreate);
             this.Controls.Add(this.lblTransactionLine);
             this.Controls.Add(this.lblTransaction);
             this.Controls.Add(this.grvTransactionLines);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.grvTransactions);
@@ -325,14 +312,13 @@
         #endregion
 
         private Button btnBack;
-        private Button btnSave;
         private Button btnDelete;
         private Button btnCreate;
         private DataGridView grvTransactions;
         private DataGridView grvTransactionLines;
         private Label lblTransaction;
         private Label lblTransactionLine;
-        private Button btnTLSave;
+        private Button btnSaveAll;
         private Button btnTLDelete;
         private Button btnTLCreate;
         private BindingSource bsTransactions;

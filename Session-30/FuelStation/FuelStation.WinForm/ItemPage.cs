@@ -14,24 +14,18 @@ namespace FuelStation.WinForm {
             httpClient.BaseAddress = new Uri(uri.GetUri());
         }
         private void ItemPage_Load(object sender, EventArgs e) {
-             SetControllers();
+            SetControllers();
         }
 
         public async void SetControllers() {
             var items = await GetItems();
             if (items != null) {
-                try {
-                    bsItems.DataSource = items;
-                    grvItems.AutoGenerateColumns = false;
-                    grvItems.DataSource = bsItems;
+                bsItems.DataSource = items;
+                grvItems.AutoGenerateColumns = false;
+                grvItems.DataSource = bsItems;
 
-                    clmItemType.DataPropertyName = "ItemType";
-                    clmItemType.DataSource = Enum.GetValues(typeof(ItemType));
-
-                }
-                catch (Exception e) {
-                    MessageBox.Show(e.Message);
-                }
+                clmItemType.DataPropertyName = "ItemType";
+                clmItemType.DataSource = Enum.GetValues(typeof(ItemType));
             }
         }
 
@@ -39,25 +33,22 @@ namespace FuelStation.WinForm {
             ItemListDto newItem = new ItemListDto();
             bsItems.Add(newItem);
         }
-
         private void btnDelete_Click(object sender, EventArgs e) {
             if (ConfirmDelete()) {
                 ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
                 DeleteItem(item.Id);
             }
         }
-
         private void btnSave_Click(object sender, EventArgs e) {
-          
-                ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;                       
-                if (item.Id == 0) {
-                    _ = NewItem(item);
-                }
-                else {
-                    _ = EditItem(item);
-                }            
-        }
 
+            ItemListDto item = (ItemListDto)grvItems.CurrentRow.DataBoundItem;
+            if (item.Id == 0) {
+                _ = NewItem(item);
+            }
+            else {
+                _ = EditItem(item);
+            }
+        }
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
@@ -96,16 +87,15 @@ namespace FuelStation.WinForm {
                 this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return result == DialogResult.Yes;
         }
-
         private async Task DeleteItem(int id) {
             var response = await httpClient.DeleteAsync($"item/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Item Deleted!", "Success Message");
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                MessageBox.Show("Cant Delete an Item Involved on a Transaction!", "Alert Message");
             }
             SetControllers();
-        }       
+        }
     }
 }

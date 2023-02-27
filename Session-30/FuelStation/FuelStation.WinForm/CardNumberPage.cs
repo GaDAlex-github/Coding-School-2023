@@ -1,17 +1,5 @@
 ﻿using FuelStation.Blazor.Shared.Customer;
-using FuelStation.Model;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FuelStation.WinForm {
     public partial class CardNumberPage : Form {
@@ -32,7 +20,6 @@ namespace FuelStation.WinForm {
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
-
         private async void btnEnter_Click(object sender, EventArgs e) {
             customers = await GetCustomers();
             bool dontExist = false;
@@ -66,11 +53,9 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-
         private void inputCardNumber_TextChanged(object sender, EventArgs e) {
 
         }
-
         private void lblCardNumber_Click(object sender, EventArgs e) {
 
         }

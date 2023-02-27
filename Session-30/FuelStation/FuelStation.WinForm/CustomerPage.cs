@@ -32,7 +32,6 @@ namespace FuelStation.WinForm {
             CustomerListDto newCustomer = new CustomerListDto();
             bsCustomers.Add(newCustomer);
         }
-
         private void btnDelete_Click(object sender, EventArgs e) {
             if (ConfirmDelete()) {
                 CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
@@ -40,7 +39,6 @@ namespace FuelStation.WinForm {
             }
             SetControllers();
         }
-
         private void btnSave_Click(object sender, EventArgs e) {
             CustomerListDto customer = (CustomerListDto)grvCustomers.CurrentRow.DataBoundItem;
             if (customer.Id == 0) {
@@ -51,11 +49,9 @@ namespace FuelStation.WinForm {
             }
             SetControllers();
         }
-
         private void btnBack_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.OK;
         }
-
         private async Task<List<CustomerListDto?>> GetCustomers() {
             var response = await httpClient.GetAsync("customer");
             if (response.IsSuccessStatusCode) {
@@ -77,9 +73,7 @@ namespace FuelStation.WinForm {
             SetControllers();
         }
         private async Task EditCustomer(CustomerListDto? customer) {
-
             var response = await httpClient.PutAsJsonAsync("customer", customer);
-
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Edited!", "Success Message");
             }
@@ -93,14 +87,13 @@ namespace FuelStation.WinForm {
                 this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return result == DialogResult.Yes;
         }
-
         private async Task DeleteCustomer(int id) {
             var response = await httpClient.DeleteAsync($"customer/{id}");
             if (response.IsSuccessStatusCode) {
                 MessageBox.Show("Customer Deleted!", "Success Message");
             }
             else {
-                MessageBox.Show("Error! Try again.", "Alert Message");
+                MessageBox.Show("Cant Delete a Customer Involved on a Transaction!", "Alert Message");
             }
             SetControllers();
         }
