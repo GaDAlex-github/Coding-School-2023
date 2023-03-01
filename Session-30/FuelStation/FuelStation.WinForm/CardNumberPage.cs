@@ -22,21 +22,19 @@ namespace FuelStation.WinForm {
         }
         private async void btnEnter_Click(object sender, EventArgs e) {
             customers = await GetCustomers();
-            bool dontExist = false;
+            bool doesntExist = true;
             foreach (var customer in customers) {
                 if (customer.CardNumber == inputCardNumber.Text) {
                     this.Hide();
                     TransactionPage transactionPage = new();
                     transactionPage.ShowDialog();
                     this.Show();
-                    dontExist = false;
+                    doesntExist = false;
                     if (customer.CardNumber == inputCardNumber.Text)
                         break;
-                }
-                else
-                    dontExist = true;
+                }                
             }
-            if (dontExist) {
+            if (doesntExist) {
                 this.Hide();
                 CustomerPage customerPage = new();
                 customerPage.ShowDialog();
