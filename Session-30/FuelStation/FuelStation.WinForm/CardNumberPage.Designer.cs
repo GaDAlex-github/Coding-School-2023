@@ -90,7 +90,7 @@
             this.MaximumSize = new System.Drawing.Size(660, 490);
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "CardNumberPage";
-            this.Text = "CardNumberPage";
+            this.Text = "Card Number";
             this.Load += new System.EventHandler(this.CardNumberPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bsCardNumber)).EndInit();
             this.ResumeLayout(false);

@@ -1,46 +1,8 @@
 ﻿@page "/"
-@inject HttpClient httpClient
-@inject NavigationManager navigationManager
-@using FuelStation.Blazor.Shared.Employee;
-@using FuelStation.Model;
-@using FuelStation.Model.Enums;
 
-<PageTitle>Role Choosing</PageTitle>
+<PageTitle>FuelStation</PageTitle>
 
-<h1>Select Your Role</h1>
+<h1>Welcome to our Fuel's Station Website</h1>
 
-@if (Employee == null) {
-    <p>Loading ...</p>
-}
-else {
-    <div class="row mt-2">
-        <div class="col-md-6">
-            <label class="form-label">Please choose your Type:</label>
-            <select class="form-control" @bind="Employee.EmployeeType">
-
-                @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
-                    <option value="@enumValue">@enumValue</option>
-                }
-            </select>
-            <button class="btn btn-primary" @onclick="()=> EnterRole(Employee)">Enter</button>
-        </div>
-    </div>
-}
-@code {
-    [Parameter] public int? Id { get; set; }
-    private EmployeeListDto Employee = new();
-         
-    private async Task EnterRole(EmployeeListDto employee) {
-        switch (employee.EmployeeType) {
-            case EmployeeType.Manager:
-                navigationManager.NavigateTo("manager");
-                break;
-            case EmployeeType.Staff:
-                navigationManager.NavigateTo("staff");
-                break;
-            case EmployeeType.Cashier:
-                navigationManager.NavigateTo("cashier");
-                break;
-        }
-    }
-}
+<img src="FuelStation.jpg" class="img-fluid main-img" alt="Responsive image">
+<link rel="stylesheet" href="FuelStation.css" />

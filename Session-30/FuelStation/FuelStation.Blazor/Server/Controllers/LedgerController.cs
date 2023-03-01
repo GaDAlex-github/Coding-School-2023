@@ -1,6 +1,4 @@
-﻿using FuelStation.Blazor.Client.Pages;
-using FuelStation.Blazor.Client.Pages.UIs;
-using FuelStation.Blazor.Shared;
+﻿using FuelStation.Blazor.Shared;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using Microsoft.AspNetCore.Mvc;

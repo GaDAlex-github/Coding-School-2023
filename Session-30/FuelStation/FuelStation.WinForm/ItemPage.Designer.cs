@@ -29,13 +29,13 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.grvItems = new System.Windows.Forms.DataGridView();
-            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bsItems = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).BeginInit();
             this.SuspendLayout();
@@ -159,7 +159,7 @@
             this.MaximumSize = new System.Drawing.Size(660, 490);
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "ItemPage";
-            this.Text = "ItemPage";
+            this.Text = "Items";
             this.Load += new System.EventHandler(this.ItemPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItems)).EndInit();

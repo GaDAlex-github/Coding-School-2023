@@ -67,28 +67,27 @@ else {
     [Parameter] public int? Id { get; set; }
     EmployeeEditDto? Employee { get; set; } = new();
     List<EmployeeListDto>? Employees { get; set; }
-    int managers = 0;
-    int staff = 0;
-    int cashiers = 0;
+    int managers,staff,cashiers = 0;
 
     protected override async Task OnInitializedAsync() {
-        Employees = await httpClient.GetFromJsonAsync<List<EmployeeListDto>>("employee");
-
-        foreach (EmployeeListDto emp in Employees) {
-            if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
-                managers++;
-            if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
-                staff++;
-            if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
-                cashiers++;
-        }
-
+        
         if (Id == null) {
 
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
         }
         else {
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        }
+
+        Employees = await httpClient.GetFromJsonAsync<List<EmployeeListDto>>("employee");
+
+        foreach (EmployeeListDto emp in Employees) {
+            if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
+                managers++;
+            else if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
+                staff++;
+            else if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
+                cashiers++;
         }
     }
 
@@ -115,12 +114,12 @@ else {
             }
         }
         else if (employeeType == EmployeeType.Staff) {
-            if (staff > 10) {
+            if (staff >= 10) {
                 var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Staff");
             }
         }
         else if (employeeType == EmployeeType.Cashier) {
-            if (cashiers > 4) {
+            if (cashiers >= 4) {
                 var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Cashiers");
             }
         }

@@ -142,7 +142,7 @@
             this.MaximumSize = new System.Drawing.Size(660, 490);
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "CustomerPage";
-            this.Text = "CustomerPage";
+            this.Text = "Customers";
             this.Load += new System.EventHandler(this.CustomerPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomers)).EndInit();

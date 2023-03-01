@@ -1,28 +1,33 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">FuelStation.Blazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<div class="d-flex justify-content-center" style="margin-top: 10px;">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-light" @onclick="ToggleManager">Manager</button>
+        <button type="button" class="btn btn-light" @onclick="ToggleCashier">Cashier</button>
+        <button type="button" class="btn btn-light" @onclick="ToggleStaff">Staff</button>        
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-    </nav>
-</div>
+@if (showMain == 1) {
+    <Manager />
+}
+else if (showMain == 2) {
+    <StaffMenu />
+}
+else if (showMain == 3) {
+    <CashierMenu />
+}
+
 
 @code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu() {
-        collapseNavMenu = !collapseNavMenu;
+    int showMain = 0;
+    void ToggleManager() {
+        showMain = 1;
     }
+    void ToggleCashier() {
+        showMain = 2;
+    }
+    void ToggleStaff() {
+        showMain = 3;
+    }
+    
+
 }

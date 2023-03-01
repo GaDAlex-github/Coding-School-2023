@@ -311,7 +311,7 @@
             this.MaximumSize = new System.Drawing.Size(660, 490);
             this.MinimumSize = new System.Drawing.Size(660, 490);
             this.Name = "TransactionPage";
-            this.Text = "TransactionPage";
+            this.Text = "Transactions";
             this.Load += new System.EventHandler(this.TransactionPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).EndInit();

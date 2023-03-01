@@ -1,0 +1,11 @@
+﻿.main-img {
+    height: 89%;
+    width: 83%;
+    position: fixed;
+    max-height:2300px;
+    display: block;
+}
+
+h1 {
+    text-align:center;
+}
