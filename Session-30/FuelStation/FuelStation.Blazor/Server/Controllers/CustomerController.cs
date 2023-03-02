@@ -11,9 +11,9 @@ namespace FuelStation.Blazor.Server.Controllers {
     [ApiController]
     public class CustomerController : ControllerBase {
 
-        private readonly IEntityRepo<Customer> _customerRepo;
+        private readonly ICustomerRepo<Customer> _customerRepo;
 
-        public CustomerController(IEntityRepo<Customer> customerRepo) {
+        public CustomerController(ICustomerRepo<Customer> customerRepo) {
             _customerRepo = customerRepo;
         }
 
@@ -41,7 +41,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         [HttpPost]
         public async Task Post(CustomerEditDto customer) {
             var newCustomer = new Customer(customer.Name, customer.Surname);
-            newCustomer.CardNumber = CardNumberCreate(customer);
+            newCustomer.CardNumber = _customerRepo.CardNumberCreate();
             _customerRepo.Add(newCustomer);
         }
 
@@ -68,26 +68,5 @@ namespace FuelStation.Blazor.Server.Controllers {
                 return BadRequest($"Customer with id {id} not found!");
             }
         }
-        public string CardNumberCreate(CustomerEditDto customer) {
-
-            var max = _customerRepo.GetAll().Max(customer => customer.CardNumber);
-            if (max == null)
-                max = "A1000000";
-            max = Regex.Replace(max, "\\d+",
-            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));          
-            return max;
-        }
-
-        //[HttpGet("{cardnumber}")]
-        //public async Task<CustomerEditDto> CheckCardNumber(string cardNumber) {
-        //    var customers = _customerRepo.GetAll();
-        //    var customer = customers.Where(customer => customer.CardNumber == cardNumber).FirstOrDefault();
-        //    return new CustomerEditDto {
-        //        Id = customer.Id,
-        //        Name = customer.Name,
-        //        Surname = customer.Surname,
-        //        CardNumber = customer.CardNumber
-        //    };
-        //}
     }
 }

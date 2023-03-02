@@ -11,11 +11,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<Navigation>();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
+builder.Services.AddScoped<ICustomerRepo<Customer>, CustomerRepo>();
 
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEmployeeRepo<Employee>, EmployeeRepo>();
 
 builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
+builder.Services.AddScoped<IItemRepo<Item>, ItemRepo>();
 
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
 

@@ -1,10 +1,11 @@
 ﻿using FuelStation.EF.Context;
 using FuelStation.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace FuelStation.EF.Repositories {
 
-    public class ItemRepo : IEntityRepo<Item> {
+    public class ItemRepo : IItemRepo<Item> {
         public void Add(Item entity) {
             using var context = new FuelStationDbContext();
             context.Add(entity);
@@ -45,6 +46,15 @@ namespace FuelStation.EF.Repositories {
             ItemDb.Price = entity.Price;
             ItemDb.Cost = entity.Cost;
             context.SaveChanges();
+        }
+        public string CodeCreate() {
+            using var context = new FuelStationDbContext();
+            var max = context.Items.Max(item => item.Code);
+            if (max == null)
+                max = "10000";
+            max = Regex.Replace(max, "\\d+",
+            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));
+            return max;
         }
     }
 }

@@ -260,7 +260,7 @@ namespace FuelStation.WinForm {
             else {
                 MessageBox.Show("Error! Try again.", "Alert Message");
             }
-            SetControllers();
+            LoadTransactionLines();
         }
         private async Task<List<CustomerListDto?>> GetCustomers() {
             var response = await httpClient.GetAsync("customer");

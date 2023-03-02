@@ -11,9 +11,9 @@ namespace FuelStation.Blazor.Server.Controllers {
     [ApiController]
     public class ItemController : ControllerBase {
 
-        private readonly IEntityRepo<Item> _itemRepo;
+        private readonly IItemRepo<Item> _itemRepo;
 
-        public ItemController(IEntityRepo<Item> itemRepo) {
+        public ItemController(IItemRepo<Item> itemRepo) {
             _itemRepo = itemRepo;
         }
 
@@ -45,7 +45,7 @@ namespace FuelStation.Blazor.Server.Controllers {
         [HttpPost]
         public async Task Post(ItemEditDto item) {
             var newItem = new Item(item.Description, item.ItemType, item.Price, item.Cost);
-            newItem.Code = CodeCreate(item);
+            newItem.Code = _itemRepo.CodeCreate();
             _itemRepo.Add(newItem);
         }
 
@@ -73,16 +73,7 @@ namespace FuelStation.Blazor.Server.Controllers {
             catch (KeyNotFoundException ex) {
                 return BadRequest($"Item with id {id} not found!");
             }
-        }
-        public string CodeCreate(ItemEditDto item) {
-            var max = _itemRepo.GetAll().Max(item => item.Code);
-            if (max == null)
-                max = "A1000000";
-            max = Regex.Replace(max, "\\d+",
-            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));          
-            item.Code = max;
-            return item.Code;
-        }
+        }       
     }
 }
 
