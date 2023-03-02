@@ -1,6 +1,7 @@
 ﻿using FuelStation.Blazor.Shared.Employee;
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
+using FuelStation.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +11,12 @@ namespace FuelStation.Blazor.Server.Controllers {
     [ApiController]
     public class EmployeeController : ControllerBase {
 
-        private readonly IEntityRepo<Employee> _employeeRepo;
+        private readonly IEmployeeRepo<Employee> _employeeRepo;
+        private readonly int maxManagers = 3;
+        private readonly int maxStaff = 10;
+        private readonly int maxCashiers = 4;
 
-        public EmployeeController(IEntityRepo<Employee> employeeRepo) {
+        public EmployeeController(IEmployeeRepo<Employee> employeeRepo) {
             _employeeRepo = employeeRepo;
         }
 
@@ -45,21 +49,59 @@ namespace FuelStation.Blazor.Server.Controllers {
             };
         }
         [HttpPost]
-        public async Task Post(EmployeeEditDto employee) {            
-                var newEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
-                _employeeRepo.Add(newEmployee);               
+        public async Task<ActionResult> Post(EmployeeEditDto employee) {
+            int count = 1;
+            switch (employee.EmployeeType) {
+                case EmployeeType.Manager:
+                    count += _employeeRepo.ManagerCount();                    
+                    if (count > maxManagers)
+                      return  StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxManagers} Managers");
+                    break;
+                case EmployeeType.Staff:
+                    count += _employeeRepo.StaffCount();
+                    if (count > maxStaff)
+                        return StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxStaff} Staff");
+                    break;
+                case EmployeeType.Cashier:
+                    count += _employeeRepo.CashierCount();
+                    if (count > maxCashiers)
+                        return StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxCashiers} Cashiers");
+                    break;
             }
-        
+            var newEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
+            _employeeRepo.Add(newEmployee);
+            return StatusCode(StatusCodes.Status200OK, "Employee Added Successfully");
+        }
+
 
         [HttpPut]
-        public async Task Put(EmployeeEditDto employee) {           
-                var itemToUpdate = _employeeRepo.GetById(employee.Id);
-                itemToUpdate.Id = employee.Id;
-                itemToUpdate.Name = employee.Name;
-                itemToUpdate.Surname = employee.Surname;
-                itemToUpdate.SalaryPerMonth = employee.SalaryPerMonth;
-                itemToUpdate.EmployeeType = employee.EmployeeType;
-                _employeeRepo.Update(employee.Id, itemToUpdate);   
+        public async Task<ActionResult> Put(EmployeeEditDto employee) {
+            int count = 1;
+            switch (employee.EmployeeType) {
+                case EmployeeType.Manager:
+                    count += _employeeRepo.ManagerCount();
+                    if (count > maxManagers)
+                        return StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxManagers} Managers");
+                    break;
+                case EmployeeType.Staff:
+                    count += _employeeRepo.StaffCount();
+                    if (count > maxStaff)
+                        return StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxStaff} Staff");
+                    break;
+                case EmployeeType.Cashier:
+                    count += _employeeRepo.CashierCount();
+                    if (count > maxCashiers)
+                        return StatusCode(StatusCodes.Status409Conflict, $"You cannot add more than {maxCashiers} Cashiers");
+                    break;
+            }
+            var itemToUpdate = _employeeRepo.GetById(employee.Id);
+            itemToUpdate.Id = employee.Id;
+            itemToUpdate.Name = employee.Name;
+            itemToUpdate.Surname = employee.Surname;
+            itemToUpdate.SalaryPerMonth = employee.SalaryPerMonth;
+            itemToUpdate.EmployeeType = employee.EmployeeType;
+            _employeeRepo.Update(employee.Id, itemToUpdate);
+            return StatusCode(StatusCodes.Status200OK, "Employee Updated Successfully");
         }
 
         [HttpDelete("{id}")]

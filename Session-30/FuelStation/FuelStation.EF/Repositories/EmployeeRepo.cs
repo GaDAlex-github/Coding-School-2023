@@ -1,10 +1,11 @@
 ﻿using FuelStation.EF.Context;
 using FuelStation.Model;
+using FuelStation.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.EF.Repositories {
 
-    public class EmployeeRepo : IEntityRepo<Employee> {
+    public class EmployeeRepo : IEmployeeRepo<Employee>{
         public void Add(Employee entity) {
             using var context = new FuelStationDbContext();
             context.Add(entity);
@@ -46,6 +47,24 @@ namespace FuelStation.EF.Repositories {
             EmployeeDb.SalaryPerMonth = entity.SalaryPerMonth;
             EmployeeDb.EmployeeType = entity.EmployeeType;
             context.SaveChanges();
+        }
+        public int ManagerCount() {
+            using var context = new FuelStationDbContext();
+            var managerCount = context.Employees.
+                Where(employee => employee.EmployeeType == EmployeeType.Manager).Count();
+            return managerCount;
+        }
+        public int StaffCount() {
+            using var context = new FuelStationDbContext();
+            var staffCount = context.Employees.
+                Where(employee => employee.EmployeeType == EmployeeType.Staff).Count();
+            return staffCount;
+        }
+        public int CashierCount() {
+            using var context = new FuelStationDbContext();
+            var cashierCount = context.Employees.
+                Where(employee => employee.EmployeeType == EmployeeType.Cashier).Count();
+            return cashierCount;
         }
     }
 }

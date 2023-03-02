@@ -12,6 +12,7 @@ builder.Services.AddRazorPages();
 //builder.Services.AddSingleton<Navigation>();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
+builder.Services.AddScoped<IEmployeeRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
 builder.Services.AddScoped<ITransactionLineRepo<TransactionLine>, TransactionLineRepo>();

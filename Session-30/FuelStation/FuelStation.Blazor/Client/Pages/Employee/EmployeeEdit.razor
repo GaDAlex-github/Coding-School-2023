@@ -67,27 +67,16 @@ else {
     [Parameter] public int? Id { get; set; }
     EmployeeEditDto? Employee { get; set; } = new();
     List<EmployeeListDto>? Employees { get; set; }
-    int managers,staff,cashiers = 0;
+    int managers, staff, cashiers = 0;
 
     protected override async Task OnInitializedAsync() {
-        
+
         if (Id == null) {
 
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
         }
         else {
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
-        }
-
-        Employees = await httpClient.GetFromJsonAsync<List<EmployeeListDto>>("employee");
-
-        foreach (EmployeeListDto emp in Employees) {
-            if (emp.EmployeeType == Model.Enums.EmployeeType.Manager)
-                managers++;
-            else if (emp.EmployeeType == Model.Enums.EmployeeType.Staff)
-                staff++;
-            else if (emp.EmployeeType == Model.Enums.EmployeeType.Cashier)
-                cashiers++;
         }
     }
 
@@ -103,9 +92,11 @@ else {
         else {
             response = await httpClient.PutAsJsonAsync("employee", Employee);
         }
-
+        string responseBody = await response.Content.ReadAsStringAsync();
+        await jsRuntime.InvokeVoidAsync("alert", responseBody);
         response.EnsureSuccessStatusCode();
-        navigationManager.NavigateTo("employeelist");
+        if ((int)response.StatusCode == 200)
+            navigationManager.NavigateTo("employeelist");
     }
     async Task EmployeeCount(EmployeeType employeeType) {
         if (employeeType == EmployeeType.Manager) {
