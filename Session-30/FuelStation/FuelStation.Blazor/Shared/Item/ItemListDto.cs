@@ -8,6 +8,5 @@ namespace FuelStation.Blazor.Shared.Item {
         public ItemType ItemType { get; set; }
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
-        public List<FuelStation.Model.TransactionLine> TransactionLines { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }
