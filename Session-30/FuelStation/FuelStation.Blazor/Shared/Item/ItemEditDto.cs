@@ -6,7 +6,7 @@ namespace FuelStation.Blazor.Shared.Item {
         public int Id { get; set; }        
         public string? Code { get; set; }
         [Required]
-        [MaxLength(50, ErrorMessage = "Max 15 Characters.")]
+        [MaxLength(50, ErrorMessage = "Max 50 Characters.")]
         public string? Description { get; set; }
         [Required]
         [Range(0, 2)]

@@ -18,10 +18,9 @@ namespace FuelStation.Blazor.Server.Controllers {
 
         [HttpGet]
         public async Task<IEnumerable<LedgerDto>> Get() {
-            List<LedgerDto> LedgerList = new();
             var employees = _employeeRepo.GetAll();
             var trans = _transactionRepo.GetAll();
-            LedgerList = new LedgerCalc().GetAllLedgers(employees, trans);
+            List<LedgerDto> LedgerList = new LedgerCalc().GetAllLedgers(employees, trans);
             return LedgerList;
         }       
     }

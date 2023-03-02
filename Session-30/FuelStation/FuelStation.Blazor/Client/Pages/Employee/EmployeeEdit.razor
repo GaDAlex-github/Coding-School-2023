@@ -6,7 +6,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>Create/Edit Employee</h3>
+<h3>@title</h3>
 
 @if (Employee == null) {
     <Spinner Type="SpinnerType.Border" />
@@ -65,15 +65,18 @@ else {
 @code {
     [Parameter] public int? Id { get; set; }
     EmployeeEditDto? Employee { get; set; } = new();
+    string? title;
 
     protected override async Task OnInitializedAsync() {
 
         if (Id == null) {
 
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>("employee");
+            title = "Create Employee";
         }
         else {
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+            title = "Edit Employee";
         }
     }
 
@@ -91,7 +94,7 @@ else {
         }
         string responseBody = await response.Content.ReadAsStringAsync();
         await jsRuntime.InvokeVoidAsync("alert", responseBody);
-        response.EnsureSuccessStatusCode();
+        //response.EnsureSuccessStatusCode();
         if ((int)response.StatusCode == 200)
             navigationManager.NavigateTo("employeelist");
     }    

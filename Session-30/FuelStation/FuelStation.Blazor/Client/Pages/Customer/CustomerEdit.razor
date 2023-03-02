@@ -6,7 +6,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>Create/Edit Customer</h3>
+<h3>@title</h3>
 
 @if (Customer == null) {
     <Spinner Type="SpinnerType.Border" />
@@ -40,14 +40,17 @@ else {
 
 @code {
     [Parameter] public int? Id { get; set; }
-    CustomerEditDto? Customer { get; set; } = new();   
+    CustomerEditDto? Customer { get; set; } = new();
+    string? title;
 
     protected override async Task OnInitializedAsync() {
         if (Id == null) {
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>("customer");
+            title = "Create Customer";
         }
         else {
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+            title = "Edit Customer";
         }
     }
 
@@ -64,7 +67,7 @@ else {
             response = await httpClient.PutAsJsonAsync("customer", Customer);
         }
 
-        response.EnsureSuccessStatusCode();
+        //response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("customerlist");
     }
 
