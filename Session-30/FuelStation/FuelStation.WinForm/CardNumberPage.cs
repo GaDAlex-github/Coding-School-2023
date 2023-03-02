@@ -53,11 +53,5 @@ namespace FuelStation.WinForm {
                 return null;
             }
         }
-        private void inputCardNumber_TextChanged(object sender, EventArgs e) {
-
-        }
-        private void lblCardNumber_Click(object sender, EventArgs e) {
-
-        }
     }
 }

@@ -57,7 +57,6 @@
             this.lblCardNumber.Size = new System.Drawing.Size(112, 21);
             this.lblCardNumber.TabIndex = 3;
             this.lblCardNumber.Text = "Card Number :";
-            this.lblCardNumber.Click += new System.EventHandler(this.lblCardNumber_Click);
             // 
             // btnBack
             // 
@@ -76,7 +75,6 @@
             this.inputCardNumber.Name = "inputCardNumber";
             this.inputCardNumber.Size = new System.Drawing.Size(114, 29);
             this.inputCardNumber.TabIndex = 12;
-            this.inputCardNumber.TextChanged += new System.EventHandler(this.inputCardNumber_TextChanged);
             // 
             // CardNumberPage
             // 
