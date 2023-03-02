@@ -75,7 +75,9 @@ namespace FuelStation.Blazor.Server.Controllers {
             }
         }
         public string CodeCreate(ItemEditDto item) {
-            var max = _itemRepo.GetAll().Max(item => item.Code);            
+            var max = _itemRepo.GetAll().Max(item => item.Code);
+            if (max == null)
+                max = "A1000000";
             max = Regex.Replace(max, "\\d+",
             m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));          
             item.Code = max;

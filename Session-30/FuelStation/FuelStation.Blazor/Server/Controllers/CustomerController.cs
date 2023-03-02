@@ -71,10 +71,11 @@ namespace FuelStation.Blazor.Server.Controllers {
         public string CardNumberCreate(CustomerEditDto customer) {
 
             var max = _customerRepo.GetAll().Max(customer => customer.CardNumber);
+            if (max == null)
+                max = "A1000000";
             max = Regex.Replace(max, "\\d+",
-            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));
-            customer.CardNumber = max;
-            return customer.CardNumber;
+            m => (int.Parse(m.Value) + 1).ToString(new string('0', m.Value.Length)));          
+            return max;
         }
 
         //[HttpGet("{cardnumber}")]

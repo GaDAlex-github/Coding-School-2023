@@ -14,5 +14,6 @@ namespace FuelStation.Blazor.Shared.Employee {
         public DateTime HireDateEnd { get; set; }
         public int SalaryPerMonth { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        public List<FuelStation.Model.Transaction> Transactions { get; set; } = new List<FuelStation.Model.Transaction>();
     }
 }

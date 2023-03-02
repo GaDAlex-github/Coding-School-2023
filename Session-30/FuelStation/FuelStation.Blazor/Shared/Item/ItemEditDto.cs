@@ -12,10 +12,11 @@ namespace FuelStation.Blazor.Shared.Item {
         [Range(0, 2)]
         public ItemType ItemType { get; set; }        
         [Required]
-        [Range(1, 99999)]
+        [Range(0, 99999)]
         public decimal Price { get; set; }
         [Required]
-        [Range(1, 99999)]        
+        [Range(0, 99999)]        
         public decimal Cost { get; set; }
+        public List<FuelStation.Model.TransactionLine> TransactionLines { get; set; } = new List<FuelStation.Model.TransactionLine>();
     }
 }

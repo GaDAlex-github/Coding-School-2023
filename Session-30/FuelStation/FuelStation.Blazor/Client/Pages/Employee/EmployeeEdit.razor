@@ -46,7 +46,7 @@ else {
         <div class="row mt-2">
             <div class="col-md-6">
                 <label class="form-label">Employee Type</label>
-                <InputSelect class="form-control" @bind-Value="Employee.EmployeeType">
+                <InputSelect class="form-control" @bind-Value="Employee.EmployeeType" @bind-Value:after="@( ()=> EmployeeCount(Employee.EmployeeType))">
                     @foreach (var enumValue in Enum.GetValues<EmployeeType>()) {
                         <option value="@enumValue">@enumValue</option>
                     }
@@ -67,6 +67,7 @@ else {
     [Parameter] public int? Id { get; set; }
     EmployeeEditDto? Employee { get; set; } = new();
     List<EmployeeListDto>? Employees { get; set; }
+    int managers, staff, cashiers = 0;
 
     protected override async Task OnInitializedAsync() {
 
@@ -96,5 +97,22 @@ else {
         response.EnsureSuccessStatusCode();
         if ((int)response.StatusCode == 200)
             navigationManager.NavigateTo("employeelist");
-    }    
+    }
+    async Task EmployeeCount(EmployeeType employeeType) {
+        if (employeeType == EmployeeType.Manager) {
+            if (managers >= 3) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Managers");
+            }
+        }
+        else if (employeeType == EmployeeType.Staff) {
+            if (staff >= 10) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Staff");
+            }
+        }
+        else if (employeeType == EmployeeType.Cashier) {
+            if (cashiers >= 4) {
+                var confirm = await jsRuntime.InvokeAsync<string>("alert", "Cant add more Cashiers");
+            }
+        }
+    }
 }
